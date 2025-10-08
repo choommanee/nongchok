@@ -3087,6 +3087,11 @@ function ayam_get_welcome_content()
 // Enqueue Compiled SCSS CSS
 function ayam_enqueue_compiled_css()
 {
+    // Don't load compiled.css on About page (conflicts with Wix design)
+    if (is_page('about') || is_page(27)) {
+        return;
+    }
+    
     wp_enqueue_style(
         'ayam-compiled-css',
         get_template_directory_uri() . '/assets/css/compiled.css',
