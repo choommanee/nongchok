@@ -111,7 +111,7 @@ function ayam_theme_scripts()
     }
 
     // Wix Style About Page CSS
-    if (is_page_template('page-about.php')) {
+    if (is_page_template('page-about.php') || is_page('about') || is_page('about-us') || is_page(27)) {
         wp_enqueue_style('wix-about-page', AYAM_THEME_URI . '/assets/css/wix-about-page.css', array('ayam-style'), AYAM_THEME_VERSION);
     }
 
@@ -7933,8 +7933,11 @@ add_action('wp_ajax_nopriv_ayam_service_booking', 'ayam_service_booking');
  * Auto-assign Wix-style templates based on page slug
  */
 function ayam_auto_assign_wix_templates($template) {
-    global $post;
+    if (!is_page()) {
+        return $template;
+    }
     
+    global $post;
     if (!$post) {
         return $template;
     }
@@ -7953,6 +7956,7 @@ function ayam_auto_assign_wix_templates($template) {
     if (isset($page_templates[$post->post_name])) {
         $template_file = locate_template($page_templates[$post->post_name]);
         if ($template_file) {
+            error_log("Auto-assigning template: {$page_templates[$post->post_name]} for page: {$post->post_name}");
             return $template_file;
         }
     }
@@ -7960,3 +7964,22 @@ function ayam_auto_assign_wix_templates($template) {
     return $template;
 }
 add_filter('template_include', 'ayam_auto_assign_wix_templates', 99);
+
+/**
+ * Force enqueue Wix styles on specific pages
+ */
+function ayam_force_wix_styles() {
+    if (is_page('about') || is_page('about-us') || is_page(27)) {
+        wp_enqueue_style('wix-about-page', AYAM_THEME_URI . '/assets/css/wix-about-page.css', array(), AYAM_THEME_VERSION . '.' . time());
+    }
+    if (is_page('services') || is_page('service') || is_page(165)) {
+        wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
+    }
+    if (is_page('news') || is_page(168)) {
+        wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
+    }
+    if (is_page('gallery')) {
+        wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
+    }
+}
+add_action('wp_enqueue_scripts', 'ayam_force_wix_styles', 999);

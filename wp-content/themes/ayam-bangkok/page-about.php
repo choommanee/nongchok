@@ -4,7 +4,11 @@
  * Template for About Us page matching Wix design
  */
 
-get_header(); ?>
+get_header(); 
+
+// Debug: Check if CSS is loaded
+error_log('About page template loaded: page-about.php');
+?>
 
 <main id="primary" class="site-main wix-about-page">
     
