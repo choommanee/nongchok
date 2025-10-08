@@ -9,8 +9,9 @@ get_header();
 
 <style id="wix-about-override">
 /* Inline Wix About Page CSS - Force Load with !important */
-body.page-about { padding-top: 0 !important; }
-body.page-about .wix-about-page { background: #fff !important; padding-top: 120px !important; margin-top: 0 !important; }
+body.page-about { padding-top: 0 !important; margin-top: 0 !important; }
+body.page-about .site { margin-top: 0 !important; padding-top: 0 !important; }
+body.page-about .wix-about-page { background: #fff !important; padding-top: 0 !important; margin-top: 140px !important; }
 body.page-about .wix-section-container { max-width: 1200px !important; margin: 0 auto !important; padding: 0 40px !important; }
 body.page-about .wix-about-hero { background: #fff !important; padding: 80px 40px 40px !important; text-align: center !important; border-bottom: 3px solid #CA4249 !important; margin-top: 0 !important; }
 body.page-about .wix-about-hero-content { max-width: 1200px !important; margin: 0 auto !important; }
