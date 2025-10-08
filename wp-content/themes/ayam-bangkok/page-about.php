@@ -12,9 +12,10 @@ wp_enqueue_style('wix-about-page-inline', get_template_directory_uri() . '/asset
 
 <style>
 /* Inline Wix About Page CSS - Force Load with !important */
-body.page-about .wix-about-page { background: #fff !important; padding-top: 0 !important; }
+body.page-about { padding-top: 0 !important; }
+body.page-about .wix-about-page { background: #fff !important; padding-top: 120px !important; margin-top: 0 !important; }
 body.page-about .wix-section-container { max-width: 1200px !important; margin: 0 auto !important; padding: 0 40px !important; }
-body.page-about .wix-about-hero { background: #fff !important; padding: 80px 40px 40px !important; text-align: center !important; border-bottom: 3px solid #CA4249 !important; }
+body.page-about .wix-about-hero { background: #fff !important; padding: 80px 40px 40px !important; text-align: center !important; border-bottom: 3px solid #CA4249 !important; margin-top: 0 !important; }
 body.page-about .wix-about-hero-content { max-width: 1200px !important; margin: 0 auto !important; }
 body.page-about .wix-about-title { font-size: 18px !important; font-weight: 400 !important; color: #666 !important; margin: 0 0 10px 0 !important; letter-spacing: 2px !important; text-transform: uppercase !important; }
 body.page-about .wix-about-company { font-size: 48px !important; font-weight: 700 !important; color: #1E2950 !important; margin: 0 !important; letter-spacing: 3px !important; }
