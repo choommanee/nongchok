@@ -116,7 +116,7 @@ function ayam_theme_scripts()
     }
 
     // Wix Style All Pages CSS (Service, News, Gallery)
-    if (is_page_template('page-service-wix.php') || is_page_template('page-news-wix.php') || is_page_template('page-gallery-wix.php')) {
+    if (is_page_template('page-service-wix.php') || is_page_template('page-news-wix.php') || is_page_template('page-gallery-wix.php') || is_page('service') || is_page('news') || is_page('gallery')) {
         wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array('ayam-style'), AYAM_THEME_VERSION);
     }
 
@@ -7928,3 +7928,35 @@ function ayam_service_booking()
 }
 add_action('wp_ajax_ayam_service_booking', 'ayam_service_booking');
 add_action('wp_ajax_nopriv_ayam_service_booking', 'ayam_service_booking');
+
+/**
+ * Auto-assign Wix-style templates based on page slug
+ */
+function ayam_auto_assign_wix_templates($template) {
+    global $post;
+    
+    if (!$post) {
+        return $template;
+    }
+    
+    // Map page slugs to template files
+    $page_templates = array(
+        'about' => 'page-about.php',
+        'about-us' => 'page-about.php',
+        'service' => 'page-service-wix.php',
+        'services' => 'page-service-wix.php',
+        'news' => 'page-news-wix.php',
+        'gallery' => 'page-gallery-wix.php'
+    );
+    
+    // Check if current page slug matches
+    if (isset($page_templates[$post->post_name])) {
+        $template_file = locate_template($page_templates[$post->post_name]);
+        if ($template_file) {
+            return $template_file;
+        }
+    }
+    
+    return $template;
+}
+add_filter('template_include', 'ayam_auto_assign_wix_templates', 99);
