@@ -115,6 +115,11 @@ function ayam_theme_scripts()
         wp_enqueue_style('wix-about-page', AYAM_THEME_URI . '/assets/css/wix-about-page.css', array('ayam-style'), AYAM_THEME_VERSION);
     }
 
+    // Wix Style All Pages CSS (Service, News, Gallery)
+    if (is_page_template('page-service-wix.php') || is_page_template('page-news-wix.php') || is_page_template('page-gallery-wix.php')) {
+        wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array('ayam-style'), AYAM_THEME_VERSION);
+    }
+
     // News System CSS and JS
     if (is_post_type_archive('ayam_news') || is_singular('ayam_news')) {
         wp_enqueue_style('ayam-news', AYAM_THEME_URI . '/assets/css/news.css', array('ayam-style'), AYAM_THEME_VERSION);

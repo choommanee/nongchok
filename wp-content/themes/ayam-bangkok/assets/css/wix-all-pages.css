@@ -1,0 +1,523 @@
+/**
+ * Wix-Style All Pages CSS
+ * Matching https://saeliwid.wixsite.com/my-site-3
+ * For Service, News, Gallery, Contact pages
+ */
+
+/* ===== COMMON PAGE STYLES ===== */
+.wix-service-page,
+.wix-news-page,
+.wix-gallery-page {
+    background: #fff;
+    padding-top: 0;
+}
+
+.wix-section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* ===== PAGE HERO SECTION ===== */
+.wix-page-hero {
+    background: #fff;
+    padding: 80px 40px 40px;
+    text-align: center;
+    border-bottom: 3px solid #CA4249;
+}
+
+.wix-hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.wix-hero-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: #666;
+    margin: 0 0 10px 0;
+    letter-spacing: 1px;
+}
+
+.wix-hero-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+/* ===== SERVICE PAGE STYLES ===== */
+.wix-services-grid {
+    padding: 80px 0 40px;
+    background: #fff;
+}
+
+.wix-services-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.wix-service-card {
+    text-align: center;
+    padding: 0 20px;
+}
+
+.wix-service-icon {
+    width: 80px;
+    height: 80px;
+    background: #CA4249;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.wix-service-icon i {
+    font-size: 36px;
+    color: #fff;
+}
+
+.wix-service-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0 0 20px 0;
+}
+
+.wix-service-description p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #333;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+/* Service Images */
+.wix-service-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.wix-service-image-item .wix-image-placeholder {
+    width: 100%;
+    height: 350px;
+    background: #ddd;
+}
+
+/* ===== NEWS PAGE STYLES ===== */
+.wix-news-grid-section {
+    padding: 60px 0;
+    background: #CA4249;
+}
+
+.wix-news-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.wix-news-card {
+    background: #fff;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.wix-news-card:hover {
+    transform: translateY(-5px);
+}
+
+.wix-news-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.wix-news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wix-news-placeholder {
+    width: 100%;
+    height: 200px;
+    background: #ddd;
+}
+
+.wix-news-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.wix-news-content h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0;
+}
+
+/* Video Content Section */
+.wix-video-content-section {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.wix-section-title-center {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1E2950;
+    text-align: center;
+    margin: 0 0 60px 0;
+}
+
+/* ===== GALLERY PAGE STYLES ===== */
+.wix-rooster-gallery-section {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.wix-rooster-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.wix-rooster-card {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.wix-rooster-image {
+    flex-shrink: 0;
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.wix-rooster-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wix-rooster-placeholder {
+    width: 100%;
+    height: 150px;
+    background: #ddd;
+}
+
+.wix-rooster-info {
+    flex: 1;
+}
+
+.wix-rooster-price {
+    font-size: 13px;
+    color: #666;
+    margin: 0 0 10px 0;
+}
+
+.wix-rooster-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0 0 15px 0;
+}
+
+.wix-rooster-btn {
+    display: inline-block;
+    padding: 8px 25px;
+    background: #CA4249;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.wix-rooster-btn:hover {
+    background: #b33940;
+    transform: translateX(5px);
+}
+
+/* ===== VIDEO GALLERY (SHARED) ===== */
+.wix-video-gallery {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.wix-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.wix-gallery-item {
+    background: #fff;
+    overflow: hidden;
+}
+
+.wix-gallery-image {
+    width: 100%;
+    height: 250px;
+    background: #ddd;
+    background-size: cover;
+    background-position: center;
+}
+
+.wix-gallery-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 20px 20px 10px;
+}
+
+.wix-gallery-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0 20px 20px;
+}
+
+/* ===== CONTACT SECTION (SHARED) ===== */
+.wix-contact-section {
+    padding: 80px 0;
+    background: #fff;
+    border-top: 3px solid #CA4249;
+}
+
+.wix-contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+.wix-contact-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0 0 40px 0;
+}
+
+.wix-contact-details {
+    margin-bottom: 30px;
+}
+
+.wix-contact-item {
+    margin-bottom: 30px;
+}
+
+.wix-contact-item h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0 0 10px 0;
+}
+
+.wix-contact-item p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #666;
+    margin: 0;
+}
+
+.wix-contact-item a {
+    color: #CA4249;
+    text-decoration: none;
+}
+
+.wix-contact-item a:hover {
+    text-decoration: underline;
+}
+
+.wix-social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.wix-social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #1E2950;
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.wix-social-icon:hover {
+    background: #CA4249;
+    transform: translateY(-3px);
+}
+
+/* ===== CONTACT FORM (SHARED) ===== */
+.wix-form-intro {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 20px 0;
+}
+
+.wix-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.wix-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.wix-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.wix-form-group input,
+.wix-form-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.wix-form-group input::placeholder,
+.wix-form-group textarea::placeholder {
+    color: #999;
+}
+
+.wix-form-group input:focus,
+.wix-form-group textarea:focus {
+    outline: none;
+    border-color: #CA4249;
+}
+
+.wix-form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.wix-submit-btn {
+    padding: 15px 40px;
+    background: #CA4249;
+    color: #fff;
+    border: none;
+    border-radius: 0;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.wix-submit-btn:hover {
+    background: #b33940;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(202, 66, 73, 0.3);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+    .wix-services-row {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    
+    .wix-service-images {
+        grid-template-columns: 1fr;
+    }
+    
+    .wix-news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .wix-rooster-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .wix-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .wix-contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wix-section-container {
+        padding: 0 20px;
+    }
+    
+    .wix-page-hero {
+        padding: 60px 20px 30px;
+    }
+    
+    .wix-hero-title {
+        font-size: 32px;
+    }
+    
+    .wix-services-grid,
+    .wix-video-gallery,
+    .wix-video-content-section,
+    .wix-rooster-gallery-section,
+    .wix-contact-section {
+        padding: 60px 0;
+    }
+    
+    .wix-news-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .wix-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .wix-rooster-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .wix-rooster-image {
+        width: 100%;
+        height: 200px;
+    }
+    
+    .wix-form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .wix-contact-title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wix-hero-title {
+        font-size: 28px;
+    }
+    
+    .wix-service-title {
+        font-size: 24px;
+    }
+    
+    .wix-section-title-center {
+        font-size: 28px;
+    }
+}
