@@ -6,9 +6,64 @@
 
 get_header(); 
 
-// Debug: Check if CSS is loaded
-error_log('About page template loaded: page-about.php');
+// Force load CSS
+wp_enqueue_style('wix-about-page-inline', get_template_directory_uri() . '/assets/css/wix-about-page.css', array(), time());
 ?>
+
+<style>
+/* Inline Wix About Page CSS - Force Load */
+.wix-about-page { background: #fff; padding-top: 0; }
+.wix-section-container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.wix-about-hero { background: #fff; padding: 80px 40px 40px; text-align: center; border-bottom: 3px solid #CA4249; }
+.wix-about-hero-content { max-width: 1200px; margin: 0 auto; }
+.wix-about-title { font-size: 18px; font-weight: 400; color: #666; margin: 0 0 10px 0; letter-spacing: 2px; text-transform: uppercase; }
+.wix-about-company { font-size: 48px; font-weight: 700; color: #1E2950; margin: 0; letter-spacing: 3px; }
+.wix-our-business { padding: 80px 0; background: #fff; }
+.wix-business-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.wix-business-text { padding-right: 40px; }
+.wix-section-title { font-size: 36px; font-weight: 700; color: #1E2950; margin: 0 0 15px 0; }
+.wix-since-text { font-size: 16px; color: #666; margin: 0 0 30px 0; font-style: italic; }
+.wix-business-description p, .wix-story-description p { font-size: 15px; line-height: 1.8; color: #333; margin: 0 0 20px 0; }
+.wix-business-image { position: relative; }
+.wix-image-placeholder { width: 100%; height: 400px; background: #000; }
+.wix-our-story { padding: 80px 0; background: #f8f8f8; }
+.wix-story-header { margin-bottom: 60px; }
+.wix-story-image-top .wix-image-placeholder { height: 500px; margin-bottom: 40px; }
+.wix-story-content { margin-bottom: 60px; }
+.wix-story-text { max-width: 800px; }
+.wix-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+.wix-gallery-item { background: #fff; overflow: hidden; }
+.wix-gallery-image { width: 100%; height: 250px; background: #ddd; }
+.wix-gallery-title { font-size: 20px; font-weight: 600; color: #1E2950; margin: 20px 20px 10px; }
+.wix-gallery-desc { font-size: 14px; line-height: 1.6; color: #666; margin: 0 20px 20px; }
+.wix-contact-section { padding: 80px 0; background: #fff; }
+.wix-contact-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.wix-contact-title { font-size: 32px; font-weight: 700; color: #1E2950; margin: 0 0 40px 0; }
+.wix-contact-item { margin-bottom: 30px; }
+.wix-contact-item h4 { font-size: 16px; font-weight: 600; color: #1E2950; margin: 0 0 10px 0; }
+.wix-contact-item p { font-size: 14px; line-height: 1.8; color: #666; margin: 0; }
+.wix-contact-item a { color: #CA4249; text-decoration: none; }
+.wix-social-links { display: flex; gap: 15px; margin-top: 20px; }
+.wix-social-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #1E2950; color: #fff; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+.wix-social-icon:hover { background: #CA4249; transform: translateY(-3px); }
+.wix-form { display: flex; flex-direction: column; gap: 20px; }
+.wix-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.wix-form-group input, .wix-form-group textarea { padding: 12px 15px; border: 1px solid #ddd; border-radius: 0; font-size: 14px; font-family: inherit; }
+.wix-form-group input:focus, .wix-form-group textarea:focus { outline: none; border-color: #CA4249; }
+.wix-submit-btn { padding: 15px 40px; background: #CA4249; color: #fff; border: none; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; align-self: flex-start; }
+.wix-submit-btn:hover { background: #b33940; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(202, 66, 73, 0.3); }
+@media (max-width: 1024px) {
+    .wix-business-content, .wix-contact-content { grid-template-columns: 1fr; gap: 40px; }
+    .wix-business-text { padding-right: 0; }
+    .wix-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .wix-about-company { font-size: 36px; }
+    .wix-section-title { font-size: 28px; }
+    .wix-gallery-grid { grid-template-columns: 1fr; }
+    .wix-form-row { grid-template-columns: 1fr; }
+}
+</style>
 
 <main id="primary" class="site-main wix-about-page">
     
