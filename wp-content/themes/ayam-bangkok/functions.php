@@ -64,8 +64,10 @@ add_action('after_setup_theme', 'ayam_theme_setup');
  */
 function ayam_theme_scripts()
 {
-    // Styles
-    wp_enqueue_style('ayam-style', get_stylesheet_uri(), array(), AYAM_THEME_VERSION);
+    // Styles - Don't load main style.css on About page (it conflicts with Wix design)
+    if (!is_page('about') && !is_page(27)) {
+        wp_enqueue_style('ayam-style', get_stylesheet_uri(), array(), AYAM_THEME_VERSION);
+    }
     wp_enqueue_style('ayam-google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;600;700;800&display=swap', array(), null);
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', array(), '6.0.0');
 
