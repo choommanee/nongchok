@@ -5,12 +5,9 @@
  */
 
 get_header(); 
-
-// Force load CSS
-wp_enqueue_style('wix-about-page-inline', get_template_directory_uri() . '/assets/css/wix-about-page.css', array(), time());
 ?>
 
-<style>
+<style id="wix-about-override">
 /* Inline Wix About Page CSS - Force Load with !important */
 body.page-about { padding-top: 0 !important; }
 body.page-about .wix-about-page { background: #fff !important; padding-top: 120px !important; margin-top: 0 !important; }
@@ -191,5 +188,15 @@ body.page-about .wix-submit-btn:hover { background: #b33940 !important; transfor
     </section>
 
 </main><!-- #primary -->
+
+<script>
+// Move inline CSS to end of head to override all other styles
+(function() {
+    var style = document.getElementById('wix-about-override');
+    if (style) {
+        document.head.appendChild(style);
+    }
+})();
+</script>
 
 <?php get_footer(); ?>
