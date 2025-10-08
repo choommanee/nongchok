@@ -1,0 +1,677 @@
+/* Knowledge Center Page Styles */
+.knowledge-page {
+    font-family: 'Sarabun', sans-serif;
+}
+
+/* Page Header */
+.knowledge-page .page-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.knowledge-page .page-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.knowledge-page .page-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Knowledge Categories */
+.knowledge-categories-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.knowledge-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.category-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.category-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+    color: white;
+}
+
+.category-card h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.category-card p {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.category-link {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.category-link:hover {
+    background: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Knowledge Sections */
+.knowledge-section {
+    padding: 80px 0;
+}
+
+.knowledge-section:nth-child(even) {
+    background: #f8f9fa;
+}
+
+/* Breeds Section */
+.breeds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.breed-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.breed-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.breed-image {
+    height: 250px;
+    overflow: hidden;
+}
+
+.breed-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.breed-card:hover .breed-image img {
+    transform: scale(1.1);
+}
+
+.breed-content {
+    padding: 30px;
+}
+
+.breed-content h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.breed-content p {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.breed-features {
+    list-style: none;
+    padding: 0;
+}
+
+.breed-features li {
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+    position: relative;
+    padding-left: 25px;
+}
+
+.breed-features li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.breed-features li:last-child {
+    border-bottom: none;
+}
+
+/* Health Section */
+.health-tips {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.tip-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.tip-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.tip-card h3 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.tip-card ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.tip-card li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+    position: relative;
+    padding-left: 25px;
+}
+
+.tip-card li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.tip-card li:last-child {
+    border-bottom: none;
+}
+
+/* Nutrition Section */
+.nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.nutrition-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border-left: 5px solid #f39c12;
+}
+
+.nutrition-card h3 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.nutrition-card h3:before {
+    content: '🥗';
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.nutrition-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nutrition-card li {
+    padding: 12px 0;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+    position: relative;
+    padding-left: 25px;
+}
+
+.nutrition-card li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.nutrition-card li:last-child {
+    border-bottom: none;
+}
+
+/* Housing Section */
+.housing-requirements {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.requirement-item {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.requirement-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.requirement-item h3 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.requirement-item p {
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* Training Section */
+.training-phases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.phase-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    position: relative;
+    border-top: 5px solid #16a085;
+}
+
+.phase-number {
+    position: absolute;
+    top: -25px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    background: #16a085;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.phase-card h3 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin: 20px 0;
+}
+
+.phase-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.phase-card li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+    position: relative;
+    padding-left: 25px;
+}
+
+.phase-card li:before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: #16a085;
+    font-size: 0.8rem;
+}
+
+.phase-card li:last-child {
+    border-bottom: none;
+}
+
+/* Legal Section */
+.legal-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.legal-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.legal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.legal-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.legal-card h3 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.legal-card p {
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.faq-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: white;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.faq-question {
+    padding: 25px 30px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: #f8f9fa;
+}
+
+.faq-question h3 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin: 0;
+    flex: 1;
+}
+
+.faq-toggle {
+    width: 30px;
+    height: 30px;
+    background: #3498db;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-toggle {
+    transform: rotate(45deg);
+    background: #e74c3c;
+}
+
+.faq-answer {
+    padding: 0 30px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 25px 30px;
+    max-height: 200px;
+}
+
+.faq-answer p {
+    color: #6c757d;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    color: white;
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+}
+
+.btn-primary:hover {
+    background: #c0392b;
+    border-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: white;
+}
+
+.btn-secondary:hover {
+    background: white;
+    color: #2c3e50;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .knowledge-page .page-title {
+        font-size: 2rem;
+    }
+    
+    .knowledge-page .page-subtitle {
+        font-size: 1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .knowledge-categories-grid,
+    .breeds-grid,
+    .health-tips,
+    .nutrition-grid,
+    .housing-requirements,
+    .training-phases,
+    .legal-categories {
+        grid-template-columns: 1fr;
+    }
+    
+    .category-card,
+    .breed-content,
+    .tip-card,
+    .nutrition-card,
+    .requirement-item,
+    .phase-card,
+    .legal-card {
+        padding: 30px 20px;
+    }
+    
+    .cta-content h2 {
+        font-size: 2rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .knowledge-page .page-header {
+        padding: 60px 0;
+    }
+    
+    .knowledge-section {
+        padding: 60px 0;
+    }
+    
+    .category-icon,
+    .tip-icon,
+    .requirement-icon,
+    .legal-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .phase-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        top: -20px;
+    }
+}

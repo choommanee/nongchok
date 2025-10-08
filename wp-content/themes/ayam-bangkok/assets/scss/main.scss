@@ -1,0 +1,420 @@
+// ==========================================================================
+// Main SCSS File - Ayam Bangkok Export Theme
+// ==========================================================================
+
+// Import Variables First
+@import 'variables';
+
+// Import Mixins
+@import 'mixins';
+
+// Base Styles
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap');
+
+// Reset and Base Styles
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: map-get($font-families, primary);
+    line-height: 1.6;
+    color: map-get($text-colors, primary);
+    background-color: map-get($background-colors, light);
+    font-weight: map-get($font-weights, normal);
+    font-size: map-get($font-sizes, base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+    font-family: map-get($font-families, primary);
+    font-weight: map-get($font-weights, medium);
+    line-height: 1.3;
+    margin-bottom: map-get($spacing, 4);
+    color: map-get($text-colors, primary);
+    letter-spacing: -0.01em;
+}
+
+h1 { 
+    font-size: map-get($font-sizes, 4xl); 
+    font-weight: map-get($font-weights, semibold);
+    
+    @include respond-below(md) {
+        font-size: map-get($font-sizes, 3xl);
+    }
+}
+
+h2 { 
+    font-size: map-get($font-sizes, 3xl); 
+    font-weight: map-get($font-weights, medium);
+    
+    @include respond-below(md) {
+        font-size: map-get($font-sizes, 2xl);
+    }
+}
+
+h3 { 
+    font-size: map-get($font-sizes, 2xl); 
+    font-weight: map-get($font-weights, medium);
+}
+
+h4 { 
+    font-size: map-get($font-sizes, xl); 
+    font-weight: map-get($font-weights, medium);
+}
+
+h5 { 
+    font-size: map-get($font-sizes, lg); 
+    font-weight: map-get($font-weights, normal);
+}
+
+h6 { 
+    font-size: map-get($font-sizes, base); 
+    font-weight: map-get($font-weights, normal);
+}
+
+p {
+    font-family: map-get($font-families, primary);
+    margin-bottom: map-get($spacing, 4);
+    color: map-get($text-colors, secondary);
+    font-weight: map-get($font-weights, normal);
+    line-height: 1.7;
+}
+
+a {
+    color: map-get($colors, primary);
+    text-decoration: none;
+    font-weight: map-get($font-weights, normal);
+    transition: color map-get($transitions, fast);
+    
+    &:hover {
+        color: map-get($colors, primary-dark);
+    }
+    
+    &:focus {
+        outline: 2px solid map-get($colors, primary);
+        outline-offset: 2px;
+    }
+}
+
+// Lists
+ul, ol {
+    margin-bottom: map-get($spacing, 4);
+    padding-left: map-get($spacing, 6);
+}
+
+li {
+    margin-bottom: map-get($spacing, 1);
+    line-height: 1.6;
+}
+
+// Images
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+// Tables
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: map-get($spacing, 6);
+}
+
+th, td {
+    padding: map-get($spacing, 3);
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    font-weight: map-get($font-weights, semibold);
+    color: map-get($text-colors, primary);
+    background: map-get($background-colors, section);
+}
+
+// Code
+code {
+    background: map-get($background-colors, section);
+    padding: map-get($spacing, 1) map-get($spacing, 2);
+    border-radius: map-get($border-radius, sm);
+    font-family: map-get($font-families, mono);
+    font-size: 0.9em;
+    color: map-get($colors, primary);
+}
+
+pre {
+    background: map-get($background-colors, section);
+    padding: map-get($spacing, 4);
+    border-radius: map-get($border-radius, md);
+    overflow-x: auto;
+    margin-bottom: map-get($spacing, 6);
+    
+    code {
+        background: none;
+        padding: 0;
+    }
+}
+
+// Blockquotes
+blockquote {
+    border-left: 4px solid map-get($colors, primary);
+    padding-left: map-get($spacing, 4);
+    margin: map-get($spacing, 6) 0;
+    font-style: italic;
+    color: map-get($text-colors, secondary);
+}
+
+// Horizontal Rule
+hr {
+    border: none;
+    height: 1px;
+    background: #e5e7eb;
+    margin: map-get($spacing, 8) 0;
+}
+
+// Selection
+::selection {
+    background: rgba(59, 130, 246, 0.2);
+    color: map-get($text-colors, primary);
+}
+
+// Focus Visible
+:focus-visible {
+    outline: 2px solid map-get($colors, primary);
+    outline-offset: 2px;
+}
+
+// Import Components
+@import 'components';
+
+// Import Utilities
+@import 'utilities';
+
+// WordPress Specific Styles
+.wp-block-image {
+    margin-bottom: map-get($spacing, 6);
+    
+    img {
+        border-radius: map-get($border-radius, lg);
+    }
+    
+    figcaption {
+        text-align: center;
+        font-size: map-get($font-sizes, sm);
+        color: map-get($text-colors, secondary);
+        margin-top: map-get($spacing, 2);
+    }
+}
+
+.wp-block-quote {
+    @extend blockquote;
+}
+
+.wp-block-code {
+    @extend pre;
+}
+
+// Accessibility Improvements
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    :root {
+        --text-primary: #{map-get($text-colors, dark)};
+        --text-secondary: #333333;
+        --border-color: #666666;
+    }
+}
+
+// Print Styles
+@media print {
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+        color: #000;
+        background: #fff;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: #000;
+        page-break-after: avoid;
+    }
+    
+    p, li {
+        orphans: 3;
+        widows: 3;
+    }
+    
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+}
+
+// Animation Keyframes
+@include keyframes(fadeIn) {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@include keyframes(slideInLeft) {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@include keyframes(slideInRight) {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@include keyframes(pulse) {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@include keyframes(bounce) {
+    0%, 20%, 53%, 80%, 100% {
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        transform: translate3d(0, -30px, 0);
+    }
+    70% {
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        transform: translate3d(0, -15px, 0);
+    }
+    90% {
+        transform: translate3d(0, -4px, 0);
+    }
+}
+
+@include keyframes(spin) {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@include keyframes(ping) {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+// Export Business Specific Animations
+@include keyframes(processWave) {
+    0%, 100% { 
+        transform: translateY(0);
+        box-shadow: map-get($shadows, lg);
+    }
+    50% { 
+        transform: translateY(-10px);
+        box-shadow: map-get($shadows, xl);
+    }
+}
+
+@include keyframes(completePulse) {
+    0% { transform: scale(1); }
+    50% { 
+        transform: scale(1.1); 
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); 
+    }
+    100% { transform: scale(1); }
+}
+
+@include keyframes(activeGlow) {
+    0% { box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3); }
+    100% { box-shadow: 0 8px 30px rgba(245, 158, 11, 0.5); }
+}
+
+// Legacy Support (for existing CSS)
+.btn-modern {
+    @include button-modern;
+}
+
+.card-modern {
+    @include card-modern;
+}
+
+.hover-lift {
+    @include hover-lift;
+}
+
+// Export Theme Specific Classes
+.export-theme {
+    .process-step {
+        @for $i from 1 through $export-process-steps {
+            &:nth-child(#{$i}) {
+                @include process-step($i);
+            }
+        }
+    }
+    
+    .status-badge {
+        @each $name, $color in $status-colors {
+            &.#{$name} {
+                @include status-badge($name);
+            }
+        }
+    }
+}
+
+// Dark Mode Preparation (Future Enhancement)
+@media (prefers-color-scheme: dark) {
+    .dark-mode-ready {
+        // Dark mode styles will be added here in future updates
+        // Currently maintaining light theme focus
+    }
+}

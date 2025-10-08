@@ -1,0 +1,358 @@
+/**
+ * Frontend Styles for Ayam Bangkok
+ */
+
+/* Rooster Card Styles */
+.ayam-rooster-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #fff;
+    margin-bottom: 20px;
+}
+
+.ayam-rooster-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.ayam-rooster-card .card-image {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+}
+
+.ayam-rooster-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.ayam-rooster-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.ayam-rooster-card .price-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff6b35;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.ayam-rooster-card .status-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.ayam-rooster-card .status-badge.available {
+    background: #28a745;
+    color: white;
+}
+
+.ayam-rooster-card .status-badge.reserved {
+    background: #ffc107;
+    color: #212529;
+}
+
+.ayam-rooster-card .status-badge.sold {
+    background: #dc3545;
+    color: white;
+}
+
+.ayam-rooster-card .card-body {
+    padding: 15px;
+}
+
+.ayam-rooster-card .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.ayam-rooster-card .rooster-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.ayam-rooster-card .breed-info {
+    background: #f8f9fa;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    color: #495057;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* Filter Styles */
+.ayam-filters {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.ayam-filters .filter-group {
+    margin-bottom: 15px;
+}
+
+.ayam-filters label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.ayam-filters select,
+.ayam-filters input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.ayam-filters .price-range {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.ayam-filters .price-range input {
+    flex: 1;
+}
+
+.ayam-filters .filter-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.ayam-filters .btn-filter {
+    background: #ff6b35;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background 0.3s ease;
+}
+
+.ayam-filters .btn-filter:hover {
+    background: #e55a2b;
+}
+
+.ayam-filters .btn-reset {
+    background: #6c757d;
+    color: white;
+}
+
+.ayam-filters .btn-reset:hover {
+    background: #5a6268;
+}
+
+/* Loading Styles */
+.ayam-loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.ayam-loading .spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #ff6b35;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Pagination Styles */
+.ayam-pagination {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.ayam-pagination .page-numbers {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.ayam-pagination .page-numbers:hover,
+.ayam-pagination .page-numbers.current {
+    background: #ff6b35;
+    color: white;
+    border-color: #ff6b35;
+}
+
+/* Contact Form Styles */
+.ayam-contact-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.ayam-contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.ayam-contact-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+.ayam-contact-form input,
+.ayam-contact-form select,
+.ayam-contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.ayam-contact-form input:focus,
+.ayam-contact-form select:focus,
+.ayam-contact-form textarea:focus {
+    outline: none;
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+}
+
+.ayam-contact-form .btn-submit {
+    background: #ff6b35;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.ayam-contact-form .btn-submit:hover {
+    background: #e55a2b;
+}
+
+/* Notification Styles */
+.ayam-notification {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.ayam-notification.success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.ayam-notification.error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.ayam-notification.warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+}
+
+.ayam-notification .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: inherit;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .ayam-rooster-card .rooster-details {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .ayam-filters .price-range {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .ayam-filters .filter-buttons {
+        margin-top: 15px;
+    }
+    
+    .ayam-filters .btn-filter {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .ayam-contact-form {
+        padding: 20px;
+    }
+}
+
+/* Thai Font Support */
+body {
+    font-family: 'Sarabun', 'Prompt', 'Kanit', Arial, sans-serif;
+}
+
+.thai-text {
+    font-family: 'Sarabun', 'Prompt', 'Kanit', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-5 { margin-bottom: 3rem; }
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 3rem; }

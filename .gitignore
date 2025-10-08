@@ -1,0 +1,51 @@
+# WordPress
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/blogs.dir/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/backups/
+wp-content/blogs.dir/
+wp-content/cache/
+wp-content/upgrade/
+
+# WP-CLI
+wp-cli.local.yml
+
+# Logs
+*.log
+error_log
+debug.log
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor Files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Composer
+/vendor/
+
+# Environment
+.env
+.env.local
+.env.*.local

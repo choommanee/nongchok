@@ -1,0 +1,65 @@
+
+/* Emergency Button Fix */
+.hero-slider .slide-buttons a {
+    display: inline-block !important;
+    padding: 12px 24px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    border-radius: 5px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    border: 2px solid rgba(255, 255, 255, 0.9) !important;
+    text-shadow: none !important;
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+}
+
+.hero-slider .slide-buttons a:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.hero-slider .slide-buttons a i {
+    margin-left: 8px !important;
+    font-size: 14px !important;
+}
+
+/* Hide any error text that might appear */
+.hero-slider .slide-buttons a br,
+.hero-slider .slide-buttons a b {
+    display: none !important;
+}
+
+/* Force clean button text */
+.hero-slider .slide-buttons a {
+    font-family: inherit !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+
+/* Background image fix */
+.hero-slider .swiper-slide {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    min-height: 600px !important;
+}
+
+/* Ensure slide overlay works */
+.hero-slider .slide-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    z-index: 1 !important;
+}
+
+/* Ensure content is above overlay */
+.hero-slider .slide-content {
+    position: relative !important;
+    z-index: 2 !important;
+}

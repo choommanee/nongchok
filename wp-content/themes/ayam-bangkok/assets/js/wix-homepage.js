@@ -1,0 +1,127 @@
+/**
+ * Wix-Style Homepage JavaScript
+ */
+
+(function($) {
+    'use strict';
+    
+    // Initialize on DOM ready
+    $(document).ready(function() {
+        initHeroSlider();
+        initAOS();
+        initContactForm();
+        initMobileMenu();
+    });
+    
+    /**
+     * Initialize Hero Slider
+     */
+    function initHeroSlider() {
+        if (typeof Swiper === 'undefined') {
+            console.warn('Swiper not loaded');
+            return;
+        }
+        
+        const heroSwiper = new Swiper('.hero-swiper-wix', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            speed: 800,
+            effect: 'slide',
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+        
+        console.log('Hero Swiper initialized:', heroSwiper);
+    }
+    
+    /**
+     * Initialize AOS (Animate On Scroll)
+     */
+    function initAOS() {
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out',
+                once: true,
+                offset: 100,
+            });
+            
+            console.log('AOS initialized');
+        }
+    }
+    
+    /**
+     * Handle Contact Form
+     */
+    function initContactForm() {
+        $('.wix-contact-form').on('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                first_name: $(this).find('[name="first_name"]').val(),
+                last_name: $(this).find('[name="last_name"]').val(),
+                email: $(this).find('[name="email"]').val(),
+                message: $(this).find('[name="message"]').val(),
+            };
+            
+            // Simple validation
+            if (!formData.first_name || !formData.last_name || !formData.email || !formData.message) {
+                alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+                return;
+            }
+            
+            // Here you can add AJAX submission to WordPress
+            // For now, just show success message
+            alert('ส่งข้อความสำเร็จ! เราจะติดต่อกลับโดยเร็วที่สุด');
+            $(this)[0].reset();
+        });
+    }
+    
+    /**
+     * Initialize Mobile Menu Toggle
+     */
+    function initMobileMenu() {
+        $('.wix-mobile-toggle').on('click', function() {
+            $('.wix-nav').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+        
+        // Close menu when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.wix-header').length) {
+                $('.wix-nav').removeClass('active');
+                $('.wix-mobile-toggle').removeClass('active');
+            }
+        });
+        
+        // Close menu when clicking on a link
+        $('.wix-menu a').on('click', function() {
+            $('.wix-nav').removeClass('active');
+            $('.wix-mobile-toggle').removeClass('active');
+        });
+    }
+    
+    /**
+     * Smooth Scroll for anchor links
+     */
+    $('a[href^="#"]').on('click', function(e) {
+        const target = $(this.getAttribute('href'));
+        if (target.length) {
+            e.preventDefault();
+            $('html, body').stop().animate({
+                scrollTop: target.offset().top - 80
+            }, 800);
+        }
+    });
+    
+})(jQuery);

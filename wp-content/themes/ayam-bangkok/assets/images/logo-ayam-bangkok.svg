@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Outer Circle - Blue Border -->
+  <circle cx="100" cy="100" r="95" fill="white" stroke="#3D74B6" stroke-width="6"/>
+  
+  <!-- Inner Circle -->
+  <circle cx="100" cy="100" r="75" fill="white" stroke="#3D74B6" stroke-width="2"/>
+  
+  <!-- Rooster Head Silhouette -->
+  <g transform="translate(100,100)">
+    <!-- Main Head Shape -->
+    <path d="M-15,-20 Q-20,-25 -15,-30 Q-10,-35 0,-30 Q15,-25 20,-15 Q25,-5 20,5 Q15,15 5,20 Q-5,25 -15,20 Q-25,10 -25,0 Q-25,-10 -15,-20 Z" fill="#dc2626"/>
+    
+    <!-- Comb -->
+    <path d="M-10,-30 Q-8,-40 -5,-35 Q-2,-42 2,-35 Q5,-40 8,-35 Q10,-38 12,-32" fill="#dc2626" stroke="#dc2626" stroke-width="2"/>
+    
+    <!-- Beak -->
+    <path d="M15,-8 Q25,-5 20,0 Q15,3 15,-8 Z" fill="#d4af37"/>
+    
+    <!-- Eye -->
+    <circle cx="8" cy="-8" r="2" fill="white"/>
+    <circle cx="9" cy="-8" r="1" fill="black"/>
+    
+    <!-- Wattle -->
+    <path d="M10,5 Q15,8 12,12 Q8,10 10,5 Z" fill="#dc2626"/>
+  </g>
+  
+  <!-- Top Text - AYAM BANGKOK -->
+  <path id="top-curve" d="M 30 100 A 70 70 0 0 1 170 100" fill="none"/>
+  <text font-family="Prompt, sans-serif" font-size="16" font-weight="700" fill="#d4af37">
+    <textPath href="#top-curve" startOffset="50%" text-anchor="middle">
+      AYAM BANGKOK
+    </textPath>
+  </text>
+  
+  <!-- Bottom Text - NONG CHOK FC1 -->
+  <path id="bottom-curve" d="M 170 100 A 70 70 0 0 1 30 100" fill="none"/>
+  <text font-family="Prompt, sans-serif" font-size="14" font-weight="600" fill="#d4af37">
+    <textPath href="#bottom-curve" startOffset="50%" text-anchor="middle">
+      NONG CHOK FC1
+    </textPath>
+  </text>
+  
+  <!-- Side Numbers/Text -->
+  <text x="25" y="105" font-family="Prompt, sans-serif" font-size="18" font-weight="700" fill="#dc2626" text-anchor="middle">第</text>
+  <text x="175" y="105" font-family="Prompt, sans-serif" font-size="18" font-weight="700" fill="#dc2626" text-anchor="middle">一</text>
+</svg>

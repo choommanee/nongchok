@@ -1,0 +1,162 @@
+/* Final Slider Fix - Force everything to work */
+
+/* Background images - all possible selectors */
+.hero-slider .swiper-slide,
+.hero-swiper .swiper-slide,
+.swiper-slide,
+div[style*="background-image"] {
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: scroll !important;
+    min-height: 600px !important;
+    height: 100vh !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Force background image display */
+.swiper-slide[style*="background-image"] {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Slide content positioning */
+.hero-slider .slide-content,
+.hero-swiper .slide-content,
+.swiper-slide .slide-content {
+    position: relative !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Overlay fix */
+.hero-slider .slide-overlay,
+.hero-swiper .slide-overlay,
+.swiper-slide .slide-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)) !important;
+    z-index: 1 !important;
+}
+
+/* Text styling */
+.hero-slider .slide-title,
+.hero-swiper .slide-title,
+.swiper-slide .slide-title {
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 1rem !important;
+    z-index: 10 !important;
+    position: relative !important;
+}
+
+.hero-slider .slide-description,
+.hero-swiper .slide-description,
+.swiper-slide .slide-description {
+    color: white !important;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+    font-size: 1.2rem !important;
+    margin-bottom: 2rem !important;
+    z-index: 10 !important;
+    position: relative !important;
+}
+
+/* Button styling - comprehensive */
+.hero-slider .slide-buttons a,
+.hero-swiper .slide-buttons a,
+.swiper-slide .slide-buttons a,
+.slide-buttons a,
+a.btn-modern {
+    display: inline-block !important;
+    padding: 12px 24px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    border: 2px solid rgba(255, 255, 255, 0.95) !important;
+    text-shadow: none !important;
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    font-family: "Sarabun", sans-serif !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease !important;
+    z-index: 10 !important;
+    position: relative !important;
+}
+
+.hero-slider .slide-buttons a:hover,
+.hero-swiper .slide-buttons a:hover,
+.swiper-slide .slide-buttons a:hover,
+.slide-buttons a:hover,
+a.btn-modern:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+    color: #222 !important;
+}
+
+.hero-slider .slide-buttons a i,
+.hero-swiper .slide-buttons a i,
+.swiper-slide .slide-buttons a i,
+.slide-buttons a i,
+a.btn-modern i {
+    margin-left: 8px !important;
+    font-size: 14px !important;
+}
+
+/* Container positioning */
+.hero-slider .container,
+.hero-swiper .container,
+.swiper-slide .container {
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* Swiper specific fixes */
+.swiper-wrapper {
+    height: 100vh !important;
+}
+
+.swiper-container {
+    height: 100vh !important;
+    width: 100% !important;
+}
+
+/* Navigation styling */
+.swiper-button-next,
+.swiper-button-prev {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 50% !important;
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.5) !important;
+    opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: white !important;
+}

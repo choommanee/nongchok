@@ -1,0 +1,297 @@
+/**
+ * Rooster Gallery Wix Style CSS
+ */
+
+/* Gallery Header */
+.rooster-gallery-wix {
+    padding: 60px 0;
+    background: #f5f5f5;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gallery-header h1 {
+    font-size: 48px;
+    color: #1E2950;
+    margin-bottom: 15px;
+}
+
+.gallery-header p {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Filter */
+.gallery-filter {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    padding: 12px 24px;
+    margin: 0 5px;
+    background: #fff;
+    border: 2px solid #1E2950;
+    color: #1E2950;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #1E2950;
+    color: #fff;
+}
+
+/* Rooster Grid */
+.rooster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.rooster-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.rooster-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.rooster-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.rooster-image {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rooster-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rooster-placeholder {
+    background: linear-gradient(135deg, #1E2950 0%, #CA4249 100%);
+}
+
+.rooster-icon {
+    font-size: 80px;
+}
+
+.rooster-info {
+    padding: 20px;
+}
+
+.rooster-number {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1E2950;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.rooster-status {
+    text-align: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-ready {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-exported {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Single Rooster */
+.single-rooster {
+    padding: 60px 0;
+}
+
+.rooster-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.rooster-header h1 {
+    font-size: 42px;
+    color: #1E2950;
+    margin-bottom: 15px;
+}
+
+.rooster-meta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.rooster-number-large {
+    font-size: 24px;
+    font-weight: 700;
+    color: #CA4249;
+}
+
+.rooster-status-badge {
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.rooster-content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rooster-gallery-section h2,
+.rooster-info-section h2 {
+    color: #1E2950;
+    margin-bottom: 20px;
+}
+
+.rooster-main-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.rooster-placeholder-large {
+    background: linear-gradient(135deg, #1E2950 0%, #CA4249 100%);
+    padding: 100px;
+    text-align: center;
+    border-radius: 12px;
+    color: #fff;
+}
+
+.rooster-placeholder-large .rooster-icon {
+    font-size: 120px;
+}
+
+.rooster-videos {
+    margin-top: 30px;
+}
+
+.video-placeholder {
+    background: #f5f5f5;
+    padding: 40px;
+    text-align: center;
+    border-radius: 12px;
+    color: #666;
+}
+
+.rooster-details {
+    background: #f5f5f5;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #1E2950;
+}
+
+.detail-value {
+    color: #666;
+}
+
+.rooster-description {
+    margin-bottom: 30px;
+}
+
+.rooster-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-back {
+    background: #f5f5f5;
+    color: #1E2950;
+}
+
+.btn-back:hover {
+    background: #1E2950;
+    color: #fff;
+}
+
+.btn-contact {
+    background: #CA4249;
+    color: #fff;
+}
+
+.btn-contact:hover {
+    background: #1E2950;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .rooster-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .rooster-content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rooster-actions {
+        flex-direction: column;
+    }
+}

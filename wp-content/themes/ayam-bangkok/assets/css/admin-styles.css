@@ -1,0 +1,382 @@
+/* Admin Styles - ใช้สไตล์เดียวกับหน้า About */
+
+/* Import CSS Variables จากไฟล์หลัก */
+:root {
+    /* Light & Bright Color Palette */
+    --primary: #3b82f6;
+    --primary-light: #60a5fa;
+    --primary-dark: #1d4ed8;
+    --secondary: #f59e0b;
+    --accent: #10b981;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --info: #3b82f6;
+    
+    /* Text Colors */
+    --text-primary: #374151;
+    --text-secondary: #9ca3af;
+    --text-muted: #d1d5db;
+    --text-white: #ffffff;
+    --text-dark: #1f2937;
+    
+    /* Background Colors */
+    --bg-light: #ffffff;
+    --bg-section: #f8fafc;
+    --bg-card: #ffffff;
+    
+    /* Typography */
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    
+    /* Spacing Scale */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* Admin Page Container */
+.ayam-admin-page {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, var(--bg-section) 0%, #e2e8f0 100%);
+    min-height: 100vh;
+    padding: var(--space-8);
+    color: var(--text-primary);
+}
+
+/* Admin Header */
+.ayam-admin-header {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid #f1f5f9;
+    text-align: center;
+}
+
+.ayam-admin-header h1 {
+    font-size: 2.25rem;
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ayam-admin-header p {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin-bottom: 0;
+}
+
+/* Admin Content Grid */
+.ayam-admin-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    margin-bottom: var(--space-8);
+}
+
+@media (max-width: 1024px) {
+    .ayam-admin-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Admin Cards */
+.ayam-admin-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-md);
+    border: 1px solid #f1f5f9;
+    transition: all var(--transition-normal);
+}
+
+.ayam-admin-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-light);
+}
+
+.ayam-admin-card h2 {
+    font-size: 1.5rem;
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+    margin-bottom: var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.ayam-admin-card h2 i {
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+/* Form Styles */
+.ayam-form-group {
+    margin-bottom: var(--space-6);
+}
+
+.ayam-form-label {
+    display: block;
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ayam-form-input,
+.ayam-form-textarea,
+.ayam-form-select {
+    width: 100%;
+    padding: var(--space-4);
+    border: 2px solid #e5e7eb;
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--bg-light);
+    transition: all var(--transition-fast);
+}
+
+.ayam-form-input:focus,
+.ayam-form-textarea:focus,
+.ayam-form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    transform: translateY(-1px);
+}
+
+.ayam-form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Button Styles */
+.ayam-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-medium);
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-family: inherit;
+}
+
+.ayam-btn-primary {
+    background: var(--gradient-primary);
+    color: var(--text-white);
+    box-shadow: var(--shadow-md);
+}
+
+.ayam-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.ayam-btn-secondary {
+    background: var(--gradient-secondary);
+    color: var(--text-white);
+    box-shadow: var(--shadow-md);
+}
+
+.ayam-btn-success {
+    background: var(--gradient-success);
+    color: var(--text-white);
+    box-shadow: var(--shadow-md);
+}
+
+.ayam-btn-outline {
+    background: var(--bg-light);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.ayam-btn-outline:hover {
+    background: var(--primary);
+    color: var(--text-white);
+    transform: translateY(-2px);
+}
+
+.ayam-btn-large {
+    padding: var(--space-5) var(--space-8);
+    font-size: 1.125rem;
+}
+
+/* Import Section */
+.ayam-import-section {
+    background: linear-gradient(135deg, var(--bg-section) 0%, #e2e8f0 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    border: 2px dashed var(--primary-light);
+    text-align: center;
+}
+
+.ayam-import-section h3 {
+    color: var(--primary);
+    margin-bottom: var(--space-4);
+    font-size: 1.25rem;
+}
+
+.ayam-import-section p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+}
+
+/* Success/Error Messages */
+.ayam-message {
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-weight: var(--font-medium);
+}
+
+.ayam-message-success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.ayam-message-error {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.ayam-message-info {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--info);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Timeline Preview */
+.ayam-timeline-preview {
+    background: var(--bg-section);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-top: var(--space-6);
+}
+
+.ayam-timeline-item {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+    padding: var(--space-4);
+    background: var(--bg-light);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary);
+}
+
+.ayam-timeline-year {
+    font-weight: var(--font-semibold);
+    color: var(--primary);
+    min-width: 60px;
+}
+
+.ayam-timeline-content h4 {
+    margin-bottom: var(--space-1);
+    font-size: 1rem;
+}
+
+.ayam-timeline-content p {
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ayam-admin-page {
+        padding: var(--space-4);
+    }
+    
+    .ayam-admin-header h1 {
+        font-size: 1.875rem;
+    }
+    
+    .ayam-admin-content {
+        gap: var(--space-6);
+    }
+    
+    .ayam-admin-card {
+        padding: var(--space-6);
+    }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ayam-admin-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.ayam-admin-card:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.ayam-admin-card:nth-child(3) {
+    animation-delay: 0.2s;
+}

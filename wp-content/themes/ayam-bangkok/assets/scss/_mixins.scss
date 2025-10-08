@@ -1,0 +1,382 @@
+// ==========================================================================
+// SCSS Mixins - Ayam Bangkok Export Theme
+// ==========================================================================
+
+// Responsive Breakpoints
+@mixin respond-to($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: map-get($breakpoints, $breakpoint)) {
+            @content;
+        }
+    } @else {
+        @warn "Unknown breakpoint: #{$breakpoint}";
+    }
+}
+
+@mixin respond-below($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (max-width: map-get($breakpoints, $breakpoint) - 1px) {
+            @content;
+        }
+    } @else {
+        @warn "Unknown breakpoint: #{$breakpoint}";
+    }
+}
+
+// Modern Card Component
+@mixin card-modern($padding: $card-padding, $radius: $card-radius, $shadow: map-get($shadows, md)) {
+    background: map-get($background-colors, card);
+    border-radius: $radius;
+    padding: $padding;
+    box-shadow: $shadow;
+    border: 1px solid #f1f5f9;
+    transition: all map-get($transitions, normal);
+    
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: map-get($shadows, xl);
+        border-color: map-get($colors, primary-light);
+    }
+}
+
+// Modern Button Styles
+@mixin button-modern($variant: primary, $size: md) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    border-radius: map-get($border-radius, lg);
+    font-weight: map-get($font-weights, medium);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all map-get($transitions, normal);
+    font-family: map-get($font-families, primary);
+    
+    // Size variants
+    @if $size == sm {
+        padding: map-get($spacing, 2) map-get($spacing, 4);
+        font-size: map-get($font-sizes, sm);
+    } @else if $size == lg {
+        padding: map-get($spacing, 4) map-get($spacing, 8);
+        font-size: map-get($font-sizes, lg);
+    } @else {
+        padding: $button-padding-y $button-padding-x;
+        font-size: map-get($font-sizes, base);
+    }
+    
+    // Color variants
+    @if $variant == primary {
+        background: map-get($gradients, primary);
+        color: map-get($text-colors, white);
+        box-shadow: map-get($shadows, md);
+        
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: map-get($shadows, lg);
+        }
+    } @else if $variant == secondary {
+        background: map-get($gradients, secondary);
+        color: map-get($text-colors, white);
+        box-shadow: map-get($shadows, md);
+        
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+    } @else if $variant == success {
+        background: map-get($gradients, success);
+        color: map-get($text-colors, white);
+        box-shadow: map-get($shadows, md);
+        
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+    } @else if $variant == outline {
+        background: map-get($background-colors, light);
+        color: map-get($colors, primary);
+        border: 2px solid map-get($colors, primary);
+        
+        &:hover {
+            background: map-get($colors, primary);
+            color: map-get($text-colors, white);
+            transform: translateY(-2px);
+        }
+    }
+    
+    &:focus {
+        outline: 2px solid map-get($colors, primary);
+        outline-offset: 2px;
+    }
+    
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none !important;
+    }
+}
+
+// Form Input Styles
+@mixin input-modern {
+    width: 100%;
+    padding: $input-padding-y $input-padding-x;
+    border: 1px solid #d1d5db;
+    border-radius: map-get($border-radius, md);
+    font-size: map-get($font-sizes, base);
+    font-family: map-get($font-families, primary);
+    transition: all map-get($transitions, fast);
+    background: map-get($background-colors, light);
+    
+    &:focus {
+        outline: none;
+        border-color: map-get($colors, primary);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    &.error {
+        border-color: map-get($colors, error);
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+    
+    &::placeholder {
+        color: map-get($text-colors, muted);
+    }
+}
+
+// Gradient Text
+@mixin gradient-text($gradient: map-get($gradients, primary)) {
+    background: $gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+// Flex Center
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Absolute Center
+@mixin absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Truncate Text
+@mixin truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// Line Clamp
+@mixin line-clamp($lines: 2) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+// Aspect Ratio
+@mixin aspect-ratio($width: 16, $height: 9) {
+    position: relative;
+    
+    &::before {
+        content: '';
+        display: block;
+        padding-top: percentage($height / $width);
+    }
+    
+    > * {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+// Export Process Step
+@mixin process-step($step-number: 1) {
+    $step-color: nth(map-values($process-colors), $step-number);
+    
+    .step-icon {
+        background: linear-gradient(135deg, $step-color 0%, darken($step-color, 10%) 100%);
+    }
+    
+    .step-number {
+        background: $step-color;
+    }
+    
+    &:hover {
+        .step-icon {
+            box-shadow: 0 8px 25px rgba($step-color, 0.3);
+        }
+    }
+}
+
+// Status Badge
+@mixin status-badge($status: completed) {
+    $status-color: map-get($status-colors, $status);
+    
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: map-get($border-radius, full);
+    font-size: map-get($font-sizes, sm);
+    font-weight: map-get($font-weights, medium);
+    background: rgba($status-color, 0.1);
+    color: $status-color;
+    border: 1px solid rgba($status-color, 0.2);
+}
+
+// Animation Keyframes Mixin
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+// Fade In Animation
+@mixin fade-in($duration: 0.8s, $delay: 0s) {
+    opacity: 0;
+    animation: fadeIn $duration ease forwards $delay;
+    
+    @include keyframes(fadeIn) {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+// Slide In Animation
+@mixin slide-in($direction: left, $duration: 0.8s, $delay: 0s) {
+    opacity: 0;
+    animation: slideIn#{capitalize($direction)} $duration ease forwards $delay;
+    
+    @if $direction == left {
+        @include keyframes(slideInLeft) {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    } @else if $direction == right {
+        @include keyframes(slideInRight) {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    }
+}
+
+// Hover Lift Effect
+@mixin hover-lift($lift: 8px, $shadow: map-get($shadows, xl)) {
+    transition: all map-get($transitions, normal);
+    
+    &:hover {
+        transform: translateY(-$lift);
+        box-shadow: $shadow;
+    }
+}
+
+// Glass Effect
+@mixin glass-effect($opacity: 0.1) {
+    background: rgba(255, 255, 255, $opacity);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Container
+@mixin container($max-width: map-get($container-max-widths, xl)) {
+    width: 100%;
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 0 map-get($spacing, 5);
+    
+    @include respond-to(sm) {
+        padding: 0 map-get($spacing, 6);
+    }
+    
+    @include respond-to(lg) {
+        padding: 0 map-get($spacing, 8);
+    }
+}
+
+// Grid System
+@mixin make-row($gutter: $grid-gutter-width) {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 (-$gutter / 2);
+}
+
+@mixin make-col($size: false, $columns: $grid-columns) {
+    position: relative;
+    width: 100%;
+    padding: 0 ($grid-gutter-width / 2);
+    
+    @if $size {
+        flex: 0 0 percentage($size / $columns);
+        max-width: percentage($size / $columns);
+    }
+}
+
+// Export Business Specific Mixins
+@mixin export-card {
+    @include card-modern;
+    
+    .case-header {
+        background: map-get($gradients, primary);
+        color: map-get($text-colors, white);
+        margin: (-$card-padding) (-$card-padding) $card-padding;
+        padding: $card-padding;
+        border-radius: $card-radius $card-radius 0 0;
+    }
+}
+
+@mixin testimonial-card {
+    @include card-modern;
+    position: relative;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: map-get($gradients, primary);
+        border-radius: $card-radius $card-radius 0 0;
+    }
+    
+    .quote-icon {
+        color: map-get($colors, primary);
+        font-size: map-get($font-sizes, 2xl);
+        opacity: 0.7;
+    }
+}

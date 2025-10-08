@@ -1,0 +1,1494 @@
+// ==========================================================================
+// Component Styles - Ayam Bangkok Export Theme
+// ==========================================================================
+
+// Force background images to display
+.hero-slider .swiper-slide[style*="background-image"] {
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: scroll !important;
+}
+
+// Ensure slides have minimum height
+.hero-slider .swiper-slide {
+    min-height: 600px !important;
+    height: 100vh !important;
+}
+
+// Hero Slider Components - Modern & Beautiful Design
+.hero-slider-section {
+    height: 76vh;
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+    
+    .hero-swiper {
+        width: 100%;
+        height: 100%;
+        
+        .swiper-slide {
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px !important;
+            
+            // Strong overlay for better text readability
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    135deg,
+                    rgba(0, 0, 0, 0.5) 0%,
+                    rgba(0, 0, 0, 0.3) 50%,
+                    rgba(0, 0, 0, 0.6) 100%
+                );
+                z-index: 1;
+            }
+            
+            // Additional overlay for maximum text contrast
+            .slide-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0.2) 0%,
+                    rgba(0, 0, 0, 0.4) 50%,
+                    rgba(0, 0, 0, 0.7) 100%
+                );
+                z-index: 2;
+            }
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 map-get($spacing, 6);
+            text-align: center;
+            
+            @include respond-below(md) {
+                padding: 0 map-get($spacing, 4);
+            }
+            
+            .slide-inner {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            
+            .slide-title {
+                font-size: clamp(2.5rem, 6vw, 4.5rem);
+                font-weight: map-get($font-weights, bold);
+                color: #ffffff;
+                margin-bottom: map-get($spacing, 6);
+                line-height: 1.1;
+                letter-spacing: -0.02em;
+                
+                // Strong white text with multiple dark shadows for maximum contrast
+                text-shadow: 
+                    0 2px 4px rgba(0, 0, 0, 0.8),
+                    0 4px 8px rgba(0, 0, 0, 0.6),
+                    0 8px 16px rgba(0, 0, 0, 0.4),
+                    0 1px 2px rgba(0, 0, 0, 0.9);
+                
+                // Animation
+                opacity: 0;
+                transform: translateY(30px);
+                
+                @include respond-below(md) {
+                    margin-bottom: map-get($spacing, 4);
+                    font-size: clamp(2rem, 8vw, 3.5rem);
+                }
+            }
+            
+            .slide-description {
+                font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+                font-weight: map-get($font-weights, medium);
+                color: #ffffff;
+                margin-bottom: map-get($spacing, 8);
+                line-height: 1.6;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+                
+                // Strong white text with dark shadow for readability
+                text-shadow: 
+                    0 2px 4px rgba(0, 0, 0, 0.8),
+                    0 4px 8px rgba(0, 0, 0, 0.5),
+                    0 1px 2px rgba(0, 0, 0, 0.9);
+                
+                // Animation
+                opacity: 0;
+                transform: translateY(30px);
+                
+                @include respond-below(md) {
+                    margin-bottom: map-get($spacing, 6);
+                }
+            }
+            
+            .slide-buttons {
+                display: flex;
+                gap: map-get($spacing, 4);
+                justify-content: center;
+                flex-wrap: wrap;
+                
+                @include respond-below(sm) {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: map-get($spacing, 3);
+                }
+                
+                .btn-modern {
+                    padding: map-get($spacing, 4) map-get($spacing, 8);
+                    font-size: map-get($font-sizes, lg);
+                    font-weight: map-get($font-weights, semibold);
+                    border-radius: map-get($border-radius, full);
+                    transition: all map-get($transitions, normal);
+                    display: inline-flex;
+                    align-items: center;
+                    gap: map-get($spacing, 2);
+                    text-decoration: none;
+                    min-width: 180px;
+                    justify-content: center;
+                    
+                    // Animation
+                    opacity: 0;
+                    transform: translateY(30px);
+                    
+                    // White button with strong contrast
+                    &.primary {
+                        background: #ffffff;
+                        color: map-get($colors, primary);
+                        border: 3px solid #ffffff;
+                        font-weight: map-get($font-weights, bold);
+                        text-shadow: none;
+                        box-shadow: 
+                            0 4px 15px rgba(0, 0, 0, 0.4),
+                            0 8px 30px rgba(0, 0, 0, 0.3);
+                        
+                        &:hover {
+                            background: map-get($colors, primary);
+                            color: #ffffff;
+                            border-color: map-get($colors, primary);
+                            transform: translateY(-4px);
+                            text-shadow: 
+                                0 1px 3px rgba(0, 0, 0, 0.5);
+                            box-shadow: 
+                                0 8px 25px rgba(0, 0, 0, 0.5),
+                                0 15px 40px rgba(0, 0, 0, 0.4);
+                        }
+                    }
+                    
+                    // Outline button with strong white border
+                    &.outline {
+                        background: rgba(255, 255, 255, 0.15);
+                        color: #ffffff;
+                        border: 3px solid #ffffff;
+                        backdrop-filter: blur(15px);
+                        font-weight: map-get($font-weights, bold);
+                        text-shadow: 
+                            0 2px 4px rgba(0, 0, 0, 0.8),
+                            0 1px 2px rgba(0, 0, 0, 0.9);
+                        
+                        &:hover {
+                            background: #ffffff;
+                            color: map-get($colors, primary);
+                            border-color: #ffffff;
+                            transform: translateY(-4px);
+                            text-shadow: none;
+                            box-shadow: 
+                                0 8px 25px rgba(0, 0, 0, 0.5),
+                                0 15px 40px rgba(0, 0, 0, 0.4);
+                        }
+                    }
+                    
+                    @include respond-below(sm) {
+                        min-width: 200px;
+                        padding: map-get($spacing, 3) map-get($spacing, 6);
+                    }
+                }
+            }
+        }
+        
+        // Navigation Buttons - Modern Design
+        .swiper-button-next,
+        .swiper-button-prev {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            color: map-get($colors, primary);
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                0 8px 24px rgba(0, 0, 0, 0.1);
+            transition: all map-get($transitions, normal);
+            backdrop-filter: blur(10px);
+            
+            &::after {
+                font-size: map-get($font-sizes, lg);
+                font-weight: map-get($font-weights, bold);
+            }
+            
+            &:hover {
+                background: map-get($colors, primary);
+                color: map-get($text-colors, white);
+                transform: scale(1.1);
+                box-shadow: 
+                    0 6px 20px rgba(0, 0, 0, 0.3),
+                    0 12px 32px rgba(0, 0, 0, 0.2);
+            }
+            
+            @include respond-below(md) {
+                width: 50px;
+                height: 50px;
+                
+                &::after {
+                    font-size: map-get($font-sizes, base);
+                }
+            }
+        }
+        
+        .swiper-button-next {
+            right: map-get($spacing, 6);
+            
+            @include respond-below(md) {
+                right: map-get($spacing, 4);
+            }
+        }
+        
+        .swiper-button-prev {
+            left: map-get($spacing, 6);
+            
+            @include respond-below(md) {
+                left: map-get($spacing, 4);
+            }
+        }
+        
+        // Pagination - Modern Design
+        .swiper-pagination {
+            bottom: map-get($spacing, 8);
+            
+            @include respond-below(md) {
+                bottom: map-get($spacing, 6);
+            }
+            
+            .swiper-pagination-bullet {
+                width: 12px;
+                height: 12px;
+                background: rgba(255, 255, 255, 0.6);
+                opacity: 1;
+                border-radius: 50%;
+                transition: all map-get($transitions, normal);
+                margin: 0 map-get($spacing, 1);
+                
+                &.swiper-pagination-bullet-active {
+                    background: map-get($text-colors, white);
+                    transform: scale(1.3);
+                    box-shadow: 
+                        0 2px 8px rgba(0, 0, 0, 0.3),
+                        0 0 0 3px rgba(255, 255, 255, 0.3);
+                }
+                
+                &:hover {
+                    background: rgba(255, 255, 255, 0.9);
+                    transform: scale(1.2);
+                }
+            }
+        }
+    }
+    
+    // Fallback Hero Section
+    .hero-fallback {
+        width: 100%;
+        height: 100%;
+        background: map-get($gradients, primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 0, 0, 0.2) 0%,
+                rgba(0, 0, 0, 0.1) 100%
+            );
+        }
+        
+        .hero-fallback-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: map-get($text-colors, white);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 map-get($spacing, 6);
+            
+            .hero-title {
+                font-size: clamp(2.5rem, 6vw, 4rem);
+                font-weight: map-get($font-weights, semibold);
+                margin-bottom: map-get($spacing, 6);
+                text-shadow: 
+                    0 2px 4px rgba(0, 0, 0, 0.5),
+                    0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+            
+            .hero-subtitle {
+                font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+                margin-bottom: map-get($spacing, 8);
+                opacity: 0.95;
+                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            }
+            
+            .hero-buttons {
+                display: flex;
+                gap: map-get($spacing, 4);
+                justify-content: center;
+                flex-wrap: wrap;
+                
+                @include respond-below(sm) {
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
+
+// Export Process Flow Components
+.export-process-section {
+    padding: map-get($spacing, 20) 0;
+    background: linear-gradient(135deg, map-get($background-colors, section) 0%, #e2e8f0 100%);
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: map-get($spacing, 12);
+        
+        .section-badge {
+            display: inline-block;
+            padding: map-get($spacing, 2) map-get($spacing, 4);
+            background: map-get($gradients, primary);
+            color: map-get($text-colors, white);
+            border-radius: map-get($border-radius, full);
+            font-size: map-get($font-sizes, sm);
+            font-weight: map-get($font-weights, medium);
+            margin-bottom: map-get($spacing, 4);
+        }
+        
+        .section-title {
+            font-size: map-get($font-sizes, 4xl);
+            font-weight: map-get($font-weights, medium);
+            color: map-get($text-colors, primary);
+            margin-bottom: map-get($spacing, 4);
+            
+            @include respond-below(md) {
+                font-size: map-get($font-sizes, 3xl);
+            }
+        }
+        
+        .section-description {
+            font-size: map-get($font-sizes, lg);
+            color: map-get($text-colors, secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    }
+    
+    .process-steps-container {
+        margin-top: map-get($spacing, 12);
+    }
+    
+    .process-steps {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        flex-wrap: wrap;
+        gap: map-get($spacing, 8);
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: map-get($gradients, primary);
+            z-index: 1;
+            
+            @include respond-below(md) {
+                display: none;
+            }
+        }
+        
+        @include respond-below(md) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    
+    .process-step {
+        background: map-get($background-colors, card);
+        border-radius: map-get($border-radius, xl);
+        padding: map-get($spacing, 8) map-get($spacing, 6);
+        text-align: center;
+        box-shadow: map-get($shadows, lg);
+        position: relative;
+        z-index: 2;
+        transition: all map-get($transitions, normal);
+        flex: 1;
+        min-width: 150px;
+        max-width: 200px;
+        cursor: pointer;
+        border: 1px solid #f1f5f9;
+        
+        @include respond-below(md) {
+            max-width: 300px;
+            width: 100%;
+        }
+        
+        &:hover {
+            transform: translateY(-10px);
+            box-shadow: map-get($shadows, xl);
+            border-color: map-get($colors, primary-light);
+        }
+        
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background: map-get($gradients, primary);
+            border-radius: 50%;
+            @include flex-center;
+            margin: 0 auto map-get($spacing, 4);
+            color: map-get($text-colors, white);
+            font-size: map-get($font-sizes, xl);
+            transition: all map-get($transitions, normal);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: map-get($colors, accent);
+            color: map-get($text-colors, white);
+            border-radius: 50%;
+            @include flex-center;
+            font-size: map-get($font-sizes, sm);
+            font-weight: map-get($font-weights, semibold);
+        }
+        
+        .step-title {
+            font-size: map-get($font-sizes, lg);
+            font-weight: map-get($font-weights, medium);
+            color: map-get($text-colors, primary);
+            margin-bottom: map-get($spacing, 2);
+        }
+        
+        .step-description {
+            font-size: map-get($font-sizes, sm);
+            color: map-get($text-colors, secondary);
+            line-height: 1.5;
+            margin-bottom: map-get($spacing, 2);
+        }
+        
+        .step-duration {
+            font-size: map-get($font-sizes, xs);
+            color: map-get($text-colors, secondary);
+            padding: map-get($spacing, 1) map-get($spacing, 2);
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: map-get($border-radius, full);
+            font-weight: map-get($font-weights, medium);
+        }
+    }
+}
+
+// Export Statistics Components
+.export-stats-section {
+    padding: map-get($spacing, 20) 0;
+    background: map-get($background-colors, light);
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: map-get($spacing, 8);
+        max-width: 1000px;
+        margin: map-get($spacing, 12) auto 0;
+    }
+    
+    .stat-card {
+        @include card-modern;
+        text-align: center;
+        padding: map-get($spacing, 10) map-get($spacing, 8);
+        background: linear-gradient(135deg, map-get($background-colors, section) 0%, map-get($background-colors, light) 100%);
+        
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            background: map-get($gradients, primary);
+            border-radius: 50%;
+            @include flex-center;
+            margin: 0 auto map-get($spacing, 6);
+            color: map-get($text-colors, white);
+            font-size: map-get($font-sizes, 2xl);
+        }
+        
+        .stat-number {
+            font-size: map-get($font-sizes, 5xl);
+            font-weight: map-get($font-weights, semibold);
+            color: map-get($colors, primary);
+            margin-bottom: map-get($spacing, 2);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: map-get($font-sizes, lg);
+            font-weight: map-get($font-weights, medium);
+            color: map-get($text-colors, primary);
+            margin-bottom: map-get($spacing, 2);
+        }
+        
+        .stat-description {
+            font-size: map-get($font-sizes, sm);
+            color: map-get($text-colors, secondary);
+            line-height: 1.5;
+        }
+    }
+}
+
+// Export Cases Components
+.export-cases-section {
+    padding: map-get($spacing, 20) 0;
+    background: map-get($background-colors, section);
+    
+    .export-cases-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: map-get($spacing, 8);
+        margin-top: map-get($spacing, 12);
+        
+        @include respond-below(md) {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .export-case-card {
+        @include export-card;
+        
+        .case-id {
+            font-size: map-get($font-sizes, lg);
+            font-weight: map-get($font-weights, semibold);
+            @include flex-center;
+            gap: map-get($spacing, 2);
+        }
+        
+        .case-status {
+            @include flex-center;
+            gap: map-get($spacing, 2);
+            font-size: map-get($font-sizes, sm);
+            padding: map-get($spacing, 1) map-get($spacing, 3);
+            border-radius: map-get($border-radius, full);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .case-content {
+            padding: map-get($spacing, 6);
+        }
+        
+        .case-title {
+            font-size: map-get($font-sizes, xl);
+            font-weight: map-get($font-weights, medium);
+            color: map-get($text-colors, primary);
+            margin-bottom: map-get($spacing, 4);
+            line-height: 1.4;
+        }
+        
+        .case-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: map-get($spacing, 3);
+            margin-bottom: map-get($spacing, 6);
+            
+            @include respond-below(sm) {
+                grid-template-columns: 1fr;
+            }
+            
+            .meta-item {
+                @include flex-center;
+                gap: map-get($spacing, 2);
+                font-size: map-get($font-sizes, sm);
+                color: map-get($text-colors, secondary);
+                
+                i {
+                    color: map-get($colors, primary);
+                    width: 16px;
+                }
+            }
+        }
+        
+        .case-timeline {
+            margin-bottom: map-get($spacing, 6);
+            
+            .timeline-item {
+                display: flex;
+                align-items: center;
+                gap: map-get($spacing, 4);
+                margin-bottom: map-get($spacing, 3);
+                padding: map-get($spacing, 2);
+                border-radius: map-get($border-radius, md);
+                transition: all map-get($transitions, fast);
+                
+                &:hover {
+                    background: map-get($background-colors, section);
+                }
+                
+                .timeline-icon {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    @include flex-center;
+                    color: map-get($text-colors, white);
+                    font-size: map-get($font-sizes, sm);
+                    flex-shrink: 0;
+                    
+                    &.status-completed {
+                        background: map-get($colors, accent);
+                    }
+                    
+                    &.status-in_progress {
+                        background: map-get($colors, secondary);
+                    }
+                    
+                    &.status-pending {
+                        background: #d1d5db;
+                    }
+                }
+                
+                .timeline-content {
+                    flex: 1;
+                    
+                    .timeline-title {
+                        font-weight: map-get($font-weights, medium);
+                        color: map-get($text-colors, primary);
+                        margin-bottom: map-get($spacing, 1);
+                        font-size: map-get($font-sizes, sm);
+                    }
+                    
+                    .timeline-date {
+                        font-size: map-get($font-sizes, xs);
+                        color: map-get($text-colors, secondary);
+                    }
+                }
+            }
+        }
+        
+        .case-actions {
+            display: flex;
+            gap: map-get($spacing, 3);
+            
+            @include respond-below(sm) {
+                flex-direction: column;
+            }
+            
+            .btn-modern {
+                flex: 1;
+                font-size: map-get($font-sizes, sm);
+                padding: map-get($spacing, 3) map-get($spacing, 4);
+            }
+        }
+    }
+}
+
+// Testimonials Components
+.success-stories-section {
+    margin-top: map-get($spacing, 16);
+    padding: map-get($spacing, 12) 0;
+    background: linear-gradient(135deg, map-get($background-colors, section) 0%, map-get($background-colors, light) 100%);
+    border-radius: map-get($border-radius, 2xl);
+    border: 1px solid #f1f5f9;
+    
+    .stories-header {
+        text-align: center;
+        margin-bottom: map-get($spacing, 12);
+        
+        h3 {
+            font-size: map-get($font-sizes, 3xl);
+            font-weight: map-get($font-weights, medium);
+            color: map-get($text-colors, primary);
+            margin-bottom: map-get($spacing, 2);
+        }
+        
+        p {
+            color: map-get($text-colors, secondary);
+            font-size: map-get($font-sizes, lg);
+        }
+    }
+    
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: map-get($spacing, 8);
+        margin-bottom: map-get($spacing, 12);
+        
+        @include respond-below(md) {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .testimonial-card {
+        @include testimonial-card;
+        padding: map-get($spacing, 8);
+        
+        .testimonial-content {
+            margin-bottom: map-get($spacing, 6);
+        }
+        
+        .testimonial-text {
+            font-size: map-get($font-sizes, lg);
+            line-height: 1.7;
+            color: map-get($text-colors, primary);
+            margin-bottom: map-get($spacing, 6);
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: map-get($spacing, 4);
+            
+            .author-avatar {
+                width: 50px;
+                height: 50px;
+                background: map-get($gradients, primary);
+                border-radius: 50%;
+                @include flex-center;
+                color: map-get($text-colors, white);
+                font-size: map-get($font-sizes, xl);
+                flex-shrink: 0;
+            }
+            
+            .author-info {
+                flex: 1;
+                
+                .author-name {
+                    font-weight: map-get($font-weights, semibold);
+                    color: map-get($text-colors, primary);
+                    margin-bottom: map-get($spacing, 1);
+                }
+                
+                .author-role {
+                    font-size: map-get($font-sizes, sm);
+                    color: map-get($text-colors, secondary);
+                }
+            }
+        }
+        
+        .testimonial-rating {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: map-get($spacing, 4);
+            border-top: 1px solid #f3f4f6;
+            
+            .stars {
+                display: flex;
+                gap: map-get($spacing, 1);
+                
+                i {
+                    color: #fbbf24;
+                    font-size: map-get($font-sizes, base);
+                }
+            }
+            
+            .rating-text {
+                font-weight: map-get($font-weights, semibold);
+                color: map-get($text-colors, primary);
+            }
+        }
+    }
+}
+
+// Partner Network Components
+.partner-network-section {
+    margin-top: map-get($spacing, 12);
+    padding: map-get($spacing, 12) 0;
+    background: linear-gradient(135deg, map-get($background-colors, light) 0%, map-get($background-colors, section) 100%);
+    border-radius: map-get($border-radius, 2xl);
+    border: 1px solid #f1f5f9;
+    
+    .partner-header {
+        text-align: center;
+        margin-bottom: map-get($spacing, 12);
+        
+        h3 {
+            font-size: map-get($font-sizes, 3xl);
+            font-weight: map-get($font-weights, medium);
+            color: map-get($text-colors, primary);
+            margin-bottom: map-get($spacing, 2);
+        }
+        
+        p {
+            color: map-get($text-colors, secondary);
+            font-size: map-get($font-sizes, lg);
+        }
+    }
+    
+    .partner-cities {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: map-get($spacing, 8);
+        
+        @include respond-below(sm) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        @include respond-below(xs) {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .city-card {
+        @include card-modern;
+        padding: map-get($spacing, 8) map-get($spacing, 6);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: map-get($gradients, success);
+        }
+        
+        .city-icon {
+            width: 60px;
+            height: 60px;
+            background: map-get($gradients, success);
+            border-radius: 50%;
+            @include flex-center;
+            margin: 0 auto map-get($spacing, 4);
+            color: map-get($text-colors, white);
+            font-size: map-get($font-sizes, xl);
+            transition: all map-get($transitions, normal);
+        }
+        
+        &:hover .city-icon {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+        
+        h4 {
+            font-size: map-get($font-sizes, xl);
+            font-weight: map-get($font-weights, semibold);
+            color: map-get($text-colors, primary);
+            margin-bottom: map-get($spacing, 2);
+        }
+        
+        p {
+            color: map-get($text-colors, secondary);
+            margin-bottom: map-get($spacing, 4);
+            font-size: map-get($font-sizes, sm);
+        }
+        
+        .city-stats {
+            padding: map-get($spacing, 3);
+            background: map-get($background-colors, section);
+            border-radius: map-get($border-radius, lg);
+            border: 1px solid #e5e7eb;
+            
+            span {
+                font-size: map-get($font-sizes, sm);
+                font-weight: map-get($font-weights, medium);
+                color: map-get($colors, primary);
+            }
+        }
+    }
+}
+
+// Modal Components
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    @include flex-center;
+    z-index: map-get($z-index, modal);
+    opacity: 0;
+    visibility: hidden;
+    transition: all map-get($transitions, normal);
+    
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.modal {
+    background: map-get($background-colors, light);
+    border-radius: map-get($border-radius, xl);
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(-20px) scale(0.95);
+    transition: transform map-get($transitions, normal);
+    
+    .modal-overlay.show & {
+        transform: translateY(0) scale(1);
+    }
+    
+    .modal-header {
+        padding: map-get($spacing, 6);
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        h3 {
+            margin: 0;
+            font-size: map-get($font-sizes, xl);
+            font-weight: map-get($font-weights, semibold);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: map-get($font-sizes, xl);
+            cursor: pointer;
+            color: map-get($text-colors, secondary);
+            padding: map-get($spacing, 2);
+            border-radius: map-get($border-radius, md);
+            transition: all map-get($transitions, fast);
+            
+            &:hover {
+                background: #f3f4f6;
+                color: map-get($text-colors, primary);
+            }
+        }
+    }
+    
+    .modal-body {
+        padding: map-get($spacing, 6);
+    }
+    
+    .modal-footer {
+        padding: map-get($spacing, 6);
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        gap: map-get($spacing, 4);
+        justify-content: flex-end;
+        
+        @include respond-below(sm) {
+            flex-direction: column;
+        }
+    }
+}
+
+// Form Components
+.form-group {
+    margin-bottom: map-get($spacing, 4);
+    
+    label {
+        display: block;
+        margin-bottom: map-get($spacing, 2);
+        font-weight: map-get($font-weights, medium);
+        color: map-get($text-colors, primary);
+    }
+    
+    input,
+    select,
+    textarea {
+        @include input-modern;
+    }
+    
+    .form-help {
+        font-size: map-get($font-sizes, sm);
+        color: map-get($text-colors, secondary);
+        margin-top: map-get($spacing, 1);
+    }
+    
+    .form-error {
+        font-size: map-get($font-sizes, sm);
+        color: map-get($colors, error);
+        margin-top: map-get($spacing, 1);
+    }
+}
+
+// News Section Components - Modern Design
+.news-modern-section {
+    padding: map-get($spacing, 20) 0;
+    background: map-get($background-colors, light);
+    
+    .news-modern-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: map-get($spacing, 8);
+        margin-top: map-get($spacing, 12);
+        
+        @include respond-below(md) {
+            grid-template-columns: 1fr;
+            gap: map-get($spacing, 6);
+        }
+    }
+    
+    .news-card-modern {
+        @include card-modern;
+        overflow: hidden;
+        position: relative;
+        
+        &:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border-color: map-get($colors, primary-light);
+        }
+        
+        .news-card-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            
+            .image-link {
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: relative;
+            }
+            
+            .news-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform map-get($transitions, slow);
+            }
+            
+            .image-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.9) 100%);
+                @include flex-center;
+                opacity: 0;
+                transition: all map-get($transitions, normal);
+                
+                .overlay-content {
+                    text-align: center;
+                    color: map-get($text-colors, white);
+                    
+                    i {
+                        font-size: map-get($font-sizes, 2xl);
+                        margin-bottom: map-get($spacing, 2);
+                        display: block;
+                    }
+                    
+                    span {
+                        font-size: map-get($font-sizes, sm);
+                        font-weight: map-get($font-weights, medium);
+                    }
+                }
+            }
+            
+            &:hover {
+                .news-image {
+                    transform: scale(1.08);
+                }
+                
+                .image-overlay {
+                    opacity: 1;
+                }
+            }
+            
+            .news-placeholder {
+                width: 100%;
+                height: 100%;
+                background: map-get($gradients, primary);
+                @include flex-center;
+                color: map-get($text-colors, white);
+                font-size: map-get($font-sizes, 4xl);
+            }
+            
+            .news-card-meta {
+                position: absolute;
+                top: map-get($spacing, 4);
+                left: map-get($spacing, 4);
+                right: map-get($spacing, 4);
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                z-index: 2;
+                
+                .news-date {
+                    background: rgba(255, 255, 255, 0.95);
+                    padding: map-get($spacing, 2) map-get($spacing, 3);
+                    border-radius: map-get($border-radius, full);
+                    font-size: map-get($font-sizes, xs);
+                    font-weight: map-get($font-weights, medium);
+                    color: map-get($text-colors, primary);
+                    @include flex-center;
+                    gap: map-get($spacing, 1);
+                    backdrop-filter: blur(10px);
+                    
+                    i {
+                        color: map-get($colors, primary);
+                    }
+                }
+                
+                .news-category {
+                    .category-badge {
+                        background: map-get($gradients, secondary);
+                        color: map-get($text-colors, white);
+                        padding: map-get($spacing, 1) map-get($spacing, 3);
+                        border-radius: map-get($border-radius, full);
+                        font-size: map-get($font-sizes, xs);
+                        font-weight: map-get($font-weights, medium);
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                    }
+                }
+            }
+        }
+        
+        .news-card-content {
+            padding: map-get($spacing, 6);
+            
+            .news-card-title {
+                margin-bottom: map-get($spacing, 3);
+                
+                a {
+                    font-size: map-get($font-sizes, xl);
+                    font-weight: map-get($font-weights, medium);
+                    color: map-get($text-colors, primary);
+                    text-decoration: none;
+                    line-height: 1.4;
+                    transition: color map-get($transitions, fast);
+                    
+                    &:hover {
+                        color: map-get($colors, primary);
+                    }
+                }
+            }
+            
+            .news-card-excerpt {
+                font-size: map-get($font-sizes, base);
+                color: map-get($text-colors, secondary);
+                line-height: 1.6;
+                margin-bottom: map-get($spacing, 6);
+                font-weight: map-get($font-weights, normal);
+            }
+            
+            .news-card-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: map-get($spacing, 4);
+                border-top: 1px solid #f3f4f6;
+                
+                @include respond-below(sm) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: map-get($spacing, 3);
+                }
+                
+                .news-author {
+                    display: flex;
+                    align-items: center;
+                    gap: map-get($spacing, 3);
+                    
+                    .author-avatar {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+                    
+                    .author-info {
+                        .author-name {
+                            font-size: map-get($font-sizes, sm);
+                            font-weight: map-get($font-weights, medium);
+                            color: map-get($text-colors, primary);
+                            margin-bottom: map-get($spacing, 1);
+                            display: block;
+                        }
+                        
+                        .read-time {
+                            font-size: map-get($font-sizes, xs);
+                            color: map-get($text-colors, secondary);
+                            @include flex-center;
+                            gap: map-get($spacing, 1);
+                            
+                            i {
+                                color: map-get($colors, primary);
+                            }
+                        }
+                    }
+                }
+                
+                .news-read-more {
+                    @include flex-center;
+                    gap: map-get($spacing, 2);
+                    font-size: map-get($font-sizes, sm);
+                    font-weight: map-get($font-weights, medium);
+                    color: map-get($colors, primary);
+                    text-decoration: none;
+                    padding: map-get($spacing, 2) map-get($spacing, 4);
+                    border-radius: map-get($border-radius, full);
+                    background: rgba(59, 130, 246, 0.1);
+                    transition: all map-get($transitions, fast);
+                    
+                    &:hover {
+                        background: map-get($colors, primary);
+                        color: map-get($text-colors, white);
+                        transform: translateX(4px);
+                    }
+                    
+                    i {
+                        transition: transform map-get($transitions, fast);
+                    }
+                    
+                    &:hover i {
+                        transform: translateX(2px);
+                    }
+                }
+            }
+        }
+    }
+    
+    .no-news-modern {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: map-get($spacing, 16) map-get($spacing, 8);
+        
+        .no-content-icon {
+            width: 100px;
+            height: 100px;
+            background: map-get($gradients, primary);
+            border-radius: 50%;
+            @include flex-center;
+            margin: 0 auto map-get($spacing, 6);
+            color: map-get($text-colors, white);
+            font-size: map-get($font-sizes, 4xl);
+        }
+        
+        h3 {
+            font-size: map-get($font-sizes, 2xl);
+            font-weight: map-get($font-weights, medium);
+            color: map-get($text-colors, primary);
+            margin-bottom: map-get($spacing, 3);
+        }
+        
+        p {
+            font-size: map-get($font-sizes, lg);
+            color: map-get($text-colors, secondary);
+            margin-bottom: map-get($spacing, 6);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    
+    .news-section-footer {
+        margin-top: map-get($spacing, 12);
+        padding: map-get($spacing, 12);
+        background: linear-gradient(135deg, map-get($background-colors, section) 0%, #e2e8f0 100%);
+        border-radius: map-get($border-radius, 2xl);
+        text-align: center;
+        border: 1px solid #f1f5f9;
+        
+        .footer-content {
+            margin-bottom: map-get($spacing, 8);
+            
+            h4 {
+                font-size: map-get($font-sizes, 2xl);
+                font-weight: map-get($font-weights, medium);
+                color: map-get($text-colors, primary);
+                margin-bottom: map-get($spacing, 3);
+            }
+            
+            p {
+                font-size: map-get($font-sizes, lg);
+                color: map-get($text-colors, secondary);
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+        
+        .footer-actions {
+            display: flex;
+            justify-content: center;
+            gap: map-get($spacing, 4);
+            
+            @include respond-below(sm) {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    }
+}
+
+// Notification Components
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: map-get($background-colors, light);
+    border-radius: map-get($border-radius, md);
+    box-shadow: map-get($shadows, xl);
+    padding: map-get($spacing, 4) map-get($spacing, 6);
+    display: flex;
+    align-items: center;
+    gap: map-get($spacing, 4);
+    z-index: map-get($z-index, toast);
+    transform: translateX(100%);
+    transition: transform map-get($transitions, normal);
+    max-width: 400px;
+    
+    &.show {
+        transform: translateX(0);
+    }
+    
+    &.notification-success {
+        border-left: 4px solid map-get($colors, success);
+    }
+    
+    &.notification-error {
+        border-left: 4px solid map-get($colors, error);
+    }
+    
+    &.notification-info {
+        border-left: 4px solid map-get($colors, info);
+    }
+    
+    .notification-content {
+        display: flex;
+        align-items: center;
+        gap: map-get($spacing, 2);
+        flex: 1;
+    }
+    
+    .notification-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: map-get($text-colors, secondary);
+        padding: map-get($spacing, 1);
+    }
+}
+// Sli
+de Content Animations for Hero Slider
+.slide-content.slide-animate {
+    .slide-title {
+        animation: slideInUp 0.8s ease 0.2s both;
+    }
+    
+    .slide-description {
+        animation: slideInUp 0.8s ease 0.4s both;
+    }
+    
+    .slide-buttons {
+        animation: slideInUp 0.8s ease 0.6s both;
+        
+        .btn-modern {
+            animation: slideInUp 0.8s ease 0.8s both;
+            
+            &:nth-child(2) {
+                animation-delay: 1s;
+            }
+        }
+    }
+}
+
+// Keyframe Animations for Slider
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+// Additional Slider Improvements
+.hero-slider-section {
+    // Ensure proper loading state
+    &.loading {
+        .swiper-slide {
+            opacity: 0;
+        }
+    }
+    
+    // Better mobile experience
+    @include respond-below(sm) {
+        .slide-content {
+            padding: 0 map-get($spacing, 3);
+            
+            .slide-title {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                margin-bottom: map-get($spacing, 3);
+            }
+            
+            .slide-description {
+                font-size: clamp(1rem, 4vw, 1.2rem);
+                margin-bottom: map-get($spacing, 5);
+            }
+            
+            .slide-buttons {
+                flex-direction: column;
+                gap: map-get($spacing, 2);
+                
+                .btn-modern {
+                    width: 100%;
+                    max-width: 280px;
+                }
+            }
+        }
+    }
+}

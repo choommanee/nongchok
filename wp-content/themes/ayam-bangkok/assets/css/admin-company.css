@@ -1,0 +1,384 @@
+/**
+ * Admin Company Settings Styles
+ * สไตล์สำหรับหน้าตั้งค่าข้อมูลบริษัทใน WordPress Admin
+ */
+
+/* Global Admin Styles */
+.acf-admin-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 0;
+}
+
+.acf-admin-page .wrap {
+    background: #f8fafc;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Header Section */
+.company-admin-header {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: white;
+    padding: 30px 40px;
+    margin: 0 0 30px 0;
+    box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.company-admin-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+    opacity: 0.3;
+}
+
+.company-admin-header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.company-admin-header .dashicons {
+    font-size: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.company-admin-subtitle {
+    margin: 10px 0 0 0;
+    font-size: 16px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+/* Main Content Container */
+.acf-admin-page .acf-fields {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+/* Field Groups */
+.acf-field {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 25px 30px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.acf-field:hover {
+    background: #f8fafc;
+}
+
+.acf-field:last-child {
+    border-bottom: none;
+}
+
+/* Field Labels */
+.acf-field .acf-label {
+    margin-bottom: 15px;
+}
+
+.acf-field .acf-label label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.acf-field .acf-label label::before {
+    content: '📝';
+    font-size: 18px;
+}
+
+/* Text Inputs */
+.acf-field input[type="text"],
+.acf-field input[type="email"],
+.acf-field input[type="url"],
+.acf-field textarea {
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.acf-field input[type="text"]:focus,
+.acf-field input[type="email"]:focus,
+.acf-field input[type="url"]:focus,
+.acf-field textarea:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Textarea Specific */
+.acf-field textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.6;
+}
+
+/* Image Upload Fields */
+.acf-field[data-type="image"] {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-left: 4px solid #0ea5e9;
+}
+
+.acf-field[data-type="image"] .acf-label label::before {
+    content: '🖼️';
+}
+
+.acf-image-uploader {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: #f8fafc;
+}
+
+.acf-image-uploader:hover {
+    border-color: #3b82f6;
+    background: #f0f9ff;
+}
+
+.acf-image-uploader .acf-button {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.acf-image-uploader .acf-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Repeater Fields */
+.acf-field[data-type="repeater"] {
+    background: linear-gradient(135deg, #fef7ff 0%, #fae8ff 100%);
+    border-left: 4px solid #a855f7;
+}
+
+.acf-field[data-type="repeater"] .acf-label label::before {
+    content: '📋';
+}
+
+.acf-repeater {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.acf-repeater .acf-row {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.acf-repeater .acf-row:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.acf-repeater .acf-row-handle {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: move;
+    transition: all 0.3s ease;
+}
+
+.acf-repeater .acf-row-handle:hover {
+    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+    transform: scale(1.05);
+}
+
+/* Add Row Button */
+.acf-repeater .acf-button {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.acf-repeater .acf-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.acf-repeater .acf-button::before {
+    content: '➕';
+    font-size: 14px;
+}
+
+/* Remove Row Button */
+.acf-repeater .acf-icon.-minus {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    border-radius: 6px;
+    padding: 6px;
+    transition: all 0.3s ease;
+}
+
+.acf-repeater .acf-icon.-minus:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: scale(1.1);
+}
+
+/* Submit Button */
+.acf-admin-page input[type="submit"] {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
+    margin: 30px 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.acf-admin-page input[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+    background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+}
+
+/* Success Messages */
+.acf-notice {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border: 1px solid #10b981;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin: 20px;
+    color: #065f46;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.acf-notice::before {
+    content: '✅ ';
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .company-admin-header {
+        padding: 20px;
+    }
+    
+    .company-admin-header h1 {
+        font-size: 24px;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .acf-admin-page .acf-fields {
+        margin: 10px;
+        border-radius: 12px;
+    }
+    
+    .acf-field {
+        padding: 20px 15px;
+    }
+    
+    .acf-repeater .acf-row {
+        padding: 15px;
+    }
+}
+
+/* Loading Animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.acf-loading {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom Field Type Indicators */
+.acf-field[data-type="text"] .acf-label label::before {
+    content: '📝';
+}
+
+.acf-field[data-type="textarea"] .acf-label label::before {
+    content: '📄';
+}
+
+.acf-field[data-type="email"] .acf-label label::before {
+    content: '📧';
+}
+
+.acf-field[data-type="url"] .acf-label label::before {
+    content: '🔗';
+}
+
+/* Tooltip Styles */
+.acf-tooltip {
+    background: #1f2937;
+    color: white;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: none;
+}
+
+.acf-tooltip::before {
+    border-top-color: #1f2937;
+}

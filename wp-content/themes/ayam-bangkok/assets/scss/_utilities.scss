@@ -1,0 +1,349 @@
+// ==========================================================================
+// Utility Classes - Ayam Bangkok Export Theme
+// ==========================================================================
+
+// Display Utilities
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+.d-flex { display: flex !important; }
+.d-inline-flex { display: inline-flex !important; }
+.d-grid { display: grid !important; }
+
+// Flex Utilities
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+.flex-nowrap { flex-wrap: nowrap !important; }
+.justify-start { justify-content: flex-start !important; }
+.justify-center { justify-content: center !important; }
+.justify-end { justify-content: flex-end !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-around { justify-content: space-around !important; }
+.align-start { align-items: flex-start !important; }
+.align-center { align-items: center !important; }
+.align-end { align-items: flex-end !important; }
+.align-stretch { align-items: stretch !important; }
+
+// Text Utilities
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+.text-justify { text-align: justify !important; }
+
+// Text Colors
+@each $name, $color in $text-colors {
+    .text-#{$name} { color: $color !important; }
+}
+
+@each $name, $color in $colors {
+    .text-#{$name} { color: $color !important; }
+}
+
+// Background Colors
+@each $name, $color in $colors {
+    .bg-#{$name} { background-color: $color !important; }
+}
+
+@each $name, $color in $background-colors {
+    .bg-#{$name} { background: $color !important; }
+}
+
+// Background Gradients
+@each $name, $gradient in $gradients {
+    .bg-gradient-#{$name} { background: $gradient !important; }
+}
+
+// Font Weights
+@each $name, $weight in $font-weights {
+    .font-#{$name} { font-weight: $weight !important; }
+}
+
+// Font Sizes
+@each $name, $size in $font-sizes {
+    .text-#{$name} { font-size: $size !important; }
+}
+
+// Spacing Utilities (Margin & Padding)
+@each $name, $size in $spacing {
+    // Margin
+    .m-#{$name} { margin: $size !important; }
+    .mt-#{$name} { margin-top: $size !important; }
+    .mr-#{$name} { margin-right: $size !important; }
+    .mb-#{$name} { margin-bottom: $size !important; }
+    .ml-#{$name} { margin-left: $size !important; }
+    .mx-#{$name} { 
+        margin-left: $size !important; 
+        margin-right: $size !important; 
+    }
+    .my-#{$name} { 
+        margin-top: $size !important; 
+        margin-bottom: $size !important; 
+    }
+    
+    // Padding
+    .p-#{$name} { padding: $size !important; }
+    .pt-#{$name} { padding-top: $size !important; }
+    .pr-#{$name} { padding-right: $size !important; }
+    .pb-#{$name} { padding-bottom: $size !important; }
+    .pl-#{$name} { padding-left: $size !important; }
+    .px-#{$name} { 
+        padding-left: $size !important; 
+        padding-right: $size !important; 
+    }
+    .py-#{$name} { 
+        padding-top: $size !important; 
+        padding-bottom: $size !important; 
+    }
+}
+
+// Border Radius
+@each $name, $radius in $border-radius {
+    .rounded-#{$name} { border-radius: $radius !important; }
+}
+
+// Shadows
+@each $name, $shadow in $shadows {
+    .shadow-#{$name} { box-shadow: $shadow !important; }
+}
+
+// Position Utilities
+.position-static { position: static !important; }
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.position-fixed { position: fixed !important; }
+.position-sticky { position: sticky !important; }
+
+// Width & Height
+.w-auto { width: auto !important; }
+.w-full { width: 100% !important; }
+.w-screen { width: 100vw !important; }
+.h-auto { height: auto !important; }
+.h-full { height: 100% !important; }
+.h-screen { height: 100vh !important; }
+
+// Width percentages
+@for $i from 1 through 12 {
+    .w-#{$i}\/12 { width: percentage($i / 12) !important; }
+}
+
+// Overflow
+.overflow-auto { overflow: auto !important; }
+.overflow-hidden { overflow: hidden !important; }
+.overflow-visible { overflow: visible !important; }
+.overflow-scroll { overflow: scroll !important; }
+
+// Z-Index
+@each $name, $index in $z-index {
+    .z-#{$name} { z-index: $index !important; }
+}
+
+// Opacity
+.opacity-0 { opacity: 0 !important; }
+.opacity-25 { opacity: 0.25 !important; }
+.opacity-50 { opacity: 0.5 !important; }
+.opacity-75 { opacity: 0.75 !important; }
+.opacity-100 { opacity: 1 !important; }
+
+// Cursor
+.cursor-auto { cursor: auto !important; }
+.cursor-default { cursor: default !important; }
+.cursor-pointer { cursor: pointer !important; }
+.cursor-wait { cursor: wait !important; }
+.cursor-text { cursor: text !important; }
+.cursor-move { cursor: move !important; }
+.cursor-not-allowed { cursor: not-allowed !important; }
+
+// User Select
+.select-none { user-select: none !important; }
+.select-text { user-select: text !important; }
+.select-all { user-select: all !important; }
+.select-auto { user-select: auto !important; }
+
+// Pointer Events
+.pointer-events-none { pointer-events: none !important; }
+.pointer-events-auto { pointer-events: auto !important; }
+
+// Transform
+.transform { transform: translateZ(0) !important; }
+.transform-none { transform: none !important; }
+.scale-0 { transform: scale(0) !important; }
+.scale-50 { transform: scale(0.5) !important; }
+.scale-75 { transform: scale(0.75) !important; }
+.scale-90 { transform: scale(0.9) !important; }
+.scale-95 { transform: scale(0.95) !important; }
+.scale-100 { transform: scale(1) !important; }
+.scale-105 { transform: scale(1.05) !important; }
+.scale-110 { transform: scale(1.1) !important; }
+.scale-125 { transform: scale(1.25) !important; }
+.scale-150 { transform: scale(1.5) !important; }
+
+// Transition
+.transition-none { transition: none !important; }
+.transition-all { transition: all map-get($transitions, normal) !important; }
+.transition-colors { transition: color, background-color, border-color map-get($transitions, normal) !important; }
+.transition-opacity { transition: opacity map-get($transitions, normal) !important; }
+.transition-shadow { transition: box-shadow map-get($transitions, normal) !important; }
+.transition-transform { transition: transform map-get($transitions, normal) !important; }
+
+// Animation Classes
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce {
+    animation: bounce 1s infinite;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+.animate-ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+// Export Business Specific Utilities
+.export-step-1 { @include process-step(1); }
+.export-step-2 { @include process-step(2); }
+.export-step-3 { @include process-step(3); }
+.export-step-4 { @include process-step(4); }
+.export-step-5 { @include process-step(5); }
+.export-step-6 { @include process-step(6); }
+.export-step-7 { @include process-step(7); }
+
+// Status Badges
+@each $name, $color in $status-colors {
+    .status-#{$name} { @include status-badge($name); }
+}
+
+// Button Utilities
+.btn { @include button-modern; }
+.btn-primary { @include button-modern(primary); }
+.btn-secondary { @include button-modern(secondary); }
+.btn-success { @include button-modern(success); }
+.btn-outline { @include button-modern(outline); }
+.btn-sm { @include button-modern(primary, sm); }
+.btn-lg { @include button-modern(primary, lg); }
+
+// Card Utilities
+.card { @include card-modern; }
+.card-export { @include export-card; }
+.card-testimonial { @include testimonial-card; }
+
+// Hover Effects
+.hover-lift {
+    @include hover-lift;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-rotate:hover {
+    transform: rotate(5deg);
+}
+
+// Glass Effect
+.glass { @include glass-effect; }
+.glass-light { @include glass-effect(0.05); }
+.glass-medium { @include glass-effect(0.1); }
+.glass-heavy { @include glass-effect(0.2); }
+
+// Gradient Text
+.gradient-text { @include gradient-text; }
+.gradient-text-secondary { @include gradient-text(map-get($gradients, secondary)); }
+.gradient-text-success { @include gradient-text(map-get($gradients, success)); }
+
+// Truncate Text
+.truncate { @include truncate; }
+.line-clamp-1 { @include line-clamp(1); }
+.line-clamp-2 { @include line-clamp(2); }
+.line-clamp-3 { @include line-clamp(3); }
+
+// Aspect Ratios
+.aspect-square { @include aspect-ratio(1, 1); }
+.aspect-video { @include aspect-ratio(16, 9); }
+.aspect-photo { @include aspect-ratio(4, 3); }
+
+// Container
+.container { @include container; }
+.container-sm { @include container(map-get($container-max-widths, sm)); }
+.container-md { @include container(map-get($container-max-widths, md)); }
+.container-lg { @include container(map-get($container-max-widths, lg)); }
+.container-xl { @include container(map-get($container-max-widths, xl)); }
+
+// Grid System
+.row { @include make-row; }
+
+@for $i from 1 through $grid-columns {
+    .col-#{$i} { @include make-col($i); }
+}
+
+.col { @include make-col; }
+
+// Responsive Utilities
+@each $breakpoint, $width in $breakpoints {
+    @include respond-to($breakpoint) {
+        .d-#{$breakpoint}-none { display: none !important; }
+        .d-#{$breakpoint}-block { display: block !important; }
+        .d-#{$breakpoint}-flex { display: flex !important; }
+        .d-#{$breakpoint}-grid { display: grid !important; }
+        
+        .text-#{$breakpoint}-left { text-align: left !important; }
+        .text-#{$breakpoint}-center { text-align: center !important; }
+        .text-#{$breakpoint}-right { text-align: right !important; }
+        
+        @for $i from 1 through $grid-columns {
+            .col-#{$breakpoint}-#{$i} { @include make-col($i); }
+        }
+    }
+}
+
+// Print Utilities
+@media print {
+    .print-hidden { display: none !important; }
+    .print-visible { display: block !important; }
+}
+
+// Accessibility Utilities
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.focus-visible:focus {
+    outline: 2px solid map-get($colors, primary) !important;
+    outline-offset: 2px !important;
+}
+
+// High Contrast Mode
+@media (prefers-contrast: high) {
+    .high-contrast-border {
+        border: 2px solid currentColor !important;
+    }
+}
+
+// Reduced Motion
+@media (prefers-reduced-motion: reduce) {
+    .motion-reduce {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+// Dark Mode (Future Enhancement)
+@media (prefers-color-scheme: dark) {
+    .dark-mode-invert {
+        filter: invert(1);
+    }
+}

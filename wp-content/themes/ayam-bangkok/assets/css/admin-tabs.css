@@ -1,0 +1,220 @@
+/* Admin Tabs Styles for Company Settings */
+.wrap {
+    margin: 20px 0;
+}
+
+#ayam-company-tabs {
+    margin-top: 20px;
+}
+
+.nav-tab-wrapper {
+    border-bottom: 1px solid #ccd0d4;
+    margin: 0 0 20px;
+    padding: 0;
+}
+
+.nav-tab {
+    background: #f1f1f1;
+    border: 1px solid #ccd0d4;
+    border-bottom: none;
+    color: #555;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 0 5px -1px 0;
+    padding: 8px 12px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav-tab:hover {
+    background-color: #fff;
+    color: #444;
+}
+
+.nav-tab-active {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    color: #000;
+}
+
+.tab-content {
+    display: none;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-top: none;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Sortable Items */
+.sortable-items {
+    margin: 20px 0;
+}
+
+.timeline-item,
+.award-item,
+.team-item,
+.value-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding: 15px;
+    position: relative;
+}
+
+.timeline-item:hover,
+.award-item:hover,
+.team-item:hover,
+.value-item:hover {
+    background: #f5f5f5;
+    cursor: move;
+}
+
+.timeline-item .form-table,
+.award-item .form-table,
+.team-item .form-table,
+.value-item .form-table {
+    margin: 0;
+}
+
+.timeline-item .form-table th,
+.award-item .form-table th,
+.team-item .form-table th,
+.value-item .form-table th {
+    width: 150px;
+    padding: 10px 0;
+    font-weight: 600;
+}
+
+.timeline-item .form-table td,
+.award-item .form-table td,
+.team-item .form-table td,
+.value-item .form-table td {
+    padding: 10px 0;
+}
+
+.remove-item {
+    background: #dc3232;
+    border-color: #dc3232;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.remove-item:hover {
+    background: #a00;
+    border-color: #a00;
+}
+
+/* Add Item Buttons */
+.add-timeline-item,
+.add-award-item,
+.add-team-item,
+.add-value-item {
+    background: #0073aa;
+    border-color: #0073aa;
+    color: #fff;
+    margin-top: 15px;
+}
+
+.add-timeline-item:hover,
+.add-award-item:hover,
+.add-team-item:hover,
+.add-value-item:hover {
+    background: #005a87;
+    border-color: #005a87;
+}
+
+/* Image Upload */
+.upload-image-button {
+    margin-left: 10px;
+}
+
+.image-preview {
+    margin-top: 10px;
+}
+
+.image-preview img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-width: 200px;
+    height: auto;
+}
+
+/* Form Styling */
+.form-table input[type="text"],
+.form-table input[type="email"],
+.form-table input[type="url"],
+.form-table textarea {
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-table .small-text {
+    width: 80px;
+}
+
+.form-table .regular-text {
+    width: 300px;
+}
+
+/* Section Headers */
+.timeline-section h3,
+.awards-section h3,
+.team-section h3,
+.values-section h3 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Drag Handle */
+.sortable-items .ui-sortable-handle::before {
+    content: "⋮⋮";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 16px;
+    cursor: move;
+}
+
+/* Loading State */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Success Message */
+.notice.notice-success {
+    border-left-color: #46b450;
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .nav-tab {
+        display: block;
+        margin: 0 0 5px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .form-table th,
+    .form-table td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    .form-table th {
+        border-bottom: none;
+        font-weight: 600;
+    }
+}
