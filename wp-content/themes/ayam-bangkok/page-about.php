@@ -7,46 +7,6 @@
 get_header(); ?>
 
 <main id="primary" class="site-main wix-style-homepage">
-    
-    <!-- Hero Section -->
-    <section class="wix-hero-section">
-        <!-- Hero Text -->
-        <div class="hero-text-section">
-            <div class="container">
-                <div class="hero-text-center">
-                    <h1 class="hero-main-title" data-aos="fade-up">Welcome to<br>AYAM BANGKOK</h1>
-                    <p class="hero-main-subtitle" data-aos="fade-up" data-aos-delay="200">
-                        Layanan pengiriman ayam lokal Thailand dengan pesawat terbang
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Hero Slider -->
-        <div class="hero-slider-section">
-            <div class="swiper hero-swiper-wix">
-                <div class="swiper-wrapper">
-                    <?php
-                    // Hero slider images in order
-                    $slider_images = [
-                        get_template_directory_uri() . '/assets/images/hero-slides/slide-1.jpg',
-                        get_template_directory_uri() . '/assets/images/hero-slides/slide-2.jpg',
-                        get_template_directory_uri() . '/assets/images/hero-slides/slide-3.jpg',
-                    ];
-                    
-                    foreach ($slider_images as $image) :
-                    ?>
-                        <div class="swiper-slide">
-                            <img src="<?php echo esc_url($image); ?>" alt="Ayam Bangkok">
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                
-                <!-- Navigation -->
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </section>
 
     <!-- Our Business Section -->
     <section class="wix-about-intro">
@@ -184,6 +144,11 @@ get_header(); ?>
                         </div>
                     </form>
                 </div>
+            </div>
+            
+            <!-- Google Map -->
+            <div class="contact-map" style="margin-top: 60px;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.5234!2d100.8234!3d13.8234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ5JzI0LjIiTiAxMDDCsDQ5JzI0LjIiRQ!5e0!3m2!1sen!2sth!4v1234567890" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>

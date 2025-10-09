@@ -67,15 +67,25 @@
 
 .wix-menu {
     display: flex;
-    list-style: none;
+/* ===== GLOBAL STYLES ===== */
+* {
     margin: 0;
     padding: 0;
-    gap: 5px;
+    box-sizing: border-box;
+}
+
+body.home,
+body.page-about {
+    font-family: 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+body.home *,
+body.page-about * {
+    font-family: 'Helvetica Neue', Arial, sans-serif !important;
 }
 
 .wix-menu li {
     margin: 0;
-}
 
 .wix-menu a {
     display: block;
