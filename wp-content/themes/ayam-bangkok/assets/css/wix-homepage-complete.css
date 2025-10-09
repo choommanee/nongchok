@@ -758,13 +758,14 @@ body.home {
 }
 
 /* ===== FOOTER STYLES ===== */
-.home .site-footer {
+.home .site-footer,
+.page-about .site-footer {
     background: #1E2950;
     color: #fff;
     padding: 60px 20px 30px;
 }
 
-.home .footer-widgets {
+.home .footer, .page-about .footer-widgets {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
@@ -772,41 +773,41 @@ body.home {
     margin: 0 auto 40px;
 }
 
-.home .footer-widget h3 {
+.home .footer, .page-about .footer-widget h3 {
     color: #CA4249;
     font-size: 18px;
     margin-bottom: 20px;
     font-weight: 600;
 }
 
-.home .footer-widget p,
-.home .footer-widget a {
+.home .footer, .page-about .footer-widget p,
+.home .footer, .page-about .footer-widget a {
     color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
     line-height: 1.8;
 }
 
-.home .footer-widget a:hover {
+.home .footer, .page-about .footer-widget a:hover {
     color: #CA4249;
 }
 
-.home .footer-widget ul {
+.home .footer, .page-about .footer-widget ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.home .footer-widget ul li {
+.home .footer, .page-about .footer-widget ul li {
     margin-bottom: 10px;
 }
 
-.home .footer-social {
+.home .footer, .page-about .footer-social {
     display: flex;
     gap: 15px;
     margin-top: 15px;
 }
 
-.home .footer-social a {
+.home .footer, .page-about .footer-social a {
     width: 40px;
     height: 40px;
     background: rgba(255, 255, 255, 0.1);
@@ -818,51 +819,52 @@ body.home {
     transition: all 0.3s ease;
 }
 
-.home .footer-social a:hover {
+.home .footer, .page-about .footer-social a:hover {
     background: #CA4249;
     color: #fff;
 }
 
-.home .footer-bottom {
+.home .footer, .page-about .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 30px;
     text-align: center;
 }
 
-.home .footer-bottom p {
+.home .footer, .page-about .footer-bottom p {
     color: rgba(255, 255, 255, 0.6);
     font-size: 13px;
     margin: 5px 0;
 }
 
-.home .footer-links {
+.home .footer, .page-about .footer-links {
     margin-top: 15px;
 }
 
-.home .footer-links a {
+.home .footer, .page-about .footer-links a {
     color: rgba(255, 255, 255, 0.6);
     font-size: 13px;
     margin: 0 10px;
 }
 
-.home .footer-links .separator {
+.home .footer, .page-about .footer-links .separator {
     color: rgba(255, 255, 255, 0.3);
 }
 
 @media (max-width: 1024px) {
-    .home .footer-widgets {
+    .home .footer, .page-about .footer-widgets {
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
     }
 }
 
 @media (max-width: 768px) {
-    .home .footer-widgets {
+    .home .footer, .page-about .footer-widgets {
         grid-template-columns: 1fr;
         gap: 30px;
     }
     
-    .home .site-footer {
+    .home .site-footer,
+    .page-about .site-footer {
         padding: 40px 20px 20px;
     }
 }
