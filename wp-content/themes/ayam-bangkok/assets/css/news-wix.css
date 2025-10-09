@@ -1,0 +1,504 @@
+/*
+ * News Page Styles (Wix Style)
+ * Matching Wix News Video Gallery Design
+ */
+
+.wix-style-news {
+    font-family: Avenir, 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+    background: #fff;
+}
+
+/* News Hero Section */
+.news-hero-section {
+    padding: 120px 40px 80px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.news-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.news-main-title {
+    font-family: Avenir, 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 60px;
+    font-weight: 300;
+    color: #1E2950;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.news-intro-text {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #555;
+    margin: 0;
+}
+
+/* Video Gallery Grid Section */
+.news-video-grid-section {
+    padding: 80px 40px 100px;
+    background: #fff;
+}
+
+.news-video-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.news-video-card {
+    background: #ffffff;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.news-video-card:hover {
+    transform: translateY(-4px);
+}
+
+.news-video-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.news-video-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.news-video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.news-video-card:hover .news-video-thumbnail img {
+    transform: scale(1.05);
+}
+
+.news-video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Play Button Overlay */
+.news-video-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.news-video-card:hover .news-video-play-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.news-video-play-button {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.news-video-card:hover .news-video-play-button {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 1);
+}
+
+.news-video-play-button i {
+    font-size: 20px;
+    color: #1E2950;
+    margin-left: 4px;
+}
+
+/* Video Duration */
+.news-video-duration {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 2px;
+}
+
+/* Video Content */
+.news-video-content {
+    padding: 20px 0;
+}
+
+.news-video-title {
+    font-family: Avenir, 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.news-video-card:hover .news-video-title {
+    color: #CA4249;
+}
+
+.news-video-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* No News Message */
+.no-news-message {
+    text-align: center;
+    padding: 100px 20px;
+    color: #999;
+}
+
+.no-news-message i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.no-news-message p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.no-news-message small {
+    font-size: 14px;
+    color: #bbb;
+}
+
+/* Pagination */
+.news-pagination {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.news-pagination .page-numbers {
+    display: inline-block;
+    padding: 10px 16px;
+    margin: 0 5px;
+    background: #ffffff;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.news-pagination .page-numbers:hover,
+.news-pagination .page-numbers.current {
+    background: #000000;
+    color: #ffffff;
+}
+
+.news-pagination .page-numbers i {
+    font-size: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .news-video-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+
+    .news-main-title {
+        font-size: 48px;
+    }
+
+    .news-hero-section {
+        padding: 100px 30px 60px;
+    }
+
+    .news-video-grid-section {
+        padding: 60px 30px 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .news-video-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .news-hero-section {
+        padding: 80px 20px 50px;
+    }
+
+    .news-video-grid-section {
+        padding: 50px 20px 70px;
+    }
+
+    .news-main-title {
+        font-size: 36px;
+    }
+
+    .news-video-play-button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .news-video-play-button i {
+        font-size: 18px;
+    }
+
+    .news-video-title {
+        font-size: 15px;
+    }
+
+    .news-video-desc {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-video-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .news-hero-section {
+        padding: 60px 20px 40px;
+    }
+
+    .news-video-grid-section {
+        padding: 40px 20px 60px;
+    }
+
+    .news-main-title {
+        font-size: 32px;
+    }
+
+    .news-intro-text {
+        font-size: 16px;
+    }
+
+    .news-video-content {
+        padding: 15px 0;
+    }
+
+    .news-pagination .page-numbers {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .no-news-message {
+        padding: 60px 20px;
+    }
+
+    .no-news-message i {
+        font-size: 48px;
+    }
+
+    .no-news-message p {
+        font-size: 18px;
+    }
+}
+
+/* Animation Support */
+[data-aos] {
+    opacity: 0;
+    transition-property: opacity, transform;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+}
+
+[data-aos="fade-up"] {
+    transform: translateY(30px);
+}
+
+[data-aos="fade-up"].aos-animate {
+    transform: translateY(0);
+}
+
+/* Contact Section - Same as Service page */
+.service-contact {
+    padding: 80px 40px;
+    background: #f5f5f5;
+}
+
+.service-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+.service-contact-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0 0 40px 0;
+}
+
+.service-contact-info {
+    margin-bottom: 30px;
+}
+
+.service-contact-info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0 0 10px 0;
+}
+
+.service-contact-info p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #666;
+    margin: 0;
+}
+
+.service-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.service-social-icon {
+    width: 40px;
+    height: 40px;
+    background: #1E2950;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.service-social-icon:hover {
+    background: #CA4249;
+}
+
+.service-form-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin: 0 0 25px 0;
+}
+
+.service-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.service-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.service-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.service-form-group input,
+.service-form-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background: #fff;
+}
+
+.service-form-submit {
+    padding: 15px 40px;
+    background: #CA4249;
+    color: #fff;
+    border: 2px solid #CA4249;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: fit-content;
+}
+
+.service-form-submit:hover {
+    background: transparent;
+    color: #CA4249;
+}
+
+/* Map Section */
+.service-map {
+    width: 100%;
+}
+
+.service-map iframe {
+    display: block;
+}
+
+/* Additional Responsive for Contact */
+@media (max-width: 1024px) {
+    .service-contact-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-contact {
+        padding: 60px 20px;
+    }
+
+    .service-contact-title {
+        font-size: 32px;
+    }
+
+    .service-form-row {
+        grid-template-columns: 1fr;
+    }
+}

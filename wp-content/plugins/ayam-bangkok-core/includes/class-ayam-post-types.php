@@ -33,10 +33,10 @@ class AyamPostTypes {
      */
     public function register_post_types() {
         $this->register_rooster_post_type();
-        $this->register_service_post_type();
+        // Service post type removed - now using page template
         $this->register_news_post_type();
         $this->register_knowledge_post_type();
-        
+
         // Debug log
         error_log('Ayam Bangkok: Post types registered');
     }
@@ -100,56 +100,6 @@ class AyamPostTypes {
         );
         
         register_post_type('ayam_rooster', $args);
-    }
-    
-    /**
-     * Register Service Post Type
-     */
-    private function register_service_post_type() {
-        $labels = array(
-            'name'                  => __('บริการ', 'ayam-bangkok'),
-            'singular_name'         => __('บริการ', 'ayam-bangkok'),
-            'menu_name'             => __('บริการ', 'ayam-bangkok'),
-            'name_admin_bar'        => __('บริการ', 'ayam-bangkok'),
-            'archives'              => __('รายการบริการ', 'ayam-bangkok'),
-            'attributes'            => __('คุณสมบัติบริการ', 'ayam-bangkok'),
-            'all_items'             => __('บริการทั้งหมด', 'ayam-bangkok'),
-            'add_new_item'          => __('เพิ่มบริการใหม่', 'ayam-bangkok'),
-            'add_new'               => __('เพิ่มใหม่', 'ayam-bangkok'),
-            'new_item'              => __('บริการใหม่', 'ayam-bangkok'),
-            'edit_item'             => __('แก้ไขบริการ', 'ayam-bangkok'),
-            'update_item'           => __('อัพเดทบริการ', 'ayam-bangkok'),
-            'view_item'             => __('ดูบริการ', 'ayam-bangkok'),
-            'search_items'          => __('ค้นหาบริการ', 'ayam-bangkok'),
-            'not_found'             => __('ไม่พบบริการ', 'ayam-bangkok'),
-            'not_found_in_trash'    => __('ไม่พบบริการในถังขยะ', 'ayam-bangkok'),
-        );
-        
-        $args = array(
-            'label'                 => __('บริการ', 'ayam-bangkok'),
-            'description'           => __('บริการต่างๆ ของ Ayam Bangkok', 'ayam-bangkok'),
-            'labels'                => $labels,
-            'supports'              => array('title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'),
-            'taxonomies'            => array('service_category'),
-            'hierarchical'          => true,
-            'public'                => true,
-            'show_ui'               => true,
-            'show_in_menu'          => true,
-            'menu_position'         => 21,
-            'menu_icon'             => 'dashicons-admin-tools',
-            'show_in_admin_bar'     => true,
-            'show_in_nav_menus'     => true,
-            'can_export'            => true,
-            'has_archive'           => true,
-            'exclude_from_search'   => false,
-            'publicly_queryable'    => true,
-            'capability_type'       => 'post',
-            'show_in_rest'          => true,
-            'rest_base'             => 'services',
-            'rewrite'               => array('slug' => 'service', 'with_front' => false),
-        );
-        
-        register_post_type('ayam_service', $args);
     }
     
     /**

@@ -64,12 +64,17 @@ add_action('after_setup_theme', 'ayam_theme_setup');
  */
 function ayam_theme_scripts()
 {
-    // Styles - Don't load main style.css on About page (it conflicts with Wix design)
-    if (!is_page('about') && !is_page(27)) {
+    // Styles - Don't load main style.css on About, Service, News, and Gallery pages (it conflicts with Wix design)
+    if (!is_page('about') && !is_page(27) && !is_page('service') && !is_page(251) && !is_page('news-1') && !is_page(168) && !is_page('gallery') && !is_page(253)) {
         wp_enqueue_style('ayam-style', get_stylesheet_uri(), array(), AYAM_THEME_VERSION);
     }
-    wp_enqueue_style('ayam-google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;600;700;800&display=swap', array(), null);
-    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', array(), '6.0.0');
+    // Don't load Google Fonts on About, Service, News, and Gallery pages (they use Avenir/Helvetica)
+    if (!is_page('about') && !is_page(27) && !is_page('service') && !is_page(251) && !is_page('news-1') && !is_page(168) && !is_page('gallery') && !is_page(253)) {
+        wp_enqueue_style('ayam-google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;600;700;800&display=swap', array(), null);
+    }
+
+    // Font Awesome - Load from local file
+    wp_enqueue_style('font-awesome', AYAM_THEME_URI . '/assets/fonts/fontawesome.css', array(), AYAM_THEME_VERSION . '.' . time());
 
     // Modern Frontend Libraries
     wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css', array(), '8.4.7');
@@ -90,11 +95,10 @@ function ayam_theme_scripts()
     // Scripts
     wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js', array(), '8.4.7', true);
     wp_enqueue_script('aos-js', 'https://unpkg.com/aos@2.3.1/dist/aos.js', array(), '2.3.1', true);
-    wp_enqueue_script('ayam-theme-js', AYAM_THEME_URI . '/assets/js/theme.js', array('jquery', 'swiper-js', 'aos-js'), AYAM_THEME_VERSION, true);
+    wp_enqueue_script('ayam-theme-js', AYAM_THEME_URI . '/assets/js/theme.js', array('jquery', 'swiper-js', 'aos-js'), AYAM_THEME_VERSION . '.' . time(), true);
 
     // Advanced Rooster Catalog JavaScript
-    wp_enqueue_script('ayam-roosters-advanced', AYAM_THEME_URI . '/assets/js/roosters.js', array('jquery'), AYAM_THEME_VERSION, true);
-
+    wp_enqueue_script('ayam-roosters-advanced', AYAM_THEME_URI . '/assets/js/roosters.js', array('jquery'), AYAM_THEME_VERSION . '.' . time(), true);
     // Gallery Page JavaScript and CSS
     if (is_page_template('page-gallery.php')) {
         wp_enqueue_style('ayam-gallery', AYAM_THEME_URI . '/assets/css/gallery.css', array('ayam-style'), AYAM_THEME_VERSION);
@@ -106,20 +110,21 @@ function ayam_theme_scripts()
         wp_enqueue_style('rooster-gallery-wix', AYAM_THEME_URI . '/assets/css/rooster-gallery-wix.css', array('ayam-style'), AYAM_THEME_VERSION);
     }
     
-    // Wix Style Homepage CSS - Complete redesign (also load on About page)
-    if (is_front_page() || is_page('about') || is_page(27)) {
+    // Wix Style Homepage CSS - Complete redesign (also load on About, Service, News, Gallery, Contact, and Single News pages for consistent header/footer)
+    if (is_front_page() || is_page('about') || is_page(27) || is_page('service') || is_page(251) || is_page('news-1') || is_page(168) || is_page('gallery') || is_page(253) || is_page_template('page-contact-wix.php') || is_page('contact') || is_singular('ayam_news')) {
         wp_enqueue_style('wix-homepage-complete', AYAM_THEME_URI . '/assets/css/wix-homepage-complete.css', array(), AYAM_THEME_VERSION);
         wp_enqueue_script('wix-homepage-js', AYAM_THEME_URI . '/assets/js/wix-homepage.js', array('jquery', 'swiper-js', 'aos-js'), AYAM_THEME_VERSION, true);
     }
 
-    // Wix Style About Page CSS
+    // About Page CSS
     if (is_page_template('page-about.php') || is_page('about') || is_page('about-us') || is_page(27)) {
-        wp_enqueue_style('wix-about-page', AYAM_THEME_URI . '/assets/css/wix-about-page.css', array('ayam-style'), AYAM_THEME_VERSION);
+        wp_enqueue_style('about-page', AYAM_THEME_URI . '/assets/css/about.css', array(), AYAM_THEME_VERSION);
     }
 
-    // Wix Style All Pages CSS (Service, News, Gallery)
-    if (is_page_template('page-service-wix.php') || is_page_template('page-news-wix.php') || is_page_template('page-gallery-wix.php') || is_page('service') || is_page('news') || is_page('gallery')) {
-        wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array('ayam-style'), AYAM_THEME_VERSION);
+    // Service Page CSS - Load after wix-homepage-complete to ensure font overrides work
+    // Also use for News, Gallery, Contact, and Single News pages since they share the same design
+    if (is_page_template('page-service.php') || is_page('service') || is_page_template('page-news-wix.php') || is_page('news-1') || is_page(168) || is_page_template('page-gallery-wix.php') || is_page('gallery') || is_page(253) || is_page_template('page-contact-wix.php') || is_page('contact') || is_singular('ayam_news')) {
+        wp_enqueue_style('service-page', AYAM_THEME_URI . '/assets/css/service.css', array('wix-homepage-complete'), AYAM_THEME_VERSION . '.' . time());
     }
 
     // News System CSS and JS
@@ -3087,11 +3092,11 @@ function ayam_get_welcome_content()
 // Enqueue Compiled SCSS CSS
 function ayam_enqueue_compiled_css()
 {
-    // Don't load compiled.css on About page (conflicts with Wix design)
-    if (is_page('about') || is_page(27)) {
+    // Don't load compiled.css on About and Service pages (conflicts with Wix design)
+    if (is_page('about') || is_page(27) || is_page('service') || is_page(251) || is_page('news-1') || is_page(168)) {
         return;
     }
-    
+
     wp_enqueue_style(
         'ayam-compiled-css',
         get_template_directory_uri() . '/assets/css/compiled.css',
@@ -3996,7 +4001,7 @@ function ayam_live_chat()
         )
     ));
 }
-// add_action('wp_enqueue_scripts', 'ayam_live_chat'); // Disabled - files not created yet
+add_action('wp_enqueue_scripts', 'ayam_live_chat');
 
 // AJAX handler สำหรับส่งข้อความแชท
 function ayam_send_chat_message()
@@ -4251,18 +4256,18 @@ function ayam_live_chat_shortcode($atts)
     ?>
     <div class="ayam-live-chat" data-position="<?php echo esc_attr($atts['position']); ?>">
         <div class="chat-toggle">
-            <span class="chat-icon">💬</span>
+            <i class="fas fa-comment-dots"></i>
             <span class="chat-text">แชทสด</span>
         </div>
         <div class="chat-window" style="display: none;">
             <div class="chat-header">
-                <span>แชทสด - ayam-bangkok</span>
+                <span>แชทสด - Nongchok FCI</span>
                 <button class="chat-close">&times;</button>
             </div>
             <div class="chat-messages" id="chat-messages"></div>
             <div class="chat-input">
-                <input type="text" id="chat-message-input" placeholder="พิมพ์ข้อความ...">
-                <button id="send-message">ส่ง</button>
+                <input type="text" id="chat-message-input" placeholder="พิมพ์ข้อความของคุณ...">
+                <button id="send-message"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
@@ -5601,72 +5606,7 @@ function ayam_services_page_styles()
 }
 add_action('wp_enqueue_scripts', 'ayam_services_page_styles');
 
-// Add Services Custom Post Type (if needed)
-function ayam_register_services_post_type()
-{
-    $labels = array(
-        'name' => 'บริการ',
-        'singular_name' => 'บริการ',
-        'menu_name' => 'บริการ',
-        'add_new' => 'เพิ่มบริการใหม่',
-        'add_new_item' => 'เพิ่มบริการใหม่',
-        'edit_item' => 'แก้ไขบริการ',
-        'new_item' => 'บริการใหม่',
-        'view_item' => 'ดูบริการ',
-        'search_items' => 'ค้นหาบริการ',
-        'not_found' => 'ไม่พบบริการ',
-        'not_found_in_trash' => 'ไม่พบบริการในถังขยะ'
-    );
-
-    $args = array(
-        'labels' => $labels,
-        'public' => true,
-        'publicly_queryable' => true,
-        'show_ui' => true,
-        'show_in_menu' => true,
-        'query_var' => true,
-        'rewrite' => array('slug' => 'service'),
-        'capability_type' => 'post',
-        'has_archive' => true,
-        'hierarchical' => false,
-        'menu_position' => 6,
-        'menu_icon' => 'dashicons-admin-tools',
-        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields')
-    );
-
-    register_post_type('ayam_service', $args);
-}
-add_action('init', 'ayam_register_services_post_type');
-
-// Add Service Categories Taxonomy
-function ayam_register_service_categories()
-{
-    $labels = array(
-        'name' => 'หมวดหมู่บริการ',
-        'singular_name' => 'หมวดหมู่บริการ',
-        'search_items' => 'ค้นหาหมวดหมู่บริการ',
-        'all_items' => 'หมวดหมู่บริการทั้งหมด',
-        'parent_item' => 'หมวดหมู่บริการหลัก',
-        'parent_item_colon' => 'หมวดหมู่บริการหลัก:',
-        'edit_item' => 'แก้ไขหมวดหมู่บริการ',
-        'update_item' => 'อัปเดตหมวดหมู่บริการ',
-        'add_new_item' => 'เพิ่มหมวดหมู่บริการใหม่',
-        'new_item_name' => 'ชื่อหมวดหมู่บริการใหม่',
-        'menu_name' => 'หมวดหมู่บริการ'
-    );
-
-    $args = array(
-        'hierarchical' => true,
-        'labels' => $labels,
-        'show_ui' => true,
-        'show_admin_column' => true,
-        'query_var' => true,
-        'rewrite' => array('slug' => 'service-category')
-    );
-
-    register_taxonomy('service_category', array('ayam_service'), $args);
-}
-add_action('init', 'ayam_register_service_categories');
+// Service Custom Post Type removed - now using page template (page-service.php)
 
 /**
  * Register Rooster Catalog Post Type (Wix Style Gallery)
@@ -7953,8 +7893,8 @@ function ayam_auto_assign_wix_templates($template) {
     $page_templates = array(
         'about' => 'page-about.php',
         'about-us' => 'page-about.php',
-        'service' => 'page-service-wix.php',
-        'services' => 'page-service-wix.php',
+        'service' => 'page-service.php',
+        'services' => 'page-service.php',
         'news' => 'page-news-wix.php',
         'gallery' => 'page-gallery-wix.php'
     );
@@ -7979,9 +7919,7 @@ function ayam_force_wix_styles() {
     if (is_page('about') || is_page('about-us') || is_page(27)) {
         wp_enqueue_style('wix-about-page', AYAM_THEME_URI . '/assets/css/wix-about-page.css', array(), AYAM_THEME_VERSION . '.' . time());
     }
-    if (is_page('services') || is_page('service') || is_page(165)) {
-        wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
-    }
+    // Service page uses service.css only - no wix-service-page.css needed
     if (is_page('news') || is_page(168)) {
         wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
     }

@@ -1,0 +1,808 @@
+/*
+ * Service Page Styles - Matching Wix Design
+ */
+
+.wix-service-page {
+    font-family: 'Helvetica', Arial, sans-serif;
+    color: #333;
+    background: #fff;
+}
+
+/* Hero Section */
+.service-hero {
+    padding: 100px 40px 80px;
+    text-align: center;
+    background: #fff;
+}
+
+.service-hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-hero-subtitle {
+    font-size: 24px;
+    font-weight: 400;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.service-hero-title {
+    font-size: 56px;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0 0 30px 0;
+}
+
+.service-hero-line {
+    width: 100%;
+    height: 3px;
+    background: #CA4249;
+}
+
+/* Export Services */
+.service-exports {
+    padding: 80px 40px;
+}
+
+.service-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-exports-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+}
+
+.service-export-item {
+    text-align: center;
+}
+
+.service-export-icon {
+    margin: 0 auto 30px;
+}
+
+.service-export-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0 0 20px 0;
+}
+
+.service-export-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #666;
+}
+
+/* Images Grid */
+.service-images {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.service-images-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.service-image-item {
+    position: relative;
+    padding-top: 60%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+/* Videos */
+.service-videos {
+    padding: 80px 40px;
+}
+
+.service-videos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
+}
+
+.service-video-placeholder {
+    position: relative;
+    padding-top: 56.25%;
+    background: linear-gradient(135deg, #008B8B 0%, #20B2AA 100%);
+    margin-bottom: 20px;
+}
+
+.service-video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-video-play i {
+    font-size: 24px;
+    color: #1E2950;
+    margin-left: 5px;
+}
+
+.service-video-time {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 13px;
+}
+
+.service-video-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0 0 15px 0;
+}
+
+.service-video-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #666;
+}
+
+/* Contact */
+.service-contact {
+    padding: 80px 40px;
+    background: #f5f5f5;
+}
+
+.service-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+.service-contact-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0 0 40px 0;
+}
+
+.service-contact-info {
+    margin-bottom: 30px;
+}
+
+.service-contact-info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0 0 10px 0;
+}
+
+.service-contact-info p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #666;
+}
+
+.service-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.service-social-icon {
+    width: 40px;
+    height: 40px;
+    background: #1E2950;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.service-social-icon:hover {
+    background: #CA4249;
+}
+
+.service-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.service-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.service-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.service-form-group input {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.service-form-submit {
+    padding: 15px 40px;
+    background: #CA4249;
+    color: #fff;
+    border: 2px solid #CA4249;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.service-form-submit:hover {
+    background: transparent;
+    color: #CA4249;
+}
+
+@media (max-width: 1024px) {
+    .service-exports-grid,
+    .service-videos-grid,
+    .service-contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-hero-title {
+        font-size: 42px;
+    }
+    .service-form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Override fonts to match Wix */
+.wix-service-page,
+.wix-service-page * {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+.service-hero-subtitle {
+    font-weight: 400 !important;
+    letter-spacing: 0.05em !important;
+}
+
+.service-hero-title {
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+}
+
+.service-export-title {
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.service-video-title,
+.service-contact-title {
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* Ensure proper spacing */
+.service-hero {
+    padding-top: 120px !important;
+}
+
+.service-exports {
+    padding-top: 100px !important;
+    padding-bottom: 100px !important;
+}
+
+.service-videos {
+    padding-top: 100px !important;
+    padding-bottom: 100px !important;
+}
+
+.service-contact {
+    padding-top: 100px !important;
+    padding-bottom: 100px !important;
+}
+/* Force Avenir font to match Wix design - Override ALL fonts including wix-homepage-complete.css */
+
+/* Highest priority - override everything - Works for both Service and News pages */
+.page-service *,
+.page-service * *,
+.page-news-1 *,
+.page-news-1 * *,
+html body.page-service *,
+html body.page-service * *,
+html body.page-news-1 *,
+html body.page-news-1 * *,
+body.page-service *,
+body.page-service,
+body.page-news-1 *,
+body.page-news-1,
+.wix-service-page *,
+.wix-service-page {
+    font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+/* Override specific elements */
+.page-service h1,
+.page-news-1 h1,
+.page-service h2,
+.page-service h3,
+.page-service h4,
+.page-service h5,
+.page-service h6,
+.page-service p,
+.page-service span,
+.page-service div,
+.page-service a,
+.page-service li,
+.page-service button,
+.page-service input,
+.page-service textarea,
+.page-service label,
+.page-service .service-hero *,
+.page-service .service-exports *,
+.page-service .service-videos *,
+.page-service .service-contact *,
+.page-service .site-footer *,
+.page-service .wix-header * {
+    font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+/* News Video Gallery Grid - Additional styles for News page */
+.news-video-grid-section {
+    padding: 80px 40px 100px;
+    background: #fff;
+}
+
+.news-video-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.news-video-card {
+    background: #ffffff;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.news-video-card:hover {
+    transform: translateY(-4px);
+}
+
+.news-video-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.news-video-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.news-video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.news-video-card:hover .news-video-thumbnail img {
+    transform: scale(1.05);
+}
+
+.news-video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.news-video-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease;
+}
+
+.news-video-card:hover .news-video-play-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.news-video-play-button {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.news-video-card:hover .news-video-play-button {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 1);
+}
+
+.news-video-play-button i {
+    font-size: 20px;
+    color: #1E2950;
+    margin-left: 4px;
+}
+
+.news-video-duration {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 2px;
+}
+
+.news-video-content {
+    padding: 20px 0;
+}
+
+.news-video-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.news-video-card:hover .news-video-title {
+    color: #CA4249;
+}
+
+.news-video-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* News Hero */
+.news-hero-section {
+    padding: 120px 40px 80px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.news-main-title {
+    font-size: 60px;
+    font-weight: 300;
+    color: #1E2950;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+/* Responsive for News */
+@media (max-width: 1024px) {
+    .news-video-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .news-video-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .news-hero-section {
+        padding: 80px 20px 50px;
+    }
+    
+    .news-main-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Gallery Grid Styles */
+.gallery-grid-section {
+    padding: 80px 40px;
+    background: #fff;
+}
+
+.gallery-masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    background: #f0f0f0;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+}
+
+.gallery-item a {
+    display: block;
+    position: relative;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay i {
+    color: #fff;
+    font-size: 32px;
+}
+
+.no-gallery-message {
+    text-align: center;
+    padding: 100px 20px;
+    color: #999;
+}
+
+.no-gallery-message i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.no-gallery-message p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.no-gallery-message small {
+    font-size: 14px;
+    color: #bbb;
+}
+
+/* Gallery Responsive */
+@media (max-width: 1024px) {
+    .gallery-masonry-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-masonry-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gallery-grid-section {
+        padding: 60px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-masonry-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== CONTACT PAGE STYLES ===== */
+
+/* Contact Info Cards Section */
+.contact-cards-section {
+    padding: 60px 40px;
+    background: #fff;
+}
+
+.contact-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-info-card {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.contact-info-card:hover {
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.contact-info-card .card-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    background: #CA4249;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.contact-info-card:hover .card-icon {
+    transform: scale(1.1);
+    background: #1E2950;
+}
+
+.contact-info-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0 0 15px 0;
+    font-family: 'Avenir', 'Helvetica', Arial, sans-serif;
+}
+
+.contact-info-card p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    margin: 5px 0;
+    font-family: 'Avenir', 'Helvetica', Arial, sans-serif;
+}
+
+.contact-info-card a {
+    color: #CA4249;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info-card a:hover {
+    color: #1E2950;
+    text-decoration: underline;
+}
+
+.contact-info-card .line-id {
+    color: #06C755;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.contact-info-card .line-id i {
+    margin-right: 5px;
+}
+
+/* Form styling for Contact page */
+.service-contact-form .form-response {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.service-contact-form .form-response.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.service-contact-form .form-response.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsive Design for Contact Cards */
+@media (max-width: 1024px) {
+    .contact-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-cards-section {
+        padding: 40px 20px;
+    }
+
+    .contact-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .contact-info-card {
+        padding: 30px 20px;
+    }
+
+    .contact-info-card .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .contact-info-card h3 {
+        font-size: 18px;
+    }
+
+    .contact-info-card p {
+        font-size: 14px;
+    }
+}

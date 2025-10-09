@@ -43,7 +43,7 @@
                     <li><a href="<?php echo esc_url(home_url('/')); ?>"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="<?php echo esc_url(home_url('/about')); ?>">About Us</a></li>
                     <li><a href="<?php echo esc_url(home_url('/service')); ?>">Service</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/news')); ?>">News</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/news-1')); ?>">News</a></li>
                     <li><a href="<?php echo esc_url(home_url('/gallery')); ?>">Gallery</a></li>
                     <li><a href="<?php echo esc_url(home_url('/contact')); ?>">Contact</a></li>
                 </ul>

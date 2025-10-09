@@ -3,6 +3,9 @@
  * Handles filtering, searching, comparison, and favorites
  */
 
+(function($) {
+    'use strict';
+
 class RoosterCatalog {
     constructor() {
         this.init();
@@ -36,11 +39,11 @@ class RoosterCatalog {
         
         // View toggle
         $(document).on('click', '.view-btn', this.handleViewToggle.bind(this));
-        
+
         // Comparison system
         $(document).on('click', '.compare-btn', this.handleCompareToggle.bind(this));
-        $(document).on('click', '.compare-clear', this.clearComparison.bind(this));
-        $(document).on('click', '.compare-view', this.showComparison.bind(this));
+        // $(document).on('click', '.compare-clear', this.clearComparison.bind(this)); // Method not implemented
+        // $(document).on('click', '.compare-view', this.showComparison.bind(this)); // Method not implemented
         
         // Favorites system
         $(document).on('click', '.favorite-btn', this.handleFavoriteToggle.bind(this));
@@ -686,6 +689,8 @@ class RoosterCatalog {
 }
 
 // Initialize when document is ready
-jQuery(document).ready(function($) {
+$(document).ready(function() {
     window.roosterCatalog = new RoosterCatalog();
 });
+
+})(jQuery);

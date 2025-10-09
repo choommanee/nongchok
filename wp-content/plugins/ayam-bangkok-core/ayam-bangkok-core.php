@@ -115,10 +115,10 @@ class AyamBangkokCore {
     private function register_post_types() {
         // Register directly to ensure they work
         $this->register_rooster_post_type();
-        $this->register_service_post_type();
+        // Service post type removed - now using page template
         $this->register_news_post_type();
         $this->register_knowledge_post_type();
-        
+
         // Also instantiate the class if it exists
         if (class_exists('AyamPostTypes')) {
             new AyamPostTypes();
@@ -256,39 +256,6 @@ class AyamBangkokCore {
     }
     
     /**
-     * Register service post type directly
-     */
-    private function register_service_post_type() {
-        $labels = array(
-            'name' => __('บริการ', 'ayam-bangkok'),
-            'singular_name' => __('บริการ', 'ayam-bangkok'),
-            'menu_name' => __('บริการ', 'ayam-bangkok'),
-            'add_new' => __('เพิ่มใหม่', 'ayam-bangkok'),
-            'add_new_item' => __('เพิ่มบริการใหม่', 'ayam-bangkok'),
-            'edit_item' => __('แก้ไขบริการ', 'ayam-bangkok'),
-            'all_items' => __('บริการทั้งหมด', 'ayam-bangkok'),
-        );
-        
-        $args = array(
-            'labels' => $labels,
-            'public' => true,
-            'show_ui' => true,
-            'show_in_menu' => true,
-            'menu_position' => 21,
-            'menu_icon' => 'dashicons-admin-tools',
-            'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
-            'taxonomies' => array('service_category'),
-            'has_archive' => true,
-            'rewrite' => array('slug' => 'service'),
-            'show_in_rest' => true,
-            'capability_type' => 'post',
-            'map_meta_cap' => true,
-        );
-        
-        register_post_type('ayam_service', $args);
-    }
-    
-    /**
      * Register news post type directly
      */
     private function register_news_post_type() {
@@ -311,8 +278,8 @@ class AyamBangkokCore {
             'menu_icon' => 'dashicons-megaphone',
             'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'author', 'custom-fields'),
             'taxonomies' => array('news_category'),
-            'has_archive' => true,
-            'rewrite' => array('slug' => 'news'),
+            'has_archive' => false,
+            'rewrite' => array('slug' => 'news-post'),
             'show_in_rest' => true,
             'capability_type' => 'post',
             'map_meta_cap' => true,

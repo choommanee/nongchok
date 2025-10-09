@@ -76,19 +76,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Header scroll effect
     let lastScrollTop = 0;
-    const header = document.querySelector('.site-header');
-    
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-        
-        lastScrollTop = scrollTop;
-    });
+    const header = document.querySelector('.site-header') || document.querySelector('.wix-header');
+
+    if (header) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            lastScrollTop = scrollTop;
+        });
+    }
     
     // Back to top button
     const backToTop = document.createElement('button');

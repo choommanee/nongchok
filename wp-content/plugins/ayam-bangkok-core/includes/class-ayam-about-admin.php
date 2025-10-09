@@ -74,6 +74,33 @@ class AyamAboutAdmin {
             'ayam-values',
             array($this, 'values_page')
         );
+
+        add_submenu_page(
+            'ayam-about-admin',
+            'รูปภาพแกลเลอรี่ About',
+            'รูปภาพแกลเลอรี่ About',
+            'manage_options',
+            'ayam-about-gallery',
+            array($this, 'gallery_page')
+        );
+
+        add_submenu_page(
+            'ayam-about-admin',
+            'รูปภาพ Service',
+            'รูปภาพ Service',
+            'manage_options',
+            'ayam-service-gallery',
+            array($this, 'service_gallery_page')
+        );
+
+        add_submenu_page(
+            'ayam-about-admin',
+            'รูปภาพ Gallery',
+            'รูปภาพ Gallery',
+            'manage_options',
+            'ayam-gallery-images',
+            array($this, 'gallery_images_page')
+        );
     }
     
     /**
@@ -451,7 +478,363 @@ class AyamAboutAdmin {
     public function values_page() {
         echo '<div class="wrap"><h1>ค่านิยมองค์กร</h1><p>หน้านี้อยู่ระหว่างการพัฒนา</p></div>';
     }
-    
+
+    /**
+     * Gallery page - Manage About page gallery images
+     */
+    public function gallery_page() {
+        $upload_dir = wp_upload_dir();
+        $about_gallery_dir = $upload_dir['basedir'] . '/about-gallery/';
+        $about_gallery_url = $upload_dir['baseurl'] . '/about-gallery/';
+
+        // Create directory if it doesn't exist
+        if (!file_exists($about_gallery_dir)) {
+            wp_mkdir_p($about_gallery_dir);
+        }
+
+        // Handle file upload
+        if (isset($_POST['upload_gallery_images']) && !empty($_FILES['gallery_images']['name'][0])) {
+            if (wp_verify_nonce($_POST['gallery_upload_nonce'], 'gallery_upload_action')) {
+                $files = $_FILES['gallery_images'];
+                $uploaded_count = 0;
+
+                foreach ($files['name'] as $key => $value) {
+                    if ($files['name'][$key]) {
+                        $file = array(
+                            'name'     => $files['name'][$key],
+                            'type'     => $files['type'][$key],
+                            'tmp_name' => $files['tmp_name'][$key],
+                            'error'    => $files['error'][$key],
+                            'size'     => $files['size'][$key]
+                        );
+
+                        // Check file type
+                        $allowed_types = array('image/jpeg', 'image/jpg', 'image/png');
+                        if (in_array($file['type'], $allowed_types)) {
+                            $filename = sanitize_file_name($file['name']);
+                            $target_file = $about_gallery_dir . $filename;
+
+                            if (move_uploaded_file($file['tmp_name'], $target_file)) {
+                                $uploaded_count++;
+                            }
+                        }
+                    }
+                }
+
+                if ($uploaded_count > 0) {
+                    echo '<div class="notice notice-success"><p>อัปโหลดรูปภาพสำเร็จ ' . $uploaded_count . ' ไฟล์</p></div>';
+                }
+            }
+        }
+
+        // Handle delete
+        if (isset($_POST['delete_image'])) {
+            if (wp_verify_nonce($_POST['gallery_delete_nonce'], 'gallery_delete_action')) {
+                $image_name = sanitize_file_name($_POST['image_name']);
+                $image_path = $about_gallery_dir . $image_name;
+
+                if (file_exists($image_path) && unlink($image_path)) {
+                    echo '<div class="notice notice-success"><p>ลบรูปภาพเรียบร้อยแล้ว</p></div>';
+                } else {
+                    echo '<div class="notice notice-error"><p>ไม่สามารถลบรูปภาพได้</p></div>';
+                }
+            }
+        }
+
+        // Get all gallery images
+        $gallery_images = array();
+        if (is_dir($about_gallery_dir)) {
+            $files = glob($about_gallery_dir . '*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+            foreach ($files as $file) {
+                $gallery_images[] = basename($file);
+            }
+        }
+
+        ?>
+        <div class="wrap">
+            <h1>จัดการรูปภาพแกลเลอรี่ About Page</h1>
+            <p>อัปโหลดรูปภาพที่จะแสดงในแกลเลอรี่หน้า About Us (ไฟล์ .jpg, .jpeg, .png เท่านั้น)</p>
+
+            <div class="ayam-admin-content" style="grid-template-columns: 1fr;">
+                <!-- Upload Form -->
+                <div class="ayam-admin-form" style="margin-bottom: 30px;">
+                    <h2>อัปโหลดรูปภาพใหม่</h2>
+
+                    <form method="post" enctype="multipart/form-data">
+                        <?php wp_nonce_field('gallery_upload_action', 'gallery_upload_nonce'); ?>
+
+                        <table class="form-table">
+                            <tr>
+                                <th scope="row"><label for="gallery_images">เลือกรูปภาพ</label></th>
+                                <td>
+                                    <input type="file" name="gallery_images[]" id="gallery_images" multiple accept="image/jpeg,image/jpg,image/png">
+                                    <p class="description">สามารถเลือกหลายไฟล์พร้อมกันได้</p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p class="submit">
+                            <button type="submit" name="upload_gallery_images" class="button button-primary">อัปโหลดรูปภาพ</button>
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Gallery Images List -->
+                <div class="ayam-admin-list">
+                    <h2>รูปภาพในแกลเลอรี่ (<?php echo count($gallery_images); ?> รูป)</h2>
+
+                    <?php if (!empty($gallery_images)): ?>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                            <?php foreach ($gallery_images as $image): ?>
+                                <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; background: white;">
+                                    <img src="<?php echo esc_url($about_gallery_url . $image); ?>"
+                                         alt="<?php echo esc_attr($image); ?>"
+                                         style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">
+
+                                    <div style="font-size: 12px; margin-bottom: 10px; word-break: break-all;">
+                                        <?php echo esc_html($image); ?>
+                                    </div>
+
+                                    <form method="post" style="margin: 0;" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบรูปภาพนี้?')">
+                                        <?php wp_nonce_field('gallery_delete_action', 'gallery_delete_nonce'); ?>
+                                        <input type="hidden" name="image_name" value="<?php echo esc_attr($image); ?>">
+                                        <button type="submit" name="delete_image" class="button button-small button-link-delete" style="width: 100%;">ลบ</button>
+                                    </form>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <p style="padding: 40px; text-align: center; background: #f9f9f9; border-radius: 8px; margin-top: 20px;">
+                            ยังไม่มีรูปภาพในแกลเลอรี่ กรุณาอัปโหลดรูปภาพ
+                        </p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px; background: #fff; border: 1px solid #ddd; border-radius: 8px;">
+                <h3>คำแนะนำ</h3>
+                <ul>
+                    <li>แนะนำขนาดรูปภาพ: 1200 x 800 พิกเซลขึ้นไป</li>
+                    <li>ไฟล์ที่รองรับ: JPG, JPEG, PNG</li>
+                    <li>รูปภาพจะแสดงในหน้า About Us แบบ Grid 4 คอลัมน์</li>
+                    <li>3 รูปแรกจะแสดงในส่วน Hero Section</li>
+                    <li>รูปภาพทั้งหมดจะแสดงในส่วน Gallery</li>
+                </ul>
+            </div>
+        </div>
+        <?php
+    }
+
+    /**
+     * Service Gallery page - Manage Service page images
+     */
+    public function service_gallery_page() {
+        $upload_dir = wp_upload_dir();
+        $service_gallery_dir = $upload_dir['basedir'] . '/service-gallery/';
+        $service_gallery_url = $upload_dir['baseurl'] . '/service-gallery/';
+
+        if (!file_exists($service_gallery_dir)) {
+            wp_mkdir_p($service_gallery_dir);
+        }
+
+        // Handle file upload
+        if (isset($_POST['upload_service_images']) && !empty($_FILES['service_images']['name'][0])) {
+            if (wp_verify_nonce($_POST['service_upload_nonce'], 'service_upload_action')) {
+                $this->handle_image_upload($_FILES['service_images'], $service_gallery_dir, 'Service');
+            }
+        }
+
+        // Handle delete
+        if (isset($_POST['delete_image'])) {
+            if (wp_verify_nonce($_POST['service_delete_nonce'], 'service_delete_action')) {
+                $this->handle_image_delete($_POST['image_name'], $service_gallery_dir);
+            }
+        }
+
+        $images = $this->get_gallery_images($service_gallery_dir);
+
+        $this->render_gallery_page(
+            'Service',
+            'service',
+            $images,
+            $service_gallery_url,
+            'รูปภาพจะแสดงในหน้า Service แบบกริด 3 คอลัมน์'
+        );
+    }
+
+    /**
+     * Gallery Images page - Manage Gallery page images
+     */
+    public function gallery_images_page() {
+        $upload_dir = wp_upload_dir();
+        $gallery_dir = $upload_dir['basedir'] . '/gallery-wix/';
+        $gallery_url = $upload_dir['baseurl'] . '/gallery-wix/';
+
+        if (!file_exists($gallery_dir)) {
+            wp_mkdir_p($gallery_dir);
+        }
+
+        // Handle file upload
+        if (isset($_POST['upload_gallery_images']) && !empty($_FILES['gallery_images']['name'][0])) {
+            if (wp_verify_nonce($_POST['gallery_upload_nonce'], 'gallery_upload_action')) {
+                $this->handle_image_upload($_FILES['gallery_images'], $gallery_dir, 'Gallery');
+            }
+        }
+
+        // Handle delete
+        if (isset($_POST['delete_image'])) {
+            if (wp_verify_nonce($_POST['gallery_delete_nonce'], 'gallery_delete_action')) {
+                $this->handle_image_delete($_POST['image_name'], $gallery_dir);
+            }
+        }
+
+        $images = $this->get_gallery_images($gallery_dir);
+
+        $this->render_gallery_page(
+            'Gallery',
+            'gallery',
+            $images,
+            $gallery_url,
+            'รูปภาพจะแสดงในหน้า Gallery แบบกริด 4 คอลัมน์'
+        );
+    }
+
+    /**
+     * Helper function to handle image upload
+     */
+    private function handle_image_upload($files, $upload_dir, $page_name) {
+        $uploaded_count = 0;
+
+        foreach ($files['name'] as $key => $value) {
+            if ($files['name'][$key]) {
+                $file = array(
+                    'name'     => $files['name'][$key],
+                    'type'     => $files['type'][$key],
+                    'tmp_name' => $files['tmp_name'][$key],
+                    'error'    => $files['error'][$key],
+                    'size'     => $files['size'][$key]
+                );
+
+                $allowed_types = array('image/jpeg', 'image/jpg', 'image/png');
+                if (in_array($file['type'], $allowed_types)) {
+                    $filename = sanitize_file_name($file['name']);
+                    $target_file = $upload_dir . $filename;
+
+                    if (move_uploaded_file($file['tmp_name'], $target_file)) {
+                        $uploaded_count++;
+                    }
+                }
+            }
+        }
+
+        if ($uploaded_count > 0) {
+            echo '<div class="notice notice-success"><p>อัปโหลดรูปภาพ' . $page_name . 'สำเร็จ ' . $uploaded_count . ' ไฟล์</p></div>';
+        }
+    }
+
+    /**
+     * Helper function to handle image delete
+     */
+    private function handle_image_delete($image_name, $upload_dir) {
+        $image_name = sanitize_file_name($image_name);
+        $image_path = $upload_dir . $image_name;
+
+        if (file_exists($image_path) && unlink($image_path)) {
+            echo '<div class="notice notice-success"><p>ลบรูปภาพเรียบร้อยแล้ว</p></div>';
+        } else {
+            echo '<div class="notice notice-error"><p>ไม่สามารถลบรูปภาพได้</p></div>';
+        }
+    }
+
+    /**
+     * Helper function to get gallery images
+     */
+    private function get_gallery_images($gallery_dir) {
+        $images = array();
+        if (is_dir($gallery_dir)) {
+            $files = glob($gallery_dir . '*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+            foreach ($files as $file) {
+                $images[] = basename($file);
+            }
+        }
+        return $images;
+    }
+
+    /**
+     * Helper function to render gallery management page
+     */
+    private function render_gallery_page($title, $slug, $images, $image_url, $display_note) {
+        ?>
+        <div class="wrap">
+            <h1>จัดการรูปภาพ <?php echo $title; ?> Page</h1>
+            <p>อัปโหลดรูปภาพที่จะแสดงในหน้า <?php echo $title; ?> (ไฟล์ .jpg, .jpeg, .png เท่านั้น)</p>
+
+            <div class="ayam-admin-content" style="grid-template-columns: 1fr;">
+                <div class="ayam-admin-form" style="margin-bottom: 30px;">
+                    <h2>อัปโหลดรูปภาพใหม่</h2>
+
+                    <form method="post" enctype="multipart/form-data">
+                        <?php wp_nonce_field($slug . '_upload_action', $slug . '_upload_nonce'); ?>
+
+                        <table class="form-table">
+                            <tr>
+                                <th scope="row"><label for="<?php echo $slug; ?>_images">เลือกรูปภาพ</label></th>
+                                <td>
+                                    <input type="file" name="<?php echo $slug; ?>_images[]" id="<?php echo $slug; ?>_images" multiple accept="image/jpeg,image/jpg,image/png">
+                                    <p class="description">สามารถเลือกหลายไฟล์พร้อมกันได้</p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p class="submit">
+                            <button type="submit" name="upload_<?php echo $slug; ?>_images" class="button button-primary">อัปโหลดรูปภาพ</button>
+                        </p>
+                    </form>
+                </div>
+
+                <div class="ayam-admin-list">
+                    <h2>รูปภาพในแกลเลอรี่ (<?php echo count($images); ?> รูป)</h2>
+
+                    <?php if (!empty($images)): ?>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                            <?php foreach ($images as $image): ?>
+                                <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; background: white;">
+                                    <img src="<?php echo esc_url($image_url . $image); ?>"
+                                         alt="<?php echo esc_attr($image); ?>"
+                                         style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">
+
+                                    <div style="font-size: 12px; margin-bottom: 10px; word-break: break-all;">
+                                        <?php echo esc_html($image); ?>
+                                    </div>
+
+                                    <form method="post" style="margin: 0;" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบรูปภาพนี้?')">
+                                        <?php wp_nonce_field($slug . '_delete_action', $slug . '_delete_nonce'); ?>
+                                        <input type="hidden" name="image_name" value="<?php echo esc_attr($image); ?>">
+                                        <button type="submit" name="delete_image" class="button button-small button-link-delete" style="width: 100%;">ลบ</button>
+                                    </form>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <p style="padding: 40px; text-align: center; background: #f9f9f9; border-radius: 8px; margin-top: 20px;">
+                            ยังไม่มีรูปภาพในแกลเลอรี่ กรุณาอัปโหลดรูปภาพ
+                        </p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px; background: #fff; border: 1px solid #ddd; border-radius: 8px;">
+                <h3>คำแนะนำ</h3>
+                <ul>
+                    <li>แนะนำขนาดรูปภาพ: 1200 x 800 พิกเซลขึ้นไป</li>
+                    <li>ไฟล์ที่รองรับ: JPG, JPEG, PNG</li>
+                    <li><?php echo $display_note; ?></li>
+                </ul>
+            </div>
+        </div>
+        <?php
+    }
+
     /**
      * Get field label
      */

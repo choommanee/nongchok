@@ -4,7 +4,21 @@
       "Bash(mysql:*)",
       "Bash(php:*)",
       "Bash(curl:*)",
-      "Bash(unzip:*)"
+      "Bash(unzip:*)",
+      "Bash(mkdir:*)",
+      "Bash(/dev/null)",
+      "Read(//private/tmp/**)",
+      "Bash(cat:*)",
+      "Bash(wp option get:*)",
+      "Bash(wget:*)",
+      "Bash(wp post list:*)",
+      "Bash(wp rewrite:*)",
+      "Bash(if [ -f wix-homepage-complete.css.backup ])",
+      "Bash(then cp wix-homepage-complete.css.backup wix-homepage-complete.css)",
+      "Bash(else echo \"No backup found\")",
+      "Bash(fi)",
+      "Bash(find:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

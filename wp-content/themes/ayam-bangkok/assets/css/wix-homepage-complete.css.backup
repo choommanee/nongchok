@@ -778,9 +778,7 @@ body.home {
 .page-about .site-footer,
 .page-service .site-footer,
 .page-news-1 .site-footer,
-.page-gallery .site-footer,
-.single-news .site-footer,
-.wix-style-contact .site-footer {
+.page-gallery .site-footer {
     background: #1E2950;
     color: #fff;
     padding: 60px 20px 30px;
@@ -790,9 +788,7 @@ body.home {
 .page-about .footer-widgets,
 .page-service .footer-widgets,
 .page-news-1 .footer-widgets,
-.page-gallery .footer-widgets,
-.single-news .footer-widgets,
-.wix-style-contact .footer-widgets {
+.page-gallery .footer-widgets {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
@@ -804,9 +800,7 @@ body.home {
 .page-about .footer-widget h3,
 .page-service .footer-widget h3,
 .page-news-1 .footer-widget h3,
-.page-gallery .footer-widget h3,
-.single-news .footer-widget h3,
-.wix-style-contact .footer-widget h3 {
+.page-gallery .footer-widget h3 {
     color: #CA4249;
     font-size: 18px;
     margin-bottom: 20px;
@@ -822,10 +816,7 @@ body.home {
 .page-news-1 .footer-widget p,
 .page-news-1 .footer-widget a,
 .page-gallery .footer-widget p,
-.page-gallery .footer-widget a,
-.single-news .footer-widget p,
-.single-news .footer-widget a,
-.wix-style-contact .footer-widget a {
+.page-gallery .footer-widget a {
     color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
     line-height: 1.8;
@@ -835,9 +826,7 @@ body.home {
 .page-about .footer-widget a:hover,
 .page-service .footer-widget a:hover,
 .page-news-1 .footer-widget a:hover,
-.page-gallery .footer-widget a:hover,
-.single-news .footer-widget a:hover,
-.wix-style-contact .footer-widget a:hover {
+.page-gallery .footer-widget a:hover {
     color: #CA4249;
 }
 
@@ -845,9 +834,7 @@ body.home {
 .page-about .footer-widget ul,
 .page-service .footer-widget ul,
 .page-news-1 .footer-widget ul,
-.page-gallery .footer-widget ul,
-.single-news .footer-widget ul,
-.wix-style-contact .footer-widget ul {
+.page-gallery .footer-widget ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -857,9 +844,7 @@ body.home {
 .page-about .footer-widget ul li,
 .page-service .footer-widget ul li,
 .page-news-1 .footer-widget ul li,
-.page-gallery .footer-widget ul li,
-.single-news .footer-widget ul li,
-.wix-style-contact .footer-widget ul li {
+.page-gallery .footer-widget ul li {
     margin-bottom: 10px;
 }
 
@@ -867,9 +852,7 @@ body.home {
 .page-about .footer-social,
 .page-service .footer-social,
 .page-news-1 .footer-social,
-.page-gallery .footer-social,
-.single-news .footer-social,
-.wix-style-contact .footer-social {
+.page-gallery .footer-social {
     display: flex;
     gap: 15px;
     margin-top: 15px;
@@ -879,9 +862,7 @@ body.home {
 .page-about .footer-social a,
 .page-service .footer-social a,
 .page-news-1 .footer-social a,
-.page-gallery .footer-social a,
-.single-news .footer-social a,
-.wix-style-contact .footer-social a {
+.page-gallery .footer-social a {
     width: 40px;
     height: 40px;
     background: rgba(255, 255, 255, 0.1);
@@ -897,9 +878,7 @@ body.home {
 .page-about .footer-social a:hover,
 .page-service .footer-social a:hover,
 .page-news-1 .footer-social a:hover,
-.page-gallery .footer-social a:hover,
-.single-news .footer-social a:hover,
-.wix-style-contact .footer-social a:hover {
+.page-gallery .footer-social a:hover {
     background: #CA4249;
     color: #fff;
 }
@@ -908,9 +887,7 @@ body.home {
 .page-about .footer-bottom,
 .page-service .footer-bottom,
 .page-news-1 .footer-bottom,
-.page-gallery .footer-bottom,
-.single-news .footer-bottom,
-.wix-style-contact .footer-bottom {
+.page-gallery .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 30px;
     text-align: center;
@@ -920,9 +897,7 @@ body.home {
 .page-about .footer-bottom p,
 .page-service .footer-bottom p,
 .page-news-1 .footer-bottom p,
-.page-gallery .footer-bottom p,
-.single-news .footer-bottom p,
-.wix-style-contact .footer-bottom p {
+.page-gallery .footer-bottom p {
     color: rgba(255, 255, 255, 0.6);
     font-size: 13px;
     margin: 5px 0;
@@ -932,9 +907,7 @@ body.home {
 .page-about .footer-links,
 .page-service .footer-links,
 .page-news-1 .footer-links,
-.page-gallery .footer-links,
-.single-news .footer-links,
-.wix-style-contact .footer-links {
+.page-gallery .footer-links {
     margin-top: 15px;
 }
 
@@ -942,9 +915,7 @@ body.home {
 .page-about .footer-links a,
 .page-service .footer-links a,
 .page-news-1 .footer-links a,
-.page-gallery .footer-links a,
-.single-news .footer-links a,
-.wix-style-contact .footer-links a {
+.page-gallery .footer-links a {
     color: rgba(255, 255, 255, 0.6);
     font-size: 13px;
     margin: 0 10px;
@@ -954,9 +925,7 @@ body.home {
 .page-about .footer-links .separator,
 .page-service .footer-links .separator,
 .page-news-1 .footer-links .separator,
-.page-gallery .footer-links .separator,
-.single-news .footer-links .separator,
-.wix-style-contact .footer-links .separator {
+.page-gallery .footer-links .separator {
     color: rgba(255, 255, 255, 0.3);
 }
 
@@ -965,9 +934,7 @@ body.home {
     .page-about .footer-widgets,
     .page-service .footer-widgets,
     .page-news-1 .footer-widgets,
-    .page-gallery .footer-widgets,
-    .single-news .footer-widgets,
-.wix-style-contact .footer-widgets {
+    .page-gallery .footer-widgets {
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
     }
@@ -978,9 +945,7 @@ body.home {
     .page-about .footer-widgets,
     .page-service .footer-widgets,
     .page-news-1 .footer-widgets,
-    .page-gallery .footer-widgets,
-    .single-news .footer-widgets,
-.wix-style-contact .footer-widgets {
+    .page-gallery .footer-widgets {
         grid-template-columns: 1fr;
         gap: 30px;
     }
@@ -989,9 +954,7 @@ body.home {
     .page-about .site-footer,
     .page-service .site-footer,
     .page-news-1 .site-footer,
-    .page-gallery .site-footer,
-    .single-news .site-footer,
-.wix-style-contact .site-footer {
+    .page-gallery .site-footer {
         padding: 40px 20px 20px;
     }
 }
