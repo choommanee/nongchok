@@ -14,9 +14,13 @@ get_header(); ?>
         <div class="hero-text-section">
             <div class="container">
                 <div class="hero-text-center">
-                    <h1 class="hero-main-title" data-aos="fade-up">Welcome to<br>AYAM BANGKOK</h1>
+                    <?php
+                    $hero_title = get_theme_mod('hero_title', __('Welcome to<br>AYAM BANGKOK', 'ayam-bangkok'));
+                    $hero_subtitle = get_theme_mod('hero_subtitle', __('Layanan pengiriman ayam lokal Thailand dengan pesawat terbang', 'ayam-bangkok'));
+                    ?>
+                    <h1 class="hero-main-title" data-aos="fade-up"><?php echo wp_kses_post($hero_title); ?></h1>
                     <p class="hero-main-subtitle" data-aos="fade-up" data-aos-delay="200">
-                        Layanan pengiriman ayam lokal Thailand dengan pesawat terbang
+                        <?php echo esc_html($hero_subtitle); ?>
                     </p>
                 </div>
             </div>
