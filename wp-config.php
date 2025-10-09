@@ -29,9 +29,9 @@ define( 'NONCE_SALT',       'ayam-bangkok-nonce-salt-official-representative-pro
 // ** WordPress Database Table prefix ** //
 $table_prefix = 'wp_';
 
-// ** WordPress debugging mode - DISABLED in production ** //
-define( 'WP_DEBUG', false );
-define( 'WP_DEBUG_LOG', false );
+// ** WordPress debugging mode - ENABLED for troubleshooting ** //
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
 define( 'WP_DEBUG_DISPLAY', false );
 @ini_set('display_errors', 0);
 
@@ -39,6 +39,10 @@ define( 'WP_DEBUG_DISPLAY', false );
 // Let WordPress use the URLs from database to avoid redirect loops
 // define('WP_HOME', 'https://' . $_SERVER['HTTP_HOST']);
 // define('WP_SITEURL', 'https://' . $_SERVER['HTTP_HOST']);
+
+// ** Disable canonical redirects to prevent loops ** //
+define('DISABLE_WP_CRON', true);
+add_filter('redirect_canonical', '__return_false');
 
 // ** Increase memory limit ** //
 define('WP_MEMORY_LIMIT', '256M');
