@@ -48,7 +48,7 @@ define('WP_MAX_MEMORY_LIMIT', '512M');
 define('DISALLOW_FILE_EDIT', true);
 
 // ** Force SSL ** //
-define('FORCE_SSL_ADMIN', true);
+// define('FORCE_SSL_ADMIN', true); // Disabled - Railway proxy handles SSL
 
 // ** Auto-save interval ** //
 define('AUTOSAVE_INTERVAL', 300);
