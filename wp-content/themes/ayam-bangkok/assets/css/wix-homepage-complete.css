@@ -3,6 +3,23 @@
  * Matching https://saeliwid.wixsite.com/my-site-3
  */
 
+/* ===== FONTAWESOME ICON FIX ===== */
+.home i.fas,
+.home i.far,
+.home i.fab,
+.home .fas,
+.home .far,
+.home .fab {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    font-style: normal !important;
+}
+
+.home i.far,
+.home .far {
+    font-weight: 400 !important;
+}
+
 /* ===== HEADER STYLES ===== */
 .wix-header {
     position: fixed;
