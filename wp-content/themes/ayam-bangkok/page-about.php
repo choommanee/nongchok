@@ -48,23 +48,21 @@ get_header(); ?>
         </div>
     </section>
 
-    <!-- Meet the Nong Chok FCI Section -->
+    <!-- Our Business Section -->
     <section class="wix-about-intro">
         <div class="container">
             <div class="about-intro-grid">
                 <div class="about-intro-content">
-                    <h2 class="section-title" data-aos="fade-up">Meet the<br>Nong Chok FCI</h2>
+                    <h2 class="section-title" data-aos="fade-up">Our Business</h2>
                     <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        Six executives of Ayam Bangkok
+                        Since 2025
                     </div>
                     <p class="intro-text" data-aos="fade-up" data-aos-delay="200">
-                        I'm a paragraph. Click here to add your own text and edit me. 
-                        I'm a great place for you to tell a story and let your users know 
-                        a little more about you.
+                        I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click "Edit Text" or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page. I'm a great place for you to tell a story and let your users know a little more about you.
                     </p>
-                    <div class="intro-button" data-aos="fade-up" data-aos-delay="300">
-                        <a href="<?php echo esc_url(home_url('/about')); ?>" class="btn-wix-outline">Our Story</a>
-                    </div>
+                    <p class="intro-text" data-aos="fade-up" data-aos-delay="300">
+                        This is a great space to write a long text about your company and your services. You can use this space to go into a little more detail about your company. Talk about your team and what services you provide. Tell your visitors the story of how you came up with the idea for your business and what makes you different from your competitors. Make your company stand out and show your visitors who you are.
+                    </p>
                 </div>
                 <div class="about-intro-images" data-aos="fade-left" data-aos-delay="200">
                     <!-- 3 Image Grid -->
@@ -101,163 +99,25 @@ get_header(); ?>
         </div>
     </section>
 
-    <!-- Our Service Section -->
-    <section class="wix-service-section">
+    <!-- Our Story Section -->
+    <section class="wix-service-section" style="background: #f8f8f8;">
         <div class="container">
             <div class="section-header-center">
-                <h2 class="section-title" data-aos="fade-up">Our Service</h2>
+                <h2 class="section-title" data-aos="fade-up">Our Story</h2>
             </div>
             
-            <div class="service-feature" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-images-grid">
-                    <?php
-                    // Service images from pic home/3
-                    $service_dir = ABSPATH . 'pic home/3/';
-                    $service_images = [];
-                    
-                    if (file_exists($service_dir)) {
-                        $service_files = glob($service_dir . '*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-                        foreach ($service_files as $file) {
-                            $service_images[] = home_url('/pic home/3/' . basename($file));
-                        }
-                    }
-                    
-                    // Display service images
-                    if (!empty($service_images)) :
-                        foreach (array_slice($service_images, 0, 2) as $img) :
-                    ?>
-                        <div class="service-image-item">
-                            <img src="<?php echo esc_url($img); ?>" alt="Service">
-                        </div>
-                    <?php 
-                        endforeach;
-                    endif;
-                    ?>
-                </div>
-                
-                <div class="service-content-center">
-                    <div class="service-icon">
-                        <i class="fas fa-plane"></i>
-                    </div>
-                    <h3 class="service-title">Export by plane</h3>
-                    <p class="service-description">
-                        I'm a paragraph. Click here to add your own text and edit me. It's easy. 
-                        Just click "Edit Text" or double click me to add your own content and make 
-                        changes to the font. I'm a great place for you to tell a story and let 
-                        your users know a little more about you.
-                    </p>
-                    <div class="service-button">
-                        <a href="<?php echo esc_url(home_url('/service')); ?>" class="btn-wix-outline">Learn More</a>
-                    </div>
-                </div>
+            <div class="about-intro-content" style="max-width: 900px; margin: 0 auto 60px;">
+                <p class="intro-text" data-aos="fade-up" data-aos-delay="100">
+                    I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click "Edit Text" or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page. I'm a great place for you to tell a story and let your users know a little more about you.
+                </p>
+                <p class="intro-text" data-aos="fade-up" data-aos-delay="200">
+                    This is a great space to write a long text about your company and your services. You can use this space to go into a little more detail about your company. Talk about your team and what services you provide. Tell your visitors the story of how you came up with the idea for your business and what makes you different from your competitors. Make your company stand out and show your visitors who you are.
+                </p>
             </div>
             
-            <!-- Plane Background Image -->
-            <div class="service-bg-image" data-aos="fade-up" data-aos-delay="200">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/plane-bg.jpg" alt="Plane">
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="wix-gallery-section">
-        <div class="container">
-            <div class="section-header-center">
-                <h2 class="section-title" data-aos="fade-up">Gallery</h2>
-            </div>
-            
-            <div class="gallery-circle-grid" data-aos="fade-up" data-aos-delay="100">
-                <?php
-                // Get gallery images from pic home/gallery
-                $gallery_dir = ABSPATH . 'pic home/gallery/';
-                $gallery_images = [];
-                
-                if (file_exists($gallery_dir)) {
-                    $gallery_files = glob($gallery_dir . '*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-                    foreach ($gallery_files as $file) {
-                        $gallery_images[] = home_url('/pic home/gallery/' . basename($file));
-                    }
-                }
-                
-                // Show first 5 images in circular style
-                $gallery_count = min(count($gallery_images), 5);
-                
-                if ($gallery_count > 0) :
-                    for ($i = 0; $i < $gallery_count; $i++) :
-                ?>
-                    <div class="gallery-circle-item">
-                        <a href="<?php echo esc_url(home_url('/gallery')); ?>">
-                            <div class="circle-image">
-                                <img src="<?php echo esc_url($gallery_images[$i]); ?>" alt="Gallery">
-                            </div>
-                        </a>
-                    </div>
-                <?php 
-                    endfor;
-                else :
-                    // Fallback with rooster icon
-                    for ($i = 1; $i <= 5; $i++) :
-                ?>
-                    <div class="gallery-circle-item">
-                        <a href="<?php echo esc_url(home_url('/gallery')); ?>">
-                            <div class="circle-image circle-placeholder">
-                                <i class="fas fa-image"></i>
-                            </div>
-                        </a>
-                    </div>
-                <?php 
-                    endfor;
-                endif;
-                ?>
-            </div>
-        </div>
-    </section>
-
-    <!-- News Section -->
-    <section class="wix-news-section">
-        <div class="container">
-            <div class="section-header-center">
-                <h2 class="section-title" data-aos="fade-up">News</h2>
-            </div>
-            
-            <div class="news-video-grid" data-aos="fade-up" data-aos-delay="100">
-                <?php
-                // Get latest 3 posts
-                $news_query = new WP_Query([
-                    'post_type' => 'post',
-                    'posts_per_page' => 3,
-                    'orderby' => 'date',
-                    'order' => 'DESC'
-                ]);
-                
-                if ($news_query->have_posts()) :
-                    while ($news_query->have_posts()) : $news_query->the_post();
-                ?>
-                    <div class="news-video-item">
-                        <div class="news-video-thumbnail">
-                            <?php if (has_post_thumbnail()) : ?>
-                                <?php the_post_thumbnail('medium'); ?>
-                            <?php else : ?>
-                                <div class="news-placeholder">
-                                    <i class="fas fa-newspaper"></i>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="news-video-content">
-                            <h3 class="news-video-title">Video Title</h3>
-                            <p class="news-video-description">
-                                This is a great space to update your audience with a description of your video. 
-                                Include information like what the video is about, who produced it, where it was...
-                            </p>
-                        </div>
-                    </div>
-                <?php 
-                    endwhile;
-                    wp_reset_postdata();
-                else :
-                    // Show placeholder news items
-                    for ($i = 1; $i <= 3; $i++) :
-                ?>
+            <!-- Video Gallery Grid (8 videos) -->
+            <div class="news-video-grid" data-aos="fade-up" data-aos-delay="100" style="grid-template-columns: repeat(4, 1fr);">
+                <?php for ($i = 1; $i <= 8; $i++) : ?>
                     <div class="news-video-item">
                         <div class="news-video-thumbnail">
                             <div class="news-placeholder">
@@ -266,16 +126,9 @@ get_header(); ?>
                         </div>
                         <div class="news-video-content">
                             <h3 class="news-video-title">Video Title</h3>
-                            <p class="news-video-description">
-                                This is a great space to update your audience with a description of your video. 
-                                Include information like what the video is about, who produced it, where it was...
-                            </p>
                         </div>
                     </div>
-                <?php 
-                    endfor;
-                endif;
-                ?>
+                <?php endfor; ?>
             </div>
         </div>
     </section>
