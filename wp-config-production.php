@@ -5,6 +5,12 @@
  * This file will be copied to wp-config.php during Railway deployment
  */
 
+// ** Detect HTTPS from Railway proxy ** //
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['SERVER_PORT'] = '443';
+}
+
 // ** Railway MySQL Database Settings ** //
 define( 'DB_NAME', getenv('MYSQL_DATABASE') ?: 'railway' );
 define( 'DB_USER', getenv('MYSQL_USER') ?: 'root' );
