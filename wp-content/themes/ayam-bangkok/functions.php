@@ -116,6 +116,11 @@ function ayam_theme_scripts()
         wp_enqueue_script('wix-homepage-js', AYAM_THEME_URI . '/assets/js/wix-homepage.js', array('jquery', 'swiper-js', 'aos-js'), AYAM_THEME_VERSION, true);
     }
 
+    // Rooster Archive Wix Style CSS
+    if (is_post_type_archive('ayam_rooster')) {
+        wp_enqueue_style('rooster-wix-style', AYAM_THEME_URI . '/assets/css/rooster-wix-style.css', array('wix-homepage-complete'), AYAM_THEME_VERSION);
+    }
+
     // About Page CSS
     if (is_page_template('page-about.php') || is_page('about') || is_page('about-us') || is_page(27)) {
         wp_enqueue_style('about-page', AYAM_THEME_URI . '/assets/css/about.css', array(), AYAM_THEME_VERSION);
