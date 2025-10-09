@@ -91,23 +91,26 @@
      * Initialize Mobile Menu Toggle
      */
     function initMobileMenu() {
-        $('.wix-mobile-toggle').on('click', function() {
+        // Toggle menu and overlay
+        $('.wix-mobile-toggle').on('click', function(e) {
+            e.stopPropagation();
             $('.wix-nav').toggleClass('active');
             $(this).toggleClass('active');
+            $('.mobile-menu-overlay').toggleClass('active');
         });
-        
-        // Close menu when clicking outside
-        $(document).on('click', function(e) {
-            if (!$(e.target).closest('.wix-header').length) {
-                $('.wix-nav').removeClass('active');
-                $('.wix-mobile-toggle').removeClass('active');
-            }
+
+        // Close menu when clicking overlay
+        $('.mobile-menu-overlay').on('click', function() {
+            $('.wix-nav').removeClass('active');
+            $('.wix-mobile-toggle').removeClass('active');
+            $(this).removeClass('active');
         });
-        
+
         // Close menu when clicking on a link
         $('.wix-menu a').on('click', function() {
             $('.wix-nav').removeClass('active');
             $('.wix-mobile-toggle').removeClass('active');
+            $('.mobile-menu-overlay').removeClass('active');
         });
     }
     
