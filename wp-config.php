@@ -40,9 +40,8 @@ define( 'WP_DEBUG_DISPLAY', false );
 // define('WP_HOME', 'https://' . $_SERVER['HTTP_HOST']);
 // define('WP_SITEURL', 'https://' . $_SERVER['HTTP_HOST']);
 
-// ** Disable canonical redirects to prevent loops ** //
+// ** Disable WP Cron ** //
 define('DISABLE_WP_CRON', true);
-add_filter('redirect_canonical', '__return_false');
 
 // ** Increase memory limit ** //
 define('WP_MEMORY_LIMIT', '256M');

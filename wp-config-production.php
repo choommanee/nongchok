@@ -40,9 +40,8 @@ define( 'WP_DEBUG_DISPLAY', false );
 // define('WP_HOME', 'https://' . $_SERVER['HTTP_HOST']);
 // define('WP_SITEURL', 'https://' . $_SERVER['HTTP_HOST']);
 
-// ** Disable canonical redirects to prevent loops ** //
+// ** Disable WP Cron ** //
 define('DISABLE_WP_CRON', true);
-add_filter('redirect_canonical', '__return_false');
 
 // ** Increase memory limit ** //
 define('WP_MEMORY_LIMIT', '256M');
@@ -52,7 +51,7 @@ define('WP_MAX_MEMORY_LIMIT', '512M');
 define('DISALLOW_FILE_EDIT', true);
 
 // ** Force SSL ** //
-// define('FORCE_SSL_ADMIN', true); // Disabled - Railway proxy handles SSL
+define('FORCE_SSL_ADMIN', value: false); // Disabled - Railway proxy handles SSL
 
 // ** Auto-save interval ** //
 define('AUTOSAVE_INTERVAL', 300);
