@@ -206,16 +206,48 @@ body.page-about * {
     transition: all 0.3s ease;
 }
 
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
 /* Mobile Header */
 @media (max-width: 768px) {
     .wix-header-container {
         padding: 15px 20px;
     }
-    
+
     .wix-mobile-toggle {
         display: flex;
+        z-index: 1002;
     }
-    
+
+    .wix-mobile-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .wix-mobile-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .wix-mobile-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
     .wix-nav {
         position: fixed;
         top: 80px;
@@ -225,21 +257,34 @@ body.page-about * {
         background: #1E2950;
         transition: right 0.3s ease;
         padding: 20px 0;
+        z-index: 1001;
+        overflow-y: auto;
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
     }
-    
+
     .wix-nav.active {
         right: 0;
     }
-    
+
     .wix-menu {
         flex-direction: column;
         gap: 0;
     }
-    
+
+    .wix-menu li {
+        width: 100%;
+    }
+
     .wix-menu a {
         padding: 15px 30px;
         border-radius: 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: block;
+        width: 100%;
+    }
+
+    .wix-menu a:hover {
+        background: rgba(202, 66, 73, 0.2);
     }
 }
 

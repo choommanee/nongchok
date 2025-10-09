@@ -56,6 +56,9 @@
             </button>
         </div>
     </header><!-- #masthead -->
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
     
     <?php
     // Display breadcrumbs on non-front pages
