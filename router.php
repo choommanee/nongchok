@@ -4,9 +4,14 @@
  * Handles WordPress routing properly
  */
 
-// Force HTTP to prevent redirect loops with Railway proxy
-$_SERVER['HTTPS'] = 'off';
-$_SERVER['SERVER_PORT'] = '80';
+// Detect HTTPS from Railway proxy headers
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['SERVER_PORT'] = '443';
+} else {
+    $_SERVER['HTTPS'] = 'off';
+    $_SERVER['SERVER_PORT'] = '80';
+}
 
 // Get the requested URI
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
