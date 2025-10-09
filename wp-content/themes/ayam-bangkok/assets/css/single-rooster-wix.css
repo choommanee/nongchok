@@ -1,0 +1,481 @@
+/**
+ * Single Rooster Detail Page - Wix Style
+ */
+
+/* Breadcrumb */
+.single-rooster .breadcrumb-section {
+    background: #f9f9f9;
+    padding: 120px 20px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.breadcrumb-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Rooster Header */
+.single-rooster .rooster-header {
+    background: linear-gradient(135deg, #1E2950 0%, #2a3d6f 100%);
+    padding: 60px 20px;
+    color: #fff;
+}
+
+.rooster-header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rooster-header h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* Main Content Area */
+.single-rooster .rooster-content {
+    padding: 60px 20px;
+    background: #fff;
+}
+
+.rooster-content .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Rooster Grid Layout */
+.rooster-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+/* Image Gallery */
+.rooster-gallery {
+    position: sticky;
+    top: 100px;
+}
+
+.main-image {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.main-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.thumbnail-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.thumbnail-item {
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.thumbnail-item:hover,
+.thumbnail-item.active {
+    border-color: #CA4249;
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Rooster Info */
+.rooster-info h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1E2950;
+    margin-bottom: 20px;
+}
+
+.price-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.price-label {
+    font-size: 16px;
+    color: #666;
+    font-weight: 500;
+}
+
+.price-amount {
+    font-size: 36px;
+    font-weight: 700;
+    color: #CA4249;
+}
+
+.status-badge {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.status-badge.available {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.status-badge.reserved {
+    background: #FF9800;
+    color: #fff;
+}
+
+.status-badge.sold {
+    background: #9E9E9E;
+    color: #fff;
+}
+
+/* Quick Info Grid */
+.quick-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: #fff;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    border-color: #CA4249;
+}
+
+.info-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #CA4249;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.info-content {
+    flex: 1;
+}
+
+.info-label {
+    display: block;
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 3px;
+}
+
+.info-value {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1E2950;
+}
+
+/* Description */
+.rooster-description {
+    margin-bottom: 30px;
+}
+
+.rooster-description h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1E2950;
+    margin-bottom: 15px;
+}
+
+.rooster-description p {
+    line-height: 1.8;
+    color: #666;
+    font-size: 15px;
+}
+
+/* Characteristics */
+.rooster-characteristics {
+    padding: 25px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.rooster-characteristics h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1E2950;
+    margin-bottom: 20px;
+}
+
+.characteristics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.characteristic-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.char-label {
+    font-weight: 500;
+    color: #666;
+}
+
+.char-value {
+    font-weight: 600;
+    color: #1E2950;
+}
+
+/* Action Buttons */
+.rooster-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    flex: 1;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-primary {
+    background: #CA4249;
+    color: #fff;
+    border-color: #CA4249;
+}
+
+.btn-primary:hover {
+    background: #b53940;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(202, 66, 73, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    color: #1E2950;
+    border-color: #1E2950;
+}
+
+.btn-outline:hover {
+    background: #1E2950;
+    color: #fff;
+}
+
+/* Taxonomy Tags */
+.rooster-taxonomy {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.tax-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1E2950;
+    margin-right: 10px;
+}
+
+.taxonomy-tag {
+    padding: 8px 16px;
+    background: #fff;
+    border: 2px solid #CA4249;
+    color: #CA4249;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.taxonomy-tag:hover {
+    background: #CA4249;
+    color: #fff;
+}
+
+/* Related Roosters Section */
+.related-roosters-section {
+    padding: 60px 20px;
+    background: #f9f9f9;
+}
+
+.related-roosters-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.related-roosters-section h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1E2950;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.related-roosters-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* Related Rooster Cards */
+.related-rooster-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.related-rooster-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.related-card-image {
+    position: relative;
+    padding-top: 75%;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.related-card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.related-card-content {
+    padding: 20px;
+}
+
+.related-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.related-card-title a {
+    color: #1E2950;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.related-card-title a:hover {
+    color: #CA4249;
+}
+
+.related-card-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #CA4249;
+    margin-bottom: 15px;
+}
+
+.related-card-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #CA4249;
+    color: #fff;
+    text-align: center;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.related-card-btn:hover {
+    background: #b53940;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .rooster-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .rooster-gallery {
+        position: static;
+    }
+
+    .related-roosters-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .single-rooster .breadcrumb-section {
+        padding: 100px 20px 15px;
+    }
+
+    .single-rooster .rooster-header {
+        padding: 40px 20px;
+    }
+
+    .quick-info-grid,
+    .characteristics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rooster-actions {
+        flex-direction: column;
+    }
+
+    .related-roosters-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thumbnail-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

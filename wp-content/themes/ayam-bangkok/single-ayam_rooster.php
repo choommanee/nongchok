@@ -1,11 +1,11 @@
 <?php
 /**
- * Single Rooster template
+ * Single Rooster template - Wix Style
  */
 
 get_header(); ?>
 
-<main id="primary" class="site-main single-rooster">
+<main id="primary" class="site-main single-rooster wix-style-single-rooster">
     
     <?php while (have_posts()) : the_post(); ?>
         
