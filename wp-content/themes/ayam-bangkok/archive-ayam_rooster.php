@@ -3,8 +3,7 @@
  * Archive template for Roosters with Advanced Features and Wix Style
  */
 
-// Use Wix-style header
-get_template_part('template-parts/wix-header');
+get_header();
 ?>
 
 <main id="primary" class="site-main roosters-archive wix-style-roosters">
@@ -537,7 +536,4 @@ get_template_part('template-parts/wix-header');
 
 </main><!-- #primary -->
 
-<?php
-// Use Wix-style footer
-get_template_part('template-parts/wix-footer');
-?>
+<?php get_footer(); ?>
