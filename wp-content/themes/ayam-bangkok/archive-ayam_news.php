@@ -1,11 +1,11 @@
 <?php
 /**
- * Archive template for News
+ * Archive template for News - Wix Style
  */
 
 get_header(); ?>
 
-<main id="primary" class="site-main news-archive">
+<main id="primary" class="site-main news-archive wix-style-news-archive">
     
     <!-- Page Header -->
     <section class="page-header news-header">
