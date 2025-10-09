@@ -1,11 +1,13 @@
 <?php
 /**
- * Archive template for Roosters with Advanced Features
+ * Archive template for Roosters with Advanced Features and Wix Style
  */
 
-get_header(); ?>
+// Use Wix-style header
+get_template_part('template-parts/wix-header');
+?>
 
-<main id="primary" class="site-main roosters-archive">
+<main id="primary" class="site-main roosters-archive wix-style-roosters">
     
     <!-- Page Header -->
     <section class="page-header roosters-header">
@@ -535,4 +537,7 @@ get_header(); ?>
 
 </main><!-- #primary -->
 
-<?php get_footer(); ?>
+<?php
+// Use Wix-style footer
+get_template_part('template-parts/wix-footer');
+?>
