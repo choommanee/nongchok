@@ -26,7 +26,8 @@
       "Bash(railway link:*)",
       "Bash(railway whoami:*)",
       "Bash(railway list:*)",
-      "Bash(tar:*)"
+      "Bash(tar:*)",
+      "Bash(wp post-type list:*)"
     ],
     "deny": [],
     "ask": []
