@@ -407,13 +407,6 @@ get_header();
                                             <?php _e('สอบถาม', 'ayam-bangkok'); ?>
                                         </button>
                                     </div>
-                                    
-                                    <div class="card-meta">
-                                        <span class="post-date">
-                                            <i class="fas fa-clock"></i>
-                                            <?php echo get_the_date('j M Y'); ?>
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </article>
