@@ -289,7 +289,7 @@ get_header();
                                     </a>
                                 <?php else : ?>
                                     <a href="<?php the_permalink(); ?>">
-                                        <img src="<?php echo home_url('/pic home/gallery/IMG_1471.jpg'); ?>" alt="<?php the_title(); ?>" class="rooster-image placeholder-rooster">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-rooster.jpg" alt="<?php the_title(); ?>" class="rooster-image placeholder-rooster">
                                     </a>
                                 <?php endif; ?>
                                 
