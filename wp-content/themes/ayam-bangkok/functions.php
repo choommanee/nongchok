@@ -6952,7 +6952,7 @@ function ayam_get_rooster_quick_view()
         .quick-view-price .price-amount {
             font-size: 2rem;
             font-weight: 700;
-            color: #CA4249;
+            color: #F8F7F7FF;
         }
 
         .quick-view-specs {

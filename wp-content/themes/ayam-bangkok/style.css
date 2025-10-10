@@ -4461,7 +4461,7 @@ body.lightbox-open {
 
 .price-label {
     font-size: 1.1rem;
-    color: #6c757d;
+    color: #f7f8f8;
     margin-right: 0.5rem;
 }
 
@@ -7249,7 +7249,7 @@ dern Roosters Section */
 
 /* Rooster Price - Modern Design */
 .rooster-price {
-    position: absolute;
+    position: relative;
     top: var(--spacing-sm);
     right: var(--spacing-sm);
     background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
