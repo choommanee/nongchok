@@ -348,17 +348,23 @@ body.home {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .hero-swiper-wix {
     width: 100%;
     height: auto;
+    margin: 0;
+    padding: 0;
 }
 
 .hero-swiper-wix .swiper-slide {
     width: 100%;
     height: auto;
     display: none;
+    margin: 0;
+    padding: 0;
 }
 
 .hero-swiper-wix .swiper-slide-active {
@@ -372,10 +378,11 @@ body.home {
 .hero-swiper-wix .swiper-slide img {
     width: 100%;
     height: auto;
-    max-height: 600px;
-    min-height: 400px;
+    max-height: 500px;
     object-fit: cover;
     display: block;
+    margin: 0;
+    padding: 0;
 }
 
 .hero-swiper-wix .swiper-pagination {
