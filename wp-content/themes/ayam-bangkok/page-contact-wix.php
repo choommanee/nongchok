@@ -6,11 +6,10 @@
 
 get_header();
 
-// Get company information
-$company_name = get_field('company_name', 'option') ?: 'หนองจอก เอฟซีไอ';
-$company_address = get_field('company_address', 'option') ?: 'หนองจอก กรุงเทพมหานคร ประเทศไทย';
-$company_phone = get_theme_mod('ayam_phone', '02-123-4567');
-$company_email = get_theme_mod('ayam_email', 'info@nongchok.com');
+// Get company information from Customizer
+$company_address = get_theme_mod('contact_address', 'ถนน พุทธบูชา 11 ตำบลโคกเจริญ แขวงหนองจอก เขตหนองจอก Nong Chok, Bangkok, Thailand');
+$company_phone = get_theme_mod('contact_phone', '089-091-4664');
+$company_email = get_theme_mod('contact_email', 'info@ayambangkok.com');
 $company_line = get_theme_mod('ayam_line_id', '@nongchok');
 $company_facebook = get_theme_mod('ayam_facebook', '');
 $company_youtube = get_theme_mod('ayam_youtube', '');
@@ -21,9 +20,16 @@ $company_youtube = get_theme_mod('ayam_youtube', '');
     <!-- Hero Section -->
     <section class="service-hero">
         <div class="service-hero-container">
-            <h1 class="service-hero-subtitle">Get in Touch</h1>
+            <?php
+            $contact_title = get_theme_mod('contact_title', 'Get in Touch');
+            $contact_subtitle = get_theme_mod('contact_subtitle', "We'd love to hear from you");
+            ?>
+            <h1 class="service-hero-subtitle"><?php echo esc_html($contact_title); ?></h1>
             <p class="service-hero-title">Contact Us</p>
             <div class="service-hero-line"></div>
+            <?php if ($contact_subtitle) : ?>
+                <p class="service-hero-description"><?php echo esc_html($contact_subtitle); ?></p>
+            <?php endif; ?>
         </div>
     </section>
 
