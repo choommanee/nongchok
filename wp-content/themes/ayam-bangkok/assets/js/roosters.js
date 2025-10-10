@@ -29,6 +29,7 @@ class RoosterCatalog {
         // Advanced filter events
         $(document).on('change', '.roosters-filter-form select, .roosters-filter-form input', this.handleFilterChange.bind(this));
         $(document).on('input', '#rooster-search', this.debounce(this.handleSearch.bind(this), 300));
+        $(document).on('click', '.search-btn', this.handleSearch.bind(this));
         $(document).on('change', '#sort-roosters', this.handleSort.bind(this));
         
         // Price range slider
@@ -56,6 +57,16 @@ class RoosterCatalog {
         
         // Reset filters
         $(document).on('click', '.filter-reset', this.resetFilters.bind(this));
+
+        // Advanced filters toggle
+        $(document).on('click', '.toggle-advanced-btn', this.toggleAdvancedFilters.bind(this));
+
+        // Apply and reset filters
+        $(document).on('click', '.apply-filters-btn', this.applyFilters.bind(this));
+        $(document).on('click', '.reset-filters-btn', this.resetFilters.bind(this));
+
+        // Quick filter buttons
+        $(document).on('click', '.quick-filter-btn', this.handleQuickFilterBtn.bind(this));
     }
 
     initializeFilters() {
@@ -685,6 +696,46 @@ class RoosterCatalog {
     loadFavorites() {
         const saved = localStorage.getItem('rooster_favorites');
         return saved ? JSON.parse(saved) : [];
+    }
+
+    // Toggle Advanced Filters
+    toggleAdvancedFilters(e) {
+        e.preventDefault();
+        const $panel = $('.advanced-filters-panel');
+        const $btn = $(e.currentTarget);
+        const $icon = $btn.find('.fa-chevron-down');
+
+        $panel.slideToggle(300);
+        $icon.toggleClass('fa-chevron-down fa-chevron-up');
+    }
+
+    // Handle Quick Filter Buttons
+    handleQuickFilterBtn(e) {
+        e.preventDefault();
+        const $btn = $(e.currentTarget);
+        const filter = $btn.data('filter');
+
+        // Toggle active state
+        $('.quick-filter-btn').removeClass('active');
+        $btn.addClass('active');
+
+        // Apply quick filter
+        switch(filter) {
+            case 'available':
+                $('input[name="status[]"][value="available"]').prop('checked', true).trigger('change');
+                break;
+            case 'premium':
+                $('#price-min').val(20000).trigger('change');
+                break;
+            case 'new':
+                $('#sort-roosters').val('date-desc').trigger('change');
+                break;
+            case 'under-10k':
+                $('#price-max').val(10000).trigger('change');
+                break;
+        }
+
+        this.applyFilters();
     }
 }
 

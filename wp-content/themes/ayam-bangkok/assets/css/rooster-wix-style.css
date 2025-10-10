@@ -461,14 +461,15 @@
 
 .card-footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     gap: 12px;
 }
 
 .card-buttons {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .btn {
