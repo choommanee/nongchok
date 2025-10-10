@@ -25,10 +25,7 @@ get_header(); ?>
                             <?php if (has_post_thumbnail()) : ?>
                                 <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'large'); ?>" alt="<?php the_title(); ?>" class="rooster-main-image">
                             <?php else : ?>
-                                <div class="placeholder-main-image">
-                                    <i class="fas fa-image"></i>
-                                    <span><?php _e('ไม่มีรูปภาพ', 'ayam-bangkok'); ?></span>
-                                </div>
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-rooster.jpg" alt="<?php the_title(); ?>" class="rooster-main-image">
                             <?php endif; ?>
                             
                             <!-- Status Badge -->
