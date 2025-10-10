@@ -36,9 +36,16 @@ if (empty($gallery_images)) {
     <!-- Gallery Hero Section -->
     <section class="service-hero">
         <div class="service-hero-container">
+            <?php
+            $gallery_title = get_theme_mod('gallery_title', 'Our Gallery');
+            $gallery_description = get_theme_mod('gallery_description', 'Explore our collection of Thai fighting roosters');
+            ?>
             <h1 class="service-hero-subtitle">Get to Know</h1>
-            <p class="service-hero-title">Gallery</p>
+            <p class="service-hero-title"><?php echo esc_html($gallery_title); ?></p>
             <div class="service-hero-line"></div>
+            <?php if ($gallery_description) : ?>
+                <p class="service-hero-description"><?php echo esc_html($gallery_description); ?></p>
+            <?php endif; ?>
         </div>
     </section>
 
