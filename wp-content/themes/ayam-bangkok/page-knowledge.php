@@ -1,11 +1,11 @@
 <?php
 /**
- * Template for Knowledge Center page
+ * Template for Knowledge Center page - Wix Style
  */
 
 get_header(); ?>
 
-<main id="primary" class="site-main knowledge-page">
+<main id="primary" class="site-main knowledge-page wix-style-knowledge">
     
     <!-- Page Header -->
     <section class="page-header">
