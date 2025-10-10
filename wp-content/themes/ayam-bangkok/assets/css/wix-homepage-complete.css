@@ -309,7 +309,7 @@ body.home {
 
 /* Hero Text Section */
 .hero-text-section {
-    padding: 20px 20px 15px;
+    padding: 20px 20px 0;
     background: #fff;
 }
 
@@ -323,7 +323,7 @@ body.home {
     font-size: clamp(48px, 6vw, 72px);
     font-weight: 700;
     line-height: 1.1;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #1E2950;
 }
 
@@ -333,7 +333,7 @@ body.home {
     line-height: 1.6;
     color: #666;
     max-width: 700px;
-    margin: 0 auto;
+    margin: 0 auto 10px;
 }
 
 /* Hero Slider Section */
