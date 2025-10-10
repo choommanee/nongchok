@@ -31,13 +31,24 @@ get_header(); ?>
             <div class="swiper hero-swiper-wix">
                 <div class="swiper-wrapper">
                     <?php
-                    // Hero slider images in order
-                    $slider_images = [
-                        get_template_directory_uri() . '/assets/images/hero-slides/slide-1.jpg',
-                        get_template_directory_uri() . '/assets/images/hero-slides/slide-2.jpg',
-                        get_template_directory_uri() . '/assets/images/hero-slides/slide-3.jpg',
-                    ];
-                    
+                    // Hero slider images - use Customizer or fallback to theme images
+                    $slider_images = [];
+                    for ($i = 1; $i <= 3; $i++) {
+                        $slide_id = get_theme_mod("hero_slide_$i");
+                        if ($slide_id) {
+                            $slider_images[] = wp_get_attachment_image_url($slide_id, 'full');
+                        }
+                    }
+
+                    // Fallback to theme images if no custom slides
+                    if (empty($slider_images)) {
+                        $slider_images = [
+                            get_template_directory_uri() . '/assets/images/hero-slides/slide-1.jpg',
+                            get_template_directory_uri() . '/assets/images/hero-slides/slide-2.jpg',
+                            get_template_directory_uri() . '/assets/images/hero-slides/slide-3.jpg',
+                        ];
+                    }
+
                     foreach ($slider_images as $image) :
                     ?>
                         <div class="swiper-slide">
@@ -57,14 +68,17 @@ get_header(); ?>
         <div class="container">
             <div class="about-intro-grid">
                 <div class="about-intro-content">
-                    <h2 class="section-title" data-aos="fade-up">Meet the<br>Nong Chok FCI</h2>
+                    <?php
+                    $about_title = get_theme_mod('about_intro_title', 'Meet the<br>Nong Chok FCI');
+                    $about_subtitle = get_theme_mod('about_intro_subtitle', 'Six executives of Ayam Bangkok');
+                    $about_text = get_theme_mod('about_intro_text', "I'm a paragraph. Click here to add your own text and edit me. I'm a great place for you to tell a story and let your users know a little more about you.");
+                    ?>
+                    <h2 class="section-title" data-aos="fade-up"><?php echo wp_kses_post($about_title); ?></h2>
                     <div class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        Six executives of Ayam Bangkok
+                        <?php echo esc_html($about_subtitle); ?>
                     </div>
                     <p class="intro-text" data-aos="fade-up" data-aos-delay="200">
-                        I'm a paragraph. Click here to add your own text and edit me. 
-                        I'm a great place for you to tell a story and let your users know 
-                        a little more about you.
+                        <?php echo esc_html($about_text); ?>
                     </p>
                     <div class="intro-button" data-aos="fade-up" data-aos-delay="300">
                         <a href="<?php echo esc_url(home_url('/about')); ?>" class="btn-wix-outline">Our Story</a>
@@ -74,25 +88,36 @@ get_header(); ?>
                     <!-- 3 Image Grid -->
                     <div class="intro-image-grid">
                         <?php
-                        $intro_images = [
-                            get_template_directory_uri() . '/assets/images/intro-1.jpg',
-                            get_template_directory_uri() . '/assets/images/logo-square.jpg',
-                            get_template_directory_uri() . '/assets/images/intro-3.jpg',
-                        ];
-                        
-                        // Try to use images from pic home/2 if available
-                        $intro_dir = ABSPATH . 'pic home/2/';
-                        if (file_exists($intro_dir)) {
-                            $intro_files = glob($intro_dir . '*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-                            if (count($intro_files) >= 2) {
+                        // Use Customizer images or fallback
+                        $intro_images = [];
+                        for ($i = 1; $i <= 3; $i++) {
+                            $image_id = get_theme_mod("about_intro_image_$i");
+                            if ($image_id) {
+                                $intro_images[] = wp_get_attachment_image_url($image_id, 'medium_large');
+                            }
+                        }
+
+                        // Fallback to theme images or pic home/2
+                        if (empty($intro_images)) {
+                            $intro_dir = ABSPATH . 'pic home/2/';
+                            if (file_exists($intro_dir)) {
+                                $intro_files = glob($intro_dir . '*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+                                if (count($intro_files) >= 2) {
+                                    $intro_images = [
+                                        home_url('/pic home/2/' . basename($intro_files[0])),
+                                        get_template_directory_uri() . '/assets/images/logo-ayam-bangkok.svg',
+                                        home_url('/pic home/2/' . basename($intro_files[1])),
+                                    ];
+                                }
+                            } else {
                                 $intro_images = [
-                                    home_url('/pic home/2/' . basename($intro_files[0])),
-                                    get_template_directory_uri() . '/assets/images/logo-ayam-bangkok.svg',
-                                    home_url('/pic home/2/' . basename($intro_files[1])),
+                                    get_template_directory_uri() . '/assets/images/intro-1.jpg',
+                                    get_template_directory_uri() . '/assets/images/logo-square.jpg',
+                                    get_template_directory_uri() . '/assets/images/intro-3.jpg',
                                 ];
                             }
                         }
-                        
+
                         foreach ($intro_images as $index => $img) :
                         ?>
                             <div class="intro-image-item">
@@ -140,15 +165,17 @@ get_header(); ?>
                 </div>
                 
                 <div class="service-content-center">
+                    <?php
+                    $service_icon = get_theme_mod('service_1_icon', 'fas fa-plane');
+                    $service_title = get_theme_mod('service_1_title', 'Export by plane');
+                    $service_desc = get_theme_mod('service_1_description', "I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click \"Edit Text\" or double click me to add your own content and make changes to the font. I'm a great place for you to tell a story and let your users know a little more about you.");
+                    ?>
                     <div class="service-icon">
-                        <i class="fas fa-plane"></i>
+                        <i class="<?php echo esc_attr($service_icon); ?>"></i>
                     </div>
-                    <h3 class="service-title">Export by plane</h3>
+                    <h3 class="service-title"><?php echo esc_html($service_title); ?></h3>
                     <p class="service-description">
-                        I'm a paragraph. Click here to add your own text and edit me. It's easy. 
-                        Just click "Edit Text" or double click me to add your own content and make 
-                        changes to the font. I'm a great place for you to tell a story and let 
-                        your users know a little more about you.
+                        <?php echo esc_html($service_desc); ?>
                     </p>
                     <div class="service-button">
                         <a href="<?php echo esc_url(home_url('/service')); ?>" class="btn-wix-outline">Learn More</a>

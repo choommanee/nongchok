@@ -614,7 +614,16 @@ add_action('admin_bar_menu', 'ayam_admin_bar_menu', 999);
  * Include template parts
  */
 require_once AYAM_THEME_PATH . '/inc/template-functions.php';
-// Customizer functions are included in this file directly
+
+/**
+ * Customizer additions
+ */
+require_once AYAM_THEME_PATH . '/inc/customizer.php';
+
+/**
+ * Company Info Admin Interface
+ */
+require_once AYAM_THEME_PATH . '/inc/admin-company-info.php';
 
 /**
  * Load theme modules
