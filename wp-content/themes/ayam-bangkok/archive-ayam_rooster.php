@@ -288,10 +288,9 @@ get_header();
                                         <?php the_post_thumbnail('rooster-card', array('class' => 'rooster-image')); ?>
                                     </a>
                                 <?php else : ?>
-                                    <div class="placeholder-image">
-                                        <i class="fas fa-image"></i>
-                                        <span><?php _e('ไม่มีรูปภาพ', 'ayam-bangkok'); ?></span>
-                                    </div>
+                                    <a href="<?php the_permalink(); ?>">
+                                        <img src="<?php echo home_url('/pic home/gallery/IMG_1471.jpg'); ?>" alt="<?php the_title(); ?>" class="rooster-image placeholder-rooster">
+                                    </a>
                                 <?php endif; ?>
                                 
                                 <!-- Status Badge -->
