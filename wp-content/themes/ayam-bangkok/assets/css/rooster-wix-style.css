@@ -514,8 +514,7 @@
 }
 
 .card-meta {
-    font-size: 13px;
-    color: #999;
+    display: none; /* Hide date to prevent overlap with buttons */
 }
 
 .card-meta i {
