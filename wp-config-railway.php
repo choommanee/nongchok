@@ -15,7 +15,11 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 define( 'DB_NAME', getenv('MYSQL_DATABASE') ?: 'railway' );
 define( 'DB_USER', getenv('MYSQL_USER') ?: 'root' );
 define( 'DB_PASSWORD', getenv('MYSQL_PASSWORD') ?: '' );
-define( 'DB_HOST', getenv('MYSQL_HOST') ?: 'localhost' );
+
+// Railway provides MYSQL_HOST with port included (host:port)
+// WordPress needs just host, port is already in the connection string format
+$mysql_host = getenv('MYSQL_HOST') ?: 'localhost';
+define( 'DB_HOST', $mysql_host );
 define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_COLLATE', '' );
 
