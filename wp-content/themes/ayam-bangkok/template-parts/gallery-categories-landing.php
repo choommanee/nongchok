@@ -242,6 +242,10 @@ $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table}
 
     <!-- Categories Grid -->
     <section class="categories-grid-section">
+        <?php
+            echo "test";
+            print_r($categories);
+        ?>
         <?php if (!empty($categories)): ?>
             <div class="categories-grid">
                 <?php foreach ($categories as $category): ?>
