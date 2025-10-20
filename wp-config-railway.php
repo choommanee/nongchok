@@ -42,9 +42,12 @@ define( 'WP_DEBUG_DISPLAY', false );
 @ini_set('display_errors', 0);
 
 // ** Site URL Configuration for Railway ** //
-// Let WordPress use the URLs from database to avoid redirect loops
-// define('WP_HOME', 'https://' . $_SERVER['HTTP_HOST']);
-// define('WP_SITEURL', 'https://' . $_SERVER['HTTP_HOST']);
+// Auto-detect URLs from HTTP_HOST
+if (isset($_SERVER['HTTP_HOST'])) {
+    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+    define('WP_HOME', $protocol . '://' . $_SERVER['HTTP_HOST']);
+    define('WP_SITEURL', $protocol . '://' . $_SERVER['HTTP_HOST']);
+}
 
 // ** Disable WP Cron ** //
 define('DISABLE_WP_CRON', true);
