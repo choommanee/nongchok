@@ -10,15 +10,16 @@ global $wpdb;
 $categories_table = $wpdb->prefix . 'gallery_categories';
 $images_table = $wpdb->prefix . 'gallery_images';
 
-// Check if we're viewing a specific category
-$category_code = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
+// Get all categories
+$categories = $wpdb->get_results("
+    SELECT * FROM {$categories_table}
+    ORDER BY category_number ASC
+");
 
-if (!empty($category_code)) {
-    // DETAIL VIEW - Show images for specific category
-    include(locate_template('template-parts/gallery-category-detail.php'));
-} else {
-    // LANDING PAGE - Show all categories
-    include(locate_template('template-parts/gallery-categories-landing.php'));
-}
+echo "<h1>DEBUG MODE</h1>";
+echo "<p>Total categories: " . count($categories) . "</p>";
+echo "<pre>";
+print_r($categories);
+echo "</pre>";
 
 get_footer();
