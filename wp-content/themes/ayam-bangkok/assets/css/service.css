@@ -3,7 +3,7 @@
  */
 
 .wix-service-page {
-    font-family: 'Helvetica', Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     color: #333;
     background: #fff;
 }
@@ -283,7 +283,7 @@
 /* Override fonts to match Wix */
 .wix-service-page,
 .wix-service-page * {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-family: 'Inter', Arial, sans-serif !important;
 }
 
 .service-hero-subtitle {
@@ -343,7 +343,7 @@ body.page-news-1 *,
 body.page-news-1,
 .wix-service-page *,
 .wix-service-page {
-    font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-family: 'Inter', Arial, sans-serif !important;
 }
 
 /* Override specific elements */
@@ -369,7 +369,7 @@ body.page-news-1,
 .page-service .service-contact *,
 .page-service .site-footer *,
 .page-service .wix-header * {
-    font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-family: 'Inter', Arial, sans-serif !important;
 }
 
 /* News Video Gallery Grid - Additional styles for News page */
@@ -717,7 +717,7 @@ body.page-news-1,
     font-weight: 600;
     color: #1E2950;
     margin: 0 0 15px 0;
-    font-family: 'Avenir', 'Helvetica', Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 .contact-info-card p {
@@ -725,7 +725,7 @@ body.page-news-1,
     color: #666;
     line-height: 1.6;
     margin: 5px 0;
-    font-family: 'Avenir', 'Helvetica', Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 .contact-info-card a {

@@ -48,8 +48,8 @@ define( 'WP_DEBUG_DISPLAY', true );
 // ** Site URL Configuration for Local ** //
 // Force HTTP for local development
 $_SERVER['HTTPS'] = 'off';
-define('WP_HOME', 'http://nongchok.local');
-define('WP_SITEURL', 'http://nongchok.local');
+define('WP_HOME', 'https://nongchok.local/');
+define('WP_SITEURL', 'https://nongchok.local/');
 define('FORCE_SSL_ADMIN', false);
 
 // ** Disable WP Cron ** //

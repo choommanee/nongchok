@@ -147,12 +147,12 @@
 
 body.home,
 body.page-about {
-    font-family: 'Helvetica Neue', Arial, sans-serif !important;
+    font-family: 'Inter', Arial, sans-serif !important;
 }
 
 body.home *,
 body.page-about * {
-    font-family: 'Helvetica Neue', Arial, sans-serif !important;
+    font-family: 'Inter', Arial, sans-serif !important;
 }
 
 .wix-menu {
