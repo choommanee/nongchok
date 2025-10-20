@@ -33,12 +33,26 @@ if (!is_dir($upload_dir)) {
 }
 
 $file = $_FILES['image'];
+
+// Check for upload errors
+if ($file['error'] !== UPLOAD_ERR_OK) {
+    http_response_code(400);
+    die(json_encode(['success' => false, 'error' => 'Upload error: ' . $file['error']]));
+}
+
 $filename = basename($file['name']);
 $target = $upload_dir . '/' . $filename;
 
+// Skip if file already exists
+if (file_exists($target)) {
+    echo json_encode(['success' => true, 'file' => $filename, 'skipped' => true]);
+    exit;
+}
+
 if (move_uploaded_file($file['tmp_name'], $target)) {
+    chmod($target, 0644);
     echo json_encode(['success' => true, 'file' => $filename, 'size' => filesize($target)]);
 } else {
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Upload failed']);
+    echo json_encode(['success' => false, 'error' => 'Move failed', 'tmp' => $file['tmp_name']]);
 }
