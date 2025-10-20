@@ -666,37 +666,74 @@ class AyamAboutAdmin {
      * Gallery Images page - Manage Gallery page images
      */
     public function gallery_images_page() {
-        $upload_dir = wp_upload_dir();
-        $gallery_dir = $upload_dir['basedir'] . '/gallery-wix/';
-        $gallery_url = $upload_dir['baseurl'] . '/gallery-wix/';
+        global $wpdb;
 
-        if (!file_exists($gallery_dir)) {
-            wp_mkdir_p($gallery_dir);
-        }
+        // Get all gallery images from database
+        $categories_table = $wpdb->prefix . 'gallery_categories';
+        $images_table = $wpdb->prefix . 'gallery_images';
 
-        // Handle file upload
-        if (isset($_POST['upload_gallery_images']) && !empty($_FILES['gallery_images']['name'][0])) {
-            if (wp_verify_nonce($_POST['gallery_upload_nonce'], 'gallery_upload_action')) {
-                $this->handle_image_upload($_FILES['gallery_images'], $gallery_dir, 'Gallery');
-            }
-        }
+        $categories = $wpdb->get_results("
+            SELECT c.*, COUNT(i.id) as total_images
+            FROM {$categories_table} c
+            LEFT JOIN {$images_table} i ON c.id = i.category_id
+            GROUP BY c.id
+            ORDER BY c.category_number ASC
+        ");
 
-        // Handle delete
-        if (isset($_POST['delete_image'])) {
-            if (wp_verify_nonce($_POST['gallery_delete_nonce'], 'gallery_delete_action')) {
-                $this->handle_image_delete($_POST['image_name'], $gallery_dir);
-            }
-        }
+        ?>
+        <div class="wrap">
+            <h1>จัดการ Gallery Categories</h1>
 
-        $images = $this->get_gallery_images($gallery_dir);
+            <div class="notice notice-info">
+                <p><strong>📊 สรุป:</strong> มี <?php echo count($categories); ?> categories พร้อม <?php echo array_sum(array_column($categories, 'total_images')); ?> รูปภาพ</p>
+                <p><strong>📂 Location:</strong> /wp-content/uploads/gallery/</p>
+                <p><strong>🔗 Frontend:</strong> <a href="<?php echo home_url('/gallery'); ?>" target="_blank">ดูหน้า Gallery</a></p>
+            </div>
 
-        $this->render_gallery_page(
-            'Gallery',
-            'gallery',
-            $images,
-            $gallery_url,
-            'รูปภาพจะแสดงในหน้า Gallery แบบกริด 4 คอลัมน์'
-        );
+            <table class="wp-list-table widefat fixed striped">
+                <thead>
+                    <tr>
+                        <th width="10%">Category</th>
+                        <th width="15%">Thumbnail</th>
+                        <th width="30%">Name</th>
+                        <th width="10%">Images</th>
+                        <th width="25%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (empty($categories)): ?>
+                        <tr><td colspan="5">ยังไม่มี categories</td></tr>
+                    <?php else: ?>
+                        <?php foreach ($categories as $cat): ?>
+                            <tr>
+                                <td><strong>#<?php echo esc_html($cat->category_number); ?></strong></td>
+                                <td>
+                                    <?php if ($cat->thumbnail_url): ?>
+                                        <img src="<?php echo esc_url($cat->thumbnail_url); ?>"
+                                             style="max-width: 80px; height: auto; border-radius: 4px;">
+                                    <?php else: ?>
+                                        <div style="width: 80px; height: 80px; background: #ddd; border-radius: 4px;"></div>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?php echo esc_html($cat->category_name); ?></td>
+                                <td>
+                                    <span class="dashicons dashicons-images-alt2"></span>
+                                    <?php echo (int)$cat->total_images; ?> photos
+                                </td>
+                                <td>
+                                    <a href="<?php echo add_query_arg('category', $cat->category_number, home_url('/gallery')); ?>"
+                                       class="button button-small"
+                                       target="_blank">
+                                        <span class="dashicons dashicons-visibility"></span> View
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php
     }
 
     /**
