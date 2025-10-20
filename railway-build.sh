@@ -3,13 +3,13 @@
 
 echo "🚀 Starting Railway WordPress build..."
 
-# Copy production config to wp-config.php
-if [ -f "wp-config-production.php" ]; then
-    echo "📝 Copying wp-config-production.php to wp-config.php..."
-    cp wp-config-production.php wp-config.php
+# Copy railway config to wp-config.php
+if [ -f "wp-config-railway.php" ]; then
+    echo "📝 Copying wp-config-railway.php to wp-config.php..."
+    cp wp-config-railway.php wp-config.php
     echo "✅ Configuration file ready"
 else
-    echo "❌ Error: wp-config-production.php not found"
+    echo "❌ Error: wp-config-railway.php not found"
     exit 1
 fi
 
