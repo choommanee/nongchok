@@ -42,12 +42,22 @@ define( 'WP_DEBUG_DISPLAY', false );
 @ini_set('display_errors', 0);
 
 // ** Site URL Configuration for Railway ** //
-// Auto-detect URLs from HTTP_HOST
+// Force HTTPS and auto-detect from Railway's HTTP_HOST
 if (isset($_SERVER['HTTP_HOST'])) {
-    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+    // Railway always uses HTTPS in production
+    $protocol = 'https';
     define('WP_HOME', $protocol . '://' . $_SERVER['HTTP_HOST']);
     define('WP_SITEURL', $protocol . '://' . $_SERVER['HTTP_HOST']);
 }
+
+// Override any database values for home and siteurl
+add_filter('option_home', function($url) {
+    return defined('WP_HOME') ? WP_HOME : $url;
+}, 1);
+
+add_filter('option_siteurl', function($url) {
+    return defined('WP_SITEURL') ? WP_SITEURL : $url;
+}, 1);
 
 // ** Disable WP Cron ** //
 define('DISABLE_WP_CRON', true);
