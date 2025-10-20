@@ -7,6 +7,16 @@ global $wpdb;
 $categories_table = $wpdb->prefix . 'gallery_categories';
 $images_table = $wpdb->prefix . 'gallery_images';
 
+// Helper function to get correct image URL (local uses production images)
+function get_gallery_image_url_detail($path) {
+    // If local development, use production URL
+    if (strpos($_SERVER['HTTP_HOST'], '.local') !== false || $_SERVER['HTTP_HOST'] === 'localhost') {
+        return 'https://nongchok-production.up.railway.app' . $path;
+    }
+    // Production uses relative path
+    return $path;
+}
+
 // Get category info
 $category = $wpdb->get_row($wpdb->prepare(
     "SELECT * FROM {$categories_table} WHERE category_code = %s",
@@ -184,12 +194,12 @@ $images = $wpdb->get_results($wpdb->prepare(
             <div class="images-grid">
                 <?php foreach ($images as $index => $image): ?>
                     <div class="image-card" data-aos="fade-up" data-aos-delay="<?php echo ($index % 12) * 50; ?>">
-                        <a href="<?php echo esc_url($image->image_url); ?>"
+                        <a href="<?php echo esc_url(get_gallery_image_url_detail($image->image_url)); ?>"
                            data-lightbox="gallery-<?php echo $category->category_code; ?>"
                            data-title="<?php echo esc_attr($category->category_name); ?> - Photo <?php echo $index + 1; ?>">
 
                             <div class="image-wrapper">
-                                <img src="<?php echo esc_url($image->image_url); ?>"
+                                <img src="<?php echo esc_url(get_gallery_image_url_detail($image->image_url)); ?>"
                                      alt="<?php echo esc_attr($category->category_name); ?> - <?php echo $index + 1; ?>"
                                      loading="lazy">
 

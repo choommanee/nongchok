@@ -13,6 +13,16 @@ $categories = $wpdb->get_results("
 ");
 
 $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table}");
+
+// Helper function to get correct image URL (local uses production images)
+function get_gallery_image_url($path) {
+    // If local development, use production URL
+    if (strpos($_SERVER['HTTP_HOST'], '.local') !== false || $_SERVER['HTTP_HOST'] === 'localhost') {
+        return 'https://nongchok-production.up.railway.app' . $path;
+    }
+    // Production uses relative path
+    return $path;
+}
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
@@ -249,7 +259,7 @@ $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table}
                         <a href="<?php echo add_query_arg('category', $category->category_number, get_permalink()); ?>">
                             <div class="category-thumbnail-wrapper">
                                 <?php if ($category->thumbnail_url): ?>
-                                    <img src="<?php echo esc_url($category->thumbnail_url); ?>"
+                                    <img src="<?php echo esc_url(get_gallery_image_url($category->thumbnail_url)); ?>"
                                          alt="<?php echo esc_attr($category->category_name); ?>"
                                          class="category-thumbnail">
                                 <?php else: ?>
