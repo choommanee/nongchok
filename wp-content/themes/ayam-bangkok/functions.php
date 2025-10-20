@@ -329,7 +329,7 @@ function ayam_login_logo_url_title()
 {
     return get_bloginfo('name');
 }
-add_filter('login_headertitle', 'ayam_login_logo_url_title');
+add_filter('login_headertext', 'ayam_login_logo_url_title'); // Updated from login_headertitle (deprecated in WP 5.2)
 
 /**
  * Add custom CSS for admin area
