@@ -28,7 +28,17 @@
       "Bash(railway list:*)",
       "Bash(tar:*)",
       "Bash(wp post-type list:*)",
-      "Read(//Users/sakdachoommanee/Downloads/Shipment 6 Photo/**)"
+      "Read(//Users/sakdachoommanee/Downloads/Shipment 6 Photo/**)",
+      "Bash(git revert:*)",
+      "Bash(railway ssh:*)",
+      "Bash(/Users/sakdachoommanee/Documents/httpdocs/nongchok/upload-images-to-railway.sh:*)",
+      "Read(//Users/sakdachoommanee/Downloads/**)",
+      "Bash(/Users/sakdachoommanee/Documents/httpdocs/nongchok/upload-one-category.sh:*)",
+      "Bash(echo:*)",
+      "Bash(for i in {1..3})",
+      "Bash(do echo \"Try $i:\")",
+      "Bash(done)",
+      "Bash(git show:*)"
     ],
     "deny": [],
     "ask": []
