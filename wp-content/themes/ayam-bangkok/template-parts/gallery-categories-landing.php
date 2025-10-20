@@ -9,7 +9,7 @@ $categories_table = $wpdb->prefix . 'gallery_categories';
 // Get all categories
 $categories = $wpdb->get_results("
     SELECT * FROM {$categories_table}
-    ORDER BY display_order ASC, category_code ASC
+    ORDER BY category_number ASC
 ");
 
 $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table}");
