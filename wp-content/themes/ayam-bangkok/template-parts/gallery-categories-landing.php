@@ -246,10 +246,10 @@ $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table}
             <div class="categories-grid">
                 <?php foreach ($categories as $category): ?>
                     <div class="category-card" data-aos="fade-up">
-                        <a href="<?php echo add_query_arg('category', $category->category_code, get_permalink()); ?>">
+                        <a href="<?php echo add_query_arg('category', $category->category_number, get_permalink()); ?>">
                             <div class="category-thumbnail-wrapper">
-                                <?php if ($category->thumbnail): ?>
-                                    <img src="<?php echo esc_url($category->thumbnail); ?>"
+                                <?php if ($category->thumbnail_url): ?>
+                                    <img src="<?php echo esc_url($category->thumbnail_url); ?>"
                                          alt="<?php echo esc_attr($category->category_name); ?>"
                                          class="category-thumbnail">
                                 <?php else: ?>
@@ -261,14 +261,14 @@ $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table}
                         <div class="category-info">
                             <h3 class="category-title">
                                 <span><?php echo esc_html($category->category_name); ?></span>
-                                <span class="category-badge">#<?php echo $category->category_code; ?></span>
+                                <span class="category-badge">#<?php echo $category->category_number; ?></span>
                             </h3>
 
                             <div class="category-meta">
                                 <span><i class="fas fa-images"></i> <?php echo $category->image_count; ?> Photos</span>
                             </div>
 
-                            <a href="<?php echo add_query_arg('category', $category->category_code, get_permalink()); ?>"
+                            <a href="<?php echo add_query_arg('category', $category->category_number, get_permalink()); ?>"
                                class="view-gallery-btn">
                                 View Gallery <i class="fas fa-arrow-right"></i>
                             </a>
