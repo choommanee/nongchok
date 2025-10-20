@@ -7917,8 +7917,8 @@ function ayam_auto_assign_wix_templates($template) {
         'about-us' => 'page-about.php',
         'service' => 'page-service.php',
         'services' => 'page-service.php',
-        'news' => 'page-news-wix.php',
-        'gallery' => 'page-gallery-wix.php'
+        'news' => 'page-news-wix.php'
+        // Removed gallery auto-assignment - let WordPress use the template selected in Customizer
     );
     
     // Check if current page slug matches

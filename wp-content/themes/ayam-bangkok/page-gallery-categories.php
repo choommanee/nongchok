@@ -4,6 +4,9 @@
  * Beautiful gallery with category landing page and detail view
  */
 
+error_log('===== LOADING page-gallery-categories.php =====');
+error_log('File: ' . __FILE__);
+
 get_header();
 
 global $wpdb;
