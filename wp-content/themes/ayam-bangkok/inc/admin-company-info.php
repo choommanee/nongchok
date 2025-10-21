@@ -26,6 +26,17 @@ function ayam_company_info_admin_menu() {
 add_action('admin_menu', 'ayam_company_info_admin_menu');
 
 /**
+ * Enqueue media uploader scripts
+ */
+function ayam_company_info_enqueue_scripts($hook) {
+    if ($hook !== 'toplevel_page_ayam-company-info') {
+        return;
+    }
+    wp_enqueue_media();
+}
+add_action('admin_enqueue_scripts', 'ayam_company_info_enqueue_scripts');
+
+/**
  * Display Company Info admin page
  */
 function ayam_company_info_admin_page() {
@@ -131,6 +142,13 @@ function ayam_company_info_admin_page() {
                             ayam_render_company_info_field("video_{$i}_title", __('หัวข้อ', 'ayam-bangkok'), ayam_get_company_info_value("video_{$i}_title", $company_info));
                             ayam_render_company_info_field("video_{$i}_desc", __('คำอธิบาย', 'ayam-bangkok'), ayam_get_company_info_value("video_{$i}_desc", $company_info), 'textarea');
                         }
+
+                        // 4 Service Images
+                        echo '<tr><th colspan="2"><h3>' . __('รูปภาพบริการ (4 รูป)', 'ayam-bangkok') . '</h3></th></tr>';
+                        for ($i = 1; $i <= 4; $i++) {
+                            ayam_render_company_info_field("service_image_{$i}", sprintf(__('รูปภาพที่ %d (URL)', 'ayam-bangkok'), $i), ayam_get_company_info_value("service_image_{$i}", $company_info));
+                            ayam_render_image_upload_field("service_image_{$i}", sprintf(__('อัพโหลดรูปภาพที่ %d', 'ayam-bangkok'), $i), ayam_get_company_info_value("service_image_{$i}", $company_info));
+                        }
                         ?>
                     </table>
                 </div>
@@ -199,6 +217,7 @@ function ayam_company_info_admin_page() {
 
     <script>
     jQuery(document).ready(function($) {
+        // Tab switching
         $('.nav-tab').on('click', function(e) {
             e.preventDefault();
             var target = $(this).attr('href');
@@ -208,6 +227,48 @@ function ayam_company_info_admin_page() {
 
             $('.tab-content').removeClass('active');
             $(target).addClass('active');
+        });
+
+        // Image upload
+        var mediaUploader;
+
+        $('.ayam-upload-image-button').on('click', function(e) {
+            e.preventDefault();
+            var button = $(this);
+            var targetInput = button.data('target');
+            var previewDiv = button.data('preview');
+
+            if (mediaUploader) {
+                mediaUploader.open();
+                return;
+            }
+
+            mediaUploader = wp.media({
+                title: 'เลือกรูปภาพ',
+                button: {
+                    text: 'ใช้รูปนี้'
+                },
+                multiple: false
+            });
+
+            mediaUploader.on('select', function() {
+                var attachment = mediaUploader.state().get('selection').first().toJSON();
+                $('#' + targetInput).val(attachment.url);
+                $('#' + previewDiv).html('<img src="' + attachment.url + '" style="max-width: 300px; height: auto; display: block;" />');
+            });
+
+            mediaUploader.open();
+        });
+
+        // Remove image
+        $('.ayam-remove-image-button').on('click', function(e) {
+            e.preventDefault();
+            var button = $(this);
+            var targetInput = button.data('target');
+            var previewDiv = button.data('preview');
+
+            $('#' + targetInput).val('');
+            $('#' + previewDiv).html('');
         });
     });
     </script>
@@ -254,6 +315,36 @@ function ayam_render_company_info_field($field_key, $label, $value = '', $type =
                     class="regular-text"
                 />
             <?php endif; ?>
+        </td>
+    </tr>
+    <?php
+}
+
+/**
+ * Render image upload field with WordPress Media Library
+ */
+function ayam_render_image_upload_field($field_key, $label, $value = '') {
+    $image_url = $value ?: '';
+    ?>
+    <tr>
+        <th scope="row">
+            <label><?php echo esc_html($label); ?></label>
+        </th>
+        <td>
+            <div class="ayam-image-upload-wrapper">
+                <input type="hidden" name="company_info[<?php echo esc_attr($field_key); ?>]" id="<?php echo esc_attr($field_key); ?>_url" value="<?php echo esc_attr($image_url); ?>" />
+                <button type="button" class="button ayam-upload-image-button" data-target="<?php echo esc_attr($field_key); ?>_url" data-preview="<?php echo esc_attr($field_key); ?>_preview">
+                    <?php _e('เลือกรูปภาพ', 'ayam-bangkok'); ?>
+                </button>
+                <button type="button" class="button ayam-remove-image-button" data-target="<?php echo esc_attr($field_key); ?>_url" data-preview="<?php echo esc_attr($field_key); ?>_preview">
+                    <?php _e('ลบรูปภาพ', 'ayam-bangkok'); ?>
+                </button>
+                <div id="<?php echo esc_attr($field_key); ?>_preview" class="ayam-image-preview" style="margin-top: 10px;">
+                    <?php if ($image_url) : ?>
+                        <img src="<?php echo esc_url($image_url); ?>" style="max-width: 300px; height: auto; display: block;" />
+                    <?php endif; ?>
+                </div>
+            </div>
         </td>
     </tr>
     <?php
