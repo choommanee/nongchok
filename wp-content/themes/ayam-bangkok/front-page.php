@@ -196,35 +196,39 @@ get_header(); ?>
             <div class="section-header-center">
                 <h2 class="section-title" data-aos="fade-up">Gallery</h2>
             </div>
-            
+
             <div class="gallery-circle-grid" data-aos="fade-up" data-aos-delay="100">
                 <?php
-                // Get gallery images from pic home/gallery
-                $gallery_dir = ABSPATH . 'pic home/gallery/';
-                $gallery_images = [];
-                
-                if (file_exists($gallery_dir)) {
-                    $gallery_files = glob($gallery_dir . '*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-                    foreach ($gallery_files as $file) {
-                        $gallery_images[] = home_url('/pic home/gallery/' . basename($file));
-                    }
-                }
-                
-                // Show first 5 images in circular style
-                $gallery_count = min(count($gallery_images), 5);
-                
-                if ($gallery_count > 0) :
-                    for ($i = 0; $i < $gallery_count; $i++) :
+                // Get 5 random gallery images from database
+                global $wpdb;
+                $images_table = $wpdb->prefix . 'gallery_images';
+                $categories_table = $wpdb->prefix . 'gallery_categories';
+
+                $gallery_images = $wpdb->get_results("
+                    SELECT i.image_url, i.thumbnail_url, c.category_number, c.category_name
+                    FROM {$images_table} i
+                    JOIN {$categories_table} c ON i.category_id = c.id
+                    ORDER BY RAND()
+                    LIMIT 5
+                ");
+
+                if (!empty($gallery_images)) :
+                    foreach ($gallery_images as $img) :
+                        // Use production URL if on local
+                        $image_url = $img->image_url;
+                        if (strpos($_SERVER['HTTP_HOST'], '.local') !== false || $_SERVER['HTTP_HOST'] === 'localhost') {
+                            $image_url = 'https://nongchok-production.up.railway.app' . $img->image_url;
+                        }
                 ?>
                     <div class="gallery-circle-item">
-                        <a href="<?php echo esc_url(home_url('/gallery')); ?>">
+                        <a href="<?php echo esc_url(home_url('/gallery/?category=' . $img->category_number)); ?>" title="<?php echo esc_attr($img->category_name); ?>">
                             <div class="circle-image">
-                                <img src="<?php echo esc_url($gallery_images[$i]); ?>" alt="Gallery">
+                                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($img->category_name); ?>">
                             </div>
                         </a>
                     </div>
-                <?php 
-                    endfor;
+                <?php
+                    endforeach;
                 else :
                     // Fallback with rooster icon
                     for ($i = 1; $i <= 5; $i++) :
@@ -236,7 +240,7 @@ get_header(); ?>
                             </div>
                         </a>
                     </div>
-                <?php 
+                <?php
                     endfor;
                 endif;
                 ?>
@@ -260,29 +264,37 @@ get_header(); ?>
                     'orderby' => 'date',
                     'order' => 'DESC'
                 ]);
-                
+
                 if ($news_query->have_posts()) :
                     while ($news_query->have_posts()) : $news_query->the_post();
+                        $excerpt = get_the_excerpt();
+                        if (empty($excerpt)) {
+                            $excerpt = wp_trim_words(get_the_content(), 30, '...');
+                        }
                 ?>
                     <div class="news-video-item">
-                        <div class="news-video-thumbnail">
-                            <?php if (has_post_thumbnail()) : ?>
-                                <?php the_post_thumbnail('medium'); ?>
-                            <?php else : ?>
-                                <div class="news-placeholder">
-                                    <i class="fas fa-newspaper"></i>
+                        <a href="<?php the_permalink(); ?>" style="text-decoration: none; color: inherit;">
+                            <div class="news-video-thumbnail">
+                                <?php if (has_post_thumbnail()) : ?>
+                                    <?php the_post_thumbnail('medium'); ?>
+                                <?php else : ?>
+                                    <div class="news-placeholder">
+                                        <i class="fas fa-newspaper"></i>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="news-video-content">
+                                <h3 class="news-video-title"><?php the_title(); ?></h3>
+                                <p class="news-video-description">
+                                    <?php echo esc_html($excerpt); ?>
+                                </p>
+                                <div class="news-meta" style="font-size: 0.875rem; color: #999; margin-top: 10px;">
+                                    <i class="far fa-calendar"></i> <?php echo get_the_date(); ?>
                                 </div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="news-video-content">
-                            <h3 class="news-video-title">Video Title</h3>
-                            <p class="news-video-description">
-                                This is a great space to update your audience with a description of your video. 
-                                Include information like what the video is about, who produced it, where it was...
-                            </p>
-                        </div>
+                            </div>
+                        </a>
                     </div>
-                <?php 
+                <?php
                     endwhile;
                     wp_reset_postdata();
                 else :
@@ -292,18 +304,17 @@ get_header(); ?>
                     <div class="news-video-item">
                         <div class="news-video-thumbnail">
                             <div class="news-placeholder">
-                                <i class="fas fa-video"></i>
+                                <i class="fas fa-newspaper"></i>
                             </div>
                         </div>
                         <div class="news-video-content">
-                            <h3 class="news-video-title">Video Title</h3>
+                            <h3 class="news-video-title">No news available</h3>
                             <p class="news-video-description">
-                                This is a great space to update your audience with a description of your video. 
-                                Include information like what the video is about, who produced it, where it was...
+                                There are no news posts yet. Please check back later for updates.
                             </p>
                         </div>
                     </div>
-                <?php 
+                <?php
                     endfor;
                 endif;
                 ?>
