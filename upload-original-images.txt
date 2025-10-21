@@ -1,0 +1,38 @@
+Found 287 images to upload (NO rotation, resize only if needed)
+
+[1/287] Processing 001/IMG_2377.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[2/287] Processing 001/IMG_2379.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[3/287] Processing 001/S__7479353_0.jpg... ✅
+[4/287] Processing 001/S__7479355_0.jpg... ✅
+[5/287] Processing 001/S__7479356_0.jpg... ✅
+[6/287] Processing 001/S__7479357_0.jpg... ✅
+[7/287] Processing 002/IMG_2383.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[8/287] Processing 002/IMG_2384.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[9/287] Processing 002/S__7479368_0.jpg... ✅
+[10/287] Processing 002/S__7479370_0.jpg... ✅
+[11/287] Processing 002/S__7479371_0.jpg... ✅
+[12/287] Processing 002/S__7479372_0.jpg... ✅
+[13/287] Processing 003/IMG_2388.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[14/287] Processing 003/S__7479373_0.jpg... ✅
+[15/287] Processing 003/S__7479375_0.jpg... ✅
+[16/287] Processing 003/S__7479376_0.jpg... ✅
+[17/287] Processing 003/S__7479377_0.jpg... ✅
+[18/287] Processing 004/IMG_2396.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[19/287] Processing 004/IMG_2397.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[20/287] Processing 004/S__7479378_0.jpg... ✅
+[21/287] Processing 004/S__7479380_0.jpg... ✅
+[22/287] Processing 004/S__7479381_0.jpg... ✅
+[23/287] Processing 004/S__7479382_0.jpg... ✅
+[24/287] Processing 005/IMG_2400.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[25/287] Processing 005/S__7479383_0.jpg... ✅
+[26/287] Processing 005/S__7479385_0.jpg... ✅
+[27/287] Processing 005/S__7479386_0.jpg... ✅
+[28/287] Processing 005/S__7479387_0.jpg... ✅
+[29/287] Processing 006/IMG_2404.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[30/287] Processing 006/IMG_2420.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[31/287] Processing 006/S__7479388_0.jpg... ✅
+[32/287] Processing 006/S__7479390_0.jpg... ✅
+[33/287] Processing 006/S__7479391_0.jpg... ✅
+[34/287] Processing 006/S__7479392_0.jpg... ✅
+[35/287] Processing 007/IMG_2423.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[36/287] Processing 007/IMG_2426.JPG... 
