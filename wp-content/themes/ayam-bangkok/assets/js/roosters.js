@@ -8,12 +8,15 @@
 
 class RoosterCatalog {
     constructor() {
-        this.init();
+        // Initialize properties BEFORE calling init()
         this.filters = {};
         this.comparison = [];
         this.favorites = this.loadFavorites();
         this.currentView = 'grid';
         this.isLoading = false;
+
+        // Now call init() after all properties are set
+        this.init();
     }
 
     init() {
