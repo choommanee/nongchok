@@ -105,7 +105,7 @@
 .wix-logo {
     display: inline-block;
     background: #CA4249;
-    padding: 39px 27px;
+    padding: 15px 5px;
     line-height: 0;
     position: relative;
     top: 0;
@@ -126,8 +126,8 @@
 .wix-logo img,
 .wix-logo-img,
 .wix-logo .custom-logo {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 120px;
     display: block;
     object-fit: contain;
 }
