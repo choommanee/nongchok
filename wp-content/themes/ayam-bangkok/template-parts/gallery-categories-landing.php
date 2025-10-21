@@ -35,7 +35,7 @@ function get_gallery_image_url($path) {
 }
 
 .gallery-hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #CA4249 0%, #b03840 100%);
     color: white;
     padding: 80px 20px;
     text-align: center;
@@ -161,7 +161,7 @@ function get_gallery_image_url($path) {
 }
 
 .category-badge {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #CA4249 0%, #b03840 100%);
     color: white;
     padding: 5px 15px;
     border-radius: 20px;
@@ -178,14 +178,14 @@ function get_gallery_image_url($path) {
 }
 
 .category-meta i {
-    color: #667eea;
+    color: #CA4249;
 }
 
 .view-gallery-btn {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #CA4249 0%, #b03840 100%);
     color: white !important;
     padding: 12px 25px;
     border-radius: 30px;
@@ -197,7 +197,7 @@ function get_gallery_image_url($path) {
 
 .view-gallery-btn:hover {
     transform: translateX(5px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 5px 15px rgba(202, 66, 73, 0.4);
     color: white !important;
     text-decoration: none;
 }
@@ -258,43 +258,67 @@ function get_gallery_image_url($path) {
     }
 
     .category-info {
-        padding: 15px;
+        padding: 12px;
     }
 
-    .category-number {
-        font-size: 0.75rem;
+    .category-title {
+        font-size: 1.1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 
-    .category-name {
-        font-size: 1rem;
-        margin: 5px 0;
+    .category-badge {
+        font-size: 0.7rem;
+        padding: 4px 10px;
     }
 
     .category-meta {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        gap: 8px;
     }
 
-    .category-view-btn {
+    .view-gallery-btn {
         padding: 8px 16px;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        margin-top: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .gallery-hero h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .categories-grid {
-        gap: 12px;
+        gap: 10px;
     }
 
     .category-thumbnail-wrapper {
-        height: 150px;
+        height: 140px;
     }
 
     .category-info {
-        padding: 12px;
+        padding: 10px;
+    }
+
+    .category-title {
+        font-size: 0.95rem;
+    }
+
+    .category-badge {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+    }
+
+    .category-meta {
+        font-size: 0.7rem;
+    }
+
+    .view-gallery-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        gap: 6px;
     }
 }
 </style>
