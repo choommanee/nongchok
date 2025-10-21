@@ -91,22 +91,34 @@
      * Initialize Mobile Menu Toggle
      */
     function initMobileMenu() {
-        console.log('Initializing mobile menu...');
-        console.log('Found toggles:', $('.wix-mobile-toggle').length);
-        console.log('Found nav:', $('.wix-nav').length);
+        const $toggle = $('.wix-mobile-toggle');
+        const $nav = $('.wix-nav');
+        const $overlay = $('.mobile-menu-overlay');
 
-        // Toggle menu and overlay
-        $('.wix-mobile-toggle').on('click', function(e) {
+        console.log('Initializing mobile menu...');
+        console.log('Found toggles:', $toggle.length);
+        console.log('Found nav:', $nav.length);
+        console.log('Found overlay:', $overlay.length);
+
+        // Use event delegation for dynamically loaded elements
+        $(document).on('click', '.wix-mobile-toggle', function(e) {
             console.log('Hamburger clicked!');
+            e.preventDefault();
             e.stopPropagation();
-            $('.wix-nav').toggleClass('active');
-            $(this).toggleClass('active');
-            $('.mobile-menu-overlay').toggleClass('active');
-            console.log('Nav has active class:', $('.wix-nav').hasClass('active'));
+
+            const $nav = $('.wix-nav');
+            const $toggle = $(this);
+
+            $nav.toggleClass('active');
+            $toggle.toggleClass('active');
+            $overlay.toggleClass('active');
+
+            console.log('Nav has active class:', $nav.hasClass('active'));
+            console.log('Toggle has active class:', $toggle.hasClass('active'));
         });
 
         // Close menu when clicking overlay
-        $('.mobile-menu-overlay').on('click', function() {
+        $(document).on('click', '.mobile-menu-overlay', function() {
             console.log('Overlay clicked!');
             $('.wix-nav').removeClass('active');
             $('.wix-mobile-toggle').removeClass('active');
@@ -114,7 +126,7 @@
         });
 
         // Close menu when clicking on a link
-        $('.wix-menu a').on('click', function() {
+        $(document).on('click', '.wix-menu a', function() {
             console.log('Menu link clicked!');
             $('.wix-nav').removeClass('active');
             $('.wix-mobile-toggle').removeClass('active');
