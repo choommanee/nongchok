@@ -91,16 +91,23 @@
      * Initialize Mobile Menu Toggle
      */
     function initMobileMenu() {
+        console.log('Initializing mobile menu...');
+        console.log('Found toggles:', $('.wix-mobile-toggle').length);
+        console.log('Found nav:', $('.wix-nav').length);
+
         // Toggle menu and overlay
         $('.wix-mobile-toggle').on('click', function(e) {
+            console.log('Hamburger clicked!');
             e.stopPropagation();
             $('.wix-nav').toggleClass('active');
             $(this).toggleClass('active');
             $('.mobile-menu-overlay').toggleClass('active');
+            console.log('Nav has active class:', $('.wix-nav').hasClass('active'));
         });
 
         // Close menu when clicking overlay
         $('.mobile-menu-overlay').on('click', function() {
+            console.log('Overlay clicked!');
             $('.wix-nav').removeClass('active');
             $('.wix-mobile-toggle').removeClass('active');
             $(this).removeClass('active');
@@ -108,6 +115,7 @@
 
         // Close menu when clicking on a link
         $('.wix-menu a').on('click', function() {
+            console.log('Menu link clicked!');
             $('.wix-nav').removeClass('active');
             $('.wix-mobile-toggle').removeClass('active');
             $('.mobile-menu-overlay').removeClass('active');

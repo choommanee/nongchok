@@ -215,6 +215,10 @@ body.page-about * {
 
 /* Mobile Header */
 @media (max-width: 768px) {
+    body.home {
+        padding-top: 80px;
+    }
+
     .wix-header-container {
         padding: 8px 15px;
         display: flex;
