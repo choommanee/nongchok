@@ -212,11 +212,11 @@ body.page-about * {
 .mobile-menu-overlay {
     display: none;
     position: fixed;
-    top: 80px;
+    top: 66px;
     left: 0;
     width: 100%;
-    height: calc(100vh - 80px);
-    background: rgba(0, 0, 0, 0.5);
+    height: calc(100vh - 66px);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -231,9 +231,17 @@ body.page-about * {
 @media (max-width: 768px) {
     .wix-header-container {
         padding: 8px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     /* Mobile Logo - Smaller */
+    .wix-header-left {
+        order: 2;
+        flex: 0 0 auto;
+    }
+
     .wix-logo {
         padding: 8px 8px;
     }
@@ -247,7 +255,9 @@ body.page-about * {
 
     .wix-mobile-toggle {
         display: flex;
+        order: 1;
         z-index: 1002;
+        margin-right: auto;
     }
 
     .wix-mobile-toggle.active span:nth-child(1) {
@@ -264,20 +274,21 @@ body.page-about * {
 
     .wix-nav {
         position: fixed;
-        top: 80px;
-        right: -100%;
-        width: 280px;
-        height: calc(100vh - 80px);
+        top: 66px;
+        left: -100%;
+        width: 260px;
+        height: calc(100vh - 66px);
         background: #1E2950;
-        transition: right 0.3s ease;
-        padding: 20px 0;
+        transition: left 0.3s ease;
+        padding: 10px 0;
         z-index: 1001;
         overflow-y: auto;
-        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+        order: 3;
     }
 
     .wix-nav.active {
-        right: 0;
+        left: 0;
     }
 
     .wix-menu {
@@ -290,8 +301,9 @@ body.page-about * {
     }
 
     .wix-menu a {
-        padding: 15px 30px;
+        padding: 12px 25px;
         border-radius: 0;
+        font-size: 15px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         display: block;
         width: 100%;
