@@ -245,15 +245,19 @@ body.page-about * {
     .wix-mobile-toggle {
         display: flex;
         order: 2;
-        z-index: 10001;
+        z-index: 10000;
         margin-left: auto;
         position: relative;
     }
 
     /* Ensure header stays above menu */
     .wix-header {
-        z-index: 10001;
-        position: relative;
+        z-index: 10000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #1E2950;
     }
 
     .wix-mobile-toggle.active span:nth-child(1) {
@@ -330,27 +334,13 @@ body.page-about * {
         color: #1E2950 !important;
     }
 
-    /* Close button X styling */
-    .wix-mobile-toggle.active {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 10000;
-        width: 40px;
-        height: 40px;
-    }
-
+    /* Close button X styling - stays in header */
     .wix-mobile-toggle.active span {
         background: #1E2950 !important;
-        width: 30px;
-        height: 3px;
     }
 }
 
-/* Add padding to body to account for fixed header */
-body.home {
-    padding-top: 80px;
-}
+/* Fixed header - padding handled by mobile media query only */
 
 /* Override old header styles for homepage */
 .home .site-header {
