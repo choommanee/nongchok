@@ -350,7 +350,7 @@ body.home {
     max-width: 100%;
     overflow: hidden;
     margin: 0;
-    margin-top: -10px;
+    margin-top: 14px;
     padding: 0;
 }
 
@@ -380,7 +380,6 @@ body.home {
 .hero-swiper-wix .swiper-slide img {
     width: 100%;
     height: auto;
-    max-height: 500px;
     object-fit: cover;
     display: block;
     margin: 0;

@@ -1,0 +1,294 @@
+Found 287 images to upload (NO rotation, resize only if needed)
+
+[1/287] Processing 001/IMG_2377.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[2/287] Processing 001/IMG_2379.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[3/287] Processing 001/S__7479353_0.jpg... ✅
+[4/287] Processing 001/S__7479355_0.jpg... ✅
+[5/287] Processing 001/S__7479356_0.jpg... ✅
+[6/287] Processing 001/S__7479357_0.jpg... ✅
+[7/287] Processing 002/IMG_2383.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[8/287] Processing 002/IMG_2384.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[9/287] Processing 002/S__7479368_0.jpg... ✅
+[10/287] Processing 002/S__7479370_0.jpg... ✅
+[11/287] Processing 002/S__7479371_0.jpg... ✅
+[12/287] Processing 002/S__7479372_0.jpg... ✅
+[13/287] Processing 003/IMG_2388.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[14/287] Processing 003/S__7479373_0.jpg... ✅
+[15/287] Processing 003/S__7479375_0.jpg... ✅
+[16/287] Processing 003/S__7479376_0.jpg... ✅
+[17/287] Processing 003/S__7479377_0.jpg... ✅
+[18/287] Processing 004/IMG_2396.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[19/287] Processing 004/IMG_2397.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[20/287] Processing 004/S__7479378_0.jpg... ✅
+[21/287] Processing 004/S__7479380_0.jpg... ✅
+[22/287] Processing 004/S__7479381_0.jpg... ✅
+[23/287] Processing 004/S__7479382_0.jpg... ✅
+[24/287] Processing 005/IMG_2400.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[25/287] Processing 005/S__7479383_0.jpg... ✅
+[26/287] Processing 005/S__7479385_0.jpg... ✅
+[27/287] Processing 005/S__7479386_0.jpg... ✅
+[28/287] Processing 005/S__7479387_0.jpg... ✅
+[29/287] Processing 006/IMG_2404.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[30/287] Processing 006/IMG_2420.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[31/287] Processing 006/S__7479388_0.jpg... ✅
+[32/287] Processing 006/S__7479390_0.jpg... ✅
+[33/287] Processing 006/S__7479391_0.jpg... ✅
+[34/287] Processing 006/S__7479392_0.jpg... ✅
+[35/287] Processing 007/IMG_2423.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[36/287] Processing 007/IMG_2426.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[37/287] Processing 007/S__7479413_0.jpg... ✅
+[38/287] Processing 007/S__7479415_0.jpg... ✅
+[39/287] Processing 007/S__7479416_0.jpg... ✅
+[40/287] Processing 007/S__7479417_0.jpg... ✅
+[41/287] Processing 008/IMG_2434.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[42/287] Processing 008/IMG_2435.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[43/287] Processing 008/S__7479418_0.jpg... ✅
+[44/287] Processing 008/S__7479420_0.jpg... ✅
+[45/287] Processing 008/S__7479421_0.jpg... ✅
+[46/287] Processing 008/S__7479422_0.jpg... ✅
+[47/287] Processing 009/IMG_2439.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[48/287] Processing 009/IMG_2443.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[49/287] Processing 009/S__7479393_0.jpg... ✅
+[50/287] Processing 009/S__7479395_0.jpg... ✅
+[51/287] Processing 009/S__7479396_0.jpg... ✅
+[52/287] Processing 009/S__7479397_0.jpg... ✅
+[53/287] Processing 010/IMG_2447.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[54/287] Processing 010/IMG_2449.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[55/287] Processing 010/S__7684118_0.jpg... ✅
+[56/287] Processing 010/S__7684119_0.jpg... ✅
+[57/287] Processing 010/S__7684120_0.jpg... ✅
+[58/287] Processing 010/S__7684121_0.jpg... ✅
+[59/287] Processing 011/IMG_2454.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[60/287] Processing 011/S__7684123_0.jpg... ✅
+[61/287] Processing 011/S__7684124_0.jpg... ✅
+[62/287] Processing 011/S__7684125_0.jpg... ✅
+[63/287] Processing 011/S__7684126_0.jpg... ✅
+[64/287] Processing 012/IMG_2458.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[65/287] Processing 012/S__7733286_0.jpg... ✅
+[66/287] Processing 012/S__7733287_0.jpg... ✅
+[67/287] Processing 012/S__7733288_0.jpg... ✅
+[68/287] Processing 012/S__7733289_0.jpg... ✅
+[69/287] Processing 013/IMG_2461.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[70/287] Processing 013/S__7708681_0.jpg... ✅
+[71/287] Processing 013/S__7708682_0.jpg... ✅
+[72/287] Processing 013/S__7708683_0.jpg... ✅
+[73/287] Processing 013/S__7708684_0.jpg... ✅
+[74/287] Processing 014/IMG_2464.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[75/287] Processing 014/S__7708686_0.jpg... ✅
+[76/287] Processing 014/S__7708687_0.jpg... ✅
+[77/287] Processing 014/S__7708688_0.jpg... ✅
+[78/287] Processing 014/S__7708689_0.jpg... ✅
+[79/287] Processing 015/IMG_2470.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[80/287] Processing 015/S__7708691_0.jpg... ✅
+[81/287] Processing 015/S__7708692_0.jpg... ✅
+[82/287] Processing 015/S__7708693_0.jpg... ✅
+[83/287] Processing 015/S__7708694_0.jpg... ✅
+[84/287] Processing 016/IMG_2473.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[85/287] Processing 016/S__7708696_0.jpg... ✅
+[86/287] Processing 016/S__7708697_0.jpg... ✅
+[87/287] Processing 016/S__7708698_0.jpg... ✅
+[88/287] Processing 016/S__7708699_0.jpg... ✅
+[89/287] Processing 017/IMG_2480.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[90/287] Processing 017/IMG_2485.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[91/287] Processing 017/S__7708701_0.jpg... ✅
+[92/287] Processing 017/S__7708702_0.jpg... ✅
+[93/287] Processing 017/S__7708703_0.jpg... ✅
+[94/287] Processing 017/S__7708704_0.jpg... ✅
+[95/287] Processing 018/IMG_2488.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[96/287] Processing 018/IMG_2491.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[97/287] Processing 018/S__7708706_0.jpg... ✅
+[98/287] Processing 018/S__7708707_0.jpg... ✅
+[99/287] Processing 018/S__7708708_0.jpg... ✅
+[100/287] Processing 018/S__7708709_0.jpg... ✅
+[101/287] Processing 019/IMG_2496.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[102/287] Processing 019/IMG_2498.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[103/287] Processing 019/S__7708711_0.jpg... ✅
+[104/287] Processing 019/S__7708712_0.jpg... ✅
+[105/287] Processing 019/S__7708713_0.jpg... ✅
+[106/287] Processing 019/S__7708714_0.jpg... ✅
+[107/287] Processing 020/IMG_2501.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[108/287] Processing 020/S__7708716_0.jpg... ✅
+[109/287] Processing 020/S__7708717_0.jpg... ✅
+[110/287] Processing 020/S__7708718_0.jpg... ✅
+[111/287] Processing 020/S__7708719_0.jpg... ✅
+[112/287] Processing 021/IMG_2506.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[113/287] Processing 021/S__7708721_0.jpg... ✅
+[114/287] Processing 021/S__7708722_0.jpg... ✅
+[115/287] Processing 021/S__7708723_0.jpg... ✅
+[116/287] Processing 021/S__7708724_0.jpg... ✅
+[117/287] Processing 022/IMG_2510.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[118/287] Processing 022/S__7708726_0.jpg... ✅
+[119/287] Processing 022/S__7708727_0.jpg... ✅
+[120/287] Processing 022/S__7708728_0.jpg... ✅
+[121/287] Processing 022/S__7708729_0.jpg... ✅
+[122/287] Processing 023/IMG_2515.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[123/287] Processing 023/IMG_2518.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[124/287] Processing 023/S__7708735_0.jpg... ✅
+[125/287] Processing 023/S__7708736_0.jpg... ✅
+[126/287] Processing 023/S__7708737_0.jpg... ✅
+[127/287] Processing 023/S__7708738_0.jpg... ✅
+[128/287] Processing 024/IMG_2528.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[129/287] Processing 024/IMG_2531.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[130/287] Processing 024/S__7708740_0.jpg... ✅
+[131/287] Processing 024/S__7708741_0.jpg... ✅
+[132/287] Processing 024/S__7708742_0.jpg... ✅
+[133/287] Processing 024/S__7708743_0.jpg... ✅
+[134/287] Processing 075/IMG_2157.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[135/287] Processing 075/IMG_2159.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[136/287] Processing 075/S__7307305_0.jpg... ✅
+[137/287] Processing 075/S__7307307_0.jpg... ✅
+[138/287] Processing 075/S__7307308_0.jpg... ✅
+[139/287] Processing 075/S__7307309_0.jpg... ✅
+[140/287] Processing 076/IMG_2163.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[141/287] Processing 076/IMG_2165.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[142/287] Processing 076/S__7307300_0.jpg... ✅
+[143/287] Processing 076/S__7307302_0.jpg... ✅
+[144/287] Processing 076/S__7307303_0.jpg... ✅
+[145/287] Processing 076/S__7307304_0.jpg... ✅
+[146/287] Processing 077/IMG_2168.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[147/287] Processing 077/S__7307295_0.jpg... ✅
+[148/287] Processing 077/S__7307297_0.jpg... ✅
+[149/287] Processing 077/S__7307298_0.jpg... ✅
+[150/287] Processing 077/S__7307299_0.jpg... ✅
+[151/287] Processing 078/IMG_2178.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[152/287] Processing 078/S__7307285_0.jpg... ✅
+[153/287] Processing 078/S__7307287_0.jpg... ✅
+[154/287] Processing 078/S__7307288_0.jpg... ✅
+[155/287] Processing 078/S__7307289_0.jpg... ✅
+[156/287] Processing 079/IMG_2186.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[157/287] Processing 079/IMG_2189.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[158/287] Processing 079/S__7307280_0.jpg... ✅
+[159/287] Processing 079/S__7307282_0.jpg... ✅
+[160/287] Processing 079/S__7307283_0.jpg... ✅
+[161/287] Processing 079/S__7307284_0.jpg... ✅
+[162/287] Processing 080/IMG_2198.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[163/287] Processing 080/IMG_2203.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[164/287] Processing 080/S__7307275_0.jpg... ✅
+[165/287] Processing 080/S__7307277_0.jpg... ✅
+[166/287] Processing 080/S__7307278_0.jpg... ✅
+[167/287] Processing 080/S__7307279_0.jpg... ✅
+[168/287] Processing 081/IMG_2212.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[169/287] Processing 081/IMG_2214.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[170/287] Processing 081/S__7381026_0.jpg... ✅
+[171/287] Processing 081/S__7381028_0.jpg... ✅
+[172/287] Processing 081/S__7381029_0.jpg... ✅
+[173/287] Processing 081/S__7381030_0.jpg... ✅
+[174/287] Processing 082/IMG_2224.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[175/287] Processing 082/IMG_2225.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[176/287] Processing 082/IMG_2226.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[177/287] Processing 082/S__7381031_0.jpg... ✅
+[178/287] Processing 082/S__7381033_0.jpg... ✅
+[179/287] Processing 082/S__7381034_0.jpg... ✅
+[180/287] Processing 082/S__7381035_0.jpg... ✅
+[181/287] Processing 083/IMG_2231.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[182/287] Processing 083/IMG_2233.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[183/287] Processing 083/S__7381041_0.jpg... ✅
+[184/287] Processing 083/S__7381043_0.jpg... ✅
+[185/287] Processing 083/S__7381044_0.jpg... ✅
+[186/287] Processing 083/S__7381045_0.jpg... ✅
+[187/287] Processing 084/IMG_2238.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[188/287] Processing 084/IMG_2240.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[189/287] Processing 084/S__7381046_0.jpg... ✅
+[190/287] Processing 084/S__7381048_0.jpg... ✅
+[191/287] Processing 084/S__7381049_0.jpg... ✅
+[192/287] Processing 084/S__7381050_0.jpg... ✅
+[193/287] Processing 085/IMG_2244.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[194/287] Processing 085/IMG_2246.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[195/287] Processing 085/S__7381051_0.jpg... ✅
+[196/287] Processing 085/S__7381053_0.jpg... ✅
+[197/287] Processing 085/S__7381054_0.jpg... ✅
+[198/287] Processing 085/S__7381055_0.jpg... ✅
+[199/287] Processing 086/IMG_2249.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[200/287] Processing 086/IMG_2253.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[201/287] Processing 086/S__7421957_0.jpg... ✅
+[202/287] Processing 086/S__7421959_0.jpg... ✅
+[203/287] Processing 086/S__7421960_0.jpg... ✅
+[204/287] Processing 086/S__7421961_0.jpg... ✅
+[205/287] Processing 087/IMG_2256.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[206/287] Processing 087/IMG_2263.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[207/287] Processing 087/S__7381056_0.jpg... ✅
+[208/287] Processing 087/S__7381058_0.jpg... ✅
+[209/287] Processing 087/S__7381059_0.jpg... ✅
+[210/287] Processing 087/S__7381060_0.jpg... ✅
+[211/287] Processing 088/IMG_2272.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[212/287] Processing 088/IMG_2273.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[213/287] Processing 088/S__7381061_0.jpg... ✅
+[214/287] Processing 088/S__7381063_0.jpg... ✅
+[215/287] Processing 088/S__7381064_0.jpg... ✅
+[216/287] Processing 088/S__7381065_0.jpg... ✅
+[217/287] Processing 089/IMG_2277.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[218/287] Processing 089/S__7381066_0.jpg... ✅
+[219/287] Processing 089/S__7381068_0.jpg... ✅
+[220/287] Processing 089/S__7381069_0.jpg... ✅
+[221/287] Processing 089/S__7381070_0.jpg... ✅
+[222/287] Processing 090/IMG_2282.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[223/287] Processing 090/IMG_2285.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[224/287] Processing 090/S__7381071_0.jpg... ✅
+[225/287] Processing 090/S__7381073_0.jpg... ✅
+[226/287] Processing 090/S__7381074_0.jpg... ✅
+[227/287] Processing 090/S__7381075_0.jpg... ✅
+[228/287] Processing 091/IMG_2292.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[229/287] Processing 091/IMG_2293.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[230/287] Processing 091/S__7381076_0.jpg... ✅
+[231/287] Processing 091/S__7381078_0.jpg... ✅
+[232/287] Processing 091/S__7381079_0.jpg... ✅
+[233/287] Processing 091/S__7381080_0.jpg... ✅
+[234/287] Processing 092/IMG_2304.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[235/287] Processing 092/IMG_2306.JPG... ❌ HTTP 400 - {"success":false,"error":"Upload error: 1"}
+[236/287] Processing 092/S__7381081_0.jpg... ✅
+[237/287] Processing 092/S__7381083_0.jpg... ✅
+[238/287] Processing 092/S__7381084_0.jpg... ✅
+[239/287] Processing 092/S__7381085_0.jpg... ✅
+[240/287] Processing 093/IMG_2313.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[241/287] Processing 093/IMG_2315.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[242/287] Processing 093/S__7381086_0.jpg... ✅
+[243/287] Processing 093/S__7381088_0.jpg... ✅
+[244/287] Processing 093/S__7381089_0.jpg... ✅
+[245/287] Processing 093/S__7381090_0.jpg... ✅
+[246/287] Processing 094/IMG_2317.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[247/287] Processing 094/IMG_2318.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[248/287] Processing 094/S__7381096_0.jpg... ✅
+[249/287] Processing 094/S__7381098_0.jpg... ✅
+[250/287] Processing 094/S__7381099_0.jpg... ✅
+[251/287] Processing 094/S__7381100_0.jpg... ✅
+[252/287] Processing 095/IMG_2322.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[253/287] Processing 095/IMG_2325.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[254/287] Processing 095/S__7381091_0.jpg... ✅
+[255/287] Processing 095/S__7381093_0.jpg... ✅
+[256/287] Processing 095/S__7381094_0.jpg... ✅
+[257/287] Processing 095/S__7381095_0.jpg... ✅
+[258/287] Processing 096/IMG_2331.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[259/287] Processing 096/IMG_2336.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[260/287] Processing 096/S__7381101_0.jpg... ✅
+[261/287] Processing 096/S__7381103_0.jpg... ✅
+[262/287] Processing 096/S__7381104_0.jpg... ✅
+[263/287] Processing 096/S__7381105_0.jpg... ✅
+[264/287] Processing 097/IMG_2340.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[265/287] Processing 097/IMG_2343.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[266/287] Processing 097/S__7421962_0.jpg... ✅
+[267/287] Processing 097/S__7421964_0.jpg... ✅
+[268/287] Processing 097/S__7421965_0.jpg... ✅
+[269/287] Processing 097/S__7421966_0.jpg... ✅
+[270/287] Processing 098/IMG_2352.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[271/287] Processing 098/IMG_2355.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[272/287] Processing 098/S__7421967_0.jpg... ✅
+[273/287] Processing 098/S__7421970_0.jpg... ✅
+[274/287] Processing 098/S__7421971_0.jpg... ✅
+[275/287] Processing 098/S__7421972_0.jpg... ✅
+[276/287] Processing 099/IMG_2358.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[277/287] Processing 099/IMG_2360.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[278/287] Processing 099/S__7479343_0.jpg... ✅
+[279/287] Processing 099/S__7479345_0.jpg... ✅
+[280/287] Processing 099/S__7479346_0.jpg... ✅
+[281/287] Processing 099/S__7479347_0.jpg... ✅
+[282/287] Processing 100/IMG_2366.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[283/287] Processing 100/IMG_2372.JPG... resize... EXIF:8... 4000x6000→1333x2000... ✅
+[284/287] Processing 100/S__7479348_0.jpg... ✅
+[285/287] Processing 100/S__7479350_0.jpg... ✅
+[286/287] Processing 100/S__7479351_0.jpg... ✅
+[287/287] Processing 100/S__7479352_0.jpg... ✅
+
+=== FINAL SUMMARY ===
+✅ Success: 280
+❌ Failed: 7
+Total: 287

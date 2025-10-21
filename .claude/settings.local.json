@@ -39,7 +39,22 @@
       "Bash(do echo \"Try $i:\")",
       "Bash(done)",
       "Bash(git show:*)",
-      "Read(//Applications/MAMP/logs/**)"
+      "Read(//Applications/MAMP/logs/**)",
+      "Bash(tee:*)",
+      "Bash(while ! grep -q \"SUMMARY\" final-upload-log.txt)",
+      "Bash(do sleep:*)",
+      "Bash(while ! grep -q \"FINAL SUMMARY\" upload-large-images-log.txt)",
+      "Bash(for img in \"001/S__7479353_0.jpg\" \"050/IMG_2078.JPG\" \"100/IMG_2372.JPG\")",
+      "Bash(do echo -n \"Testing $img: \")",
+      "Bash(exiftool:*)",
+      "Bash(while ! grep -q \"FINAL SUMMARY\" upload-with-rotation-fix.txt)",
+      "Bash(git reset:*)",
+      "Bash(while ! grep -q \"FINAL SUMMARY\" final-rotation-fix.txt)",
+      "Bash(while ! grep -q \"FINAL SUMMARY\" upload-correct-orientation.txt)",
+      "Bash(while read img)",
+      "Bash(do echo \"$img\")",
+      "Bash(sips:*)",
+      "Bash(/Users/sakdachoommanee/Documents/httpdocs/nongchok/delete-prod-images.sh:*)"
     ],
     "deny": [],
     "ask": []

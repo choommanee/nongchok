@@ -127,10 +127,10 @@ a.btn-modern i {
     z-index: 10 !important;
 }
 
-/* Swiper specific fixes */
+/* Swiper specific fixes
 .swiper-wrapper {
     height: 100vh !important;
-}
+} */
 
 .swiper-container {
     height: 100vh !important;
