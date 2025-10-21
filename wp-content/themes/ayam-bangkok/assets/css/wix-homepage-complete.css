@@ -349,7 +349,16 @@ body.page-about * {
     }
 }
 
-/* Fixed header - padding handled by mobile media query only */
+/* Fixed header - add padding for all pages */
+body.home,
+body.page-about,
+body.page-service,
+body.page-gallery,
+body.single-ayam_news,
+body.archive-ayam_news,
+body.page-contact {
+    padding-top: 80px;
+}
 
 /* Override old header styles for homepage */
 .home .site-header {
