@@ -208,23 +208,9 @@ body.page-about * {
     transition: all 0.3s ease;
 }
 
-/* Mobile Menu Overlay */
+/* Mobile Menu Overlay - DISABLED (menu is full screen now) */
 .mobile-menu-overlay {
-    display: none;
-    position: fixed;
-    top: 66px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 66px);
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.mobile-menu-overlay.active {
-    display: block;
-    opacity: 1;
+    display: none !important;
 }
 
 /* Mobile Header */
@@ -259,8 +245,15 @@ body.page-about * {
     .wix-mobile-toggle {
         display: flex;
         order: 2;
-        z-index: 1002;
+        z-index: 10001;
         margin-left: auto;
+        position: relative;
+    }
+
+    /* Ensure header stays above menu */
+    .wix-header {
+        z-index: 10001;
+        position: relative;
     }
 
     .wix-mobile-toggle.active span:nth-child(1) {
