@@ -199,16 +199,23 @@ get_header(); ?>
 
             <div class="gallery-circle-grid" data-aos="fade-up" data-aos-delay="100">
                 <?php
-                // Get 5 random gallery images from database
+                // Get first image of each category (5 categories)
                 global $wpdb;
                 $images_table = $wpdb->prefix . 'gallery_images';
                 $categories_table = $wpdb->prefix . 'gallery_categories';
 
+                // Get first image of each category
                 $gallery_images = $wpdb->get_results("
                     SELECT i.image_url, i.thumbnail_url, c.category_number, c.category_name
                     FROM {$images_table} i
-                    JOIN {$categories_table} c ON i.category_id = c.id
-                    ORDER BY RAND()
+                    INNER JOIN {$categories_table} c ON i.category_id = c.id
+                    INNER JOIN (
+                        SELECT category_id, MIN(sort_order) as min_order
+                        FROM {$images_table}
+                        GROUP BY category_id
+                    ) first_img ON i.category_id = first_img.category_id
+                        AND i.sort_order = first_img.min_order
+                    ORDER BY c.category_number ASC
                     LIMIT 5
                 ");
 
