@@ -126,10 +126,12 @@
 .wix-logo img,
 .wix-logo-img,
 .wix-logo .custom-logo {
+    padding-top: 20px;
     width: 120px;
     height: 120px;
     display: block;
     object-fit: contain;
+    padding-left: 8px;
 }
 
 .wix-nav {
