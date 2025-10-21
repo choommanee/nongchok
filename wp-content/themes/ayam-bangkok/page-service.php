@@ -71,18 +71,16 @@ $hero_title = $service_info['service_hero_title'] ?? 'Our Service';
     <section class="service-images">
         <div class="service-container-full">
             <div class="service-images-grid">
-                <div class="service-image-item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/service/service-1.jpg');">
+                <?php for ($i = 1; $i <= 4; $i++):
+                    $image_url = $service_info["service_image_{$i}"] ?? '';
+                    if (empty($image_url)) {
+                        $image_url = get_template_directory_uri() . "/assets/images/service/service-{$i}.jpg";
+                    }
+                ?>
+                <div class="service-image-item" style="background-image: url('<?php echo esc_url($image_url); ?>');">
                     <div class="service-image-overlay"></div>
                 </div>
-                <div class="service-image-item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/service/service-2.jpg');">
-                    <div class="service-image-overlay"></div>
-                </div>
-                <div class="service-image-item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/service/service-3.jpg');">
-                    <div class="service-image-overlay"></div>
-                </div>
-                <div class="service-image-item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/service/service-4.jpg');">
-                    <div class="service-image-overlay"></div>
-                </div>
+                <?php endfor; ?>
             </div>
         </div>
     </section>
