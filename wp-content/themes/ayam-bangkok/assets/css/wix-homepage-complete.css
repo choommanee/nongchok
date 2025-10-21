@@ -877,6 +877,17 @@ body.page-about * {
 }
 
 @media (max-width: 768px) {
+    /* Add padding to prevent navbar covering content */
+    body.home,
+    body.page-about,
+    body.page-service,
+    body.page-gallery,
+    body.single-ayam_news,
+    body.archive-ayam_news,
+    body.page-contact {
+        padding-top: 80px !important;
+    }
+
     .hero-text-section {
         padding: 15px 20px 8px !important;
         margin-bottom: -30px !important;
