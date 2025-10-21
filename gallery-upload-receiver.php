@@ -22,7 +22,7 @@ if (empty($category)) {
     die('Category required');
 }
 
-if (!isset($_FILES['image'])) {
+if (!isset($_FILES['file']) && !isset($_FILES['image'])) {
     http_response_code(400);
     die('No image uploaded');
 }
@@ -32,7 +32,7 @@ if (!is_dir($upload_dir)) {
     mkdir($upload_dir, 0755, true);
 }
 
-$file = $_FILES['image'];
+$file = isset($_FILES['file']) ? $_FILES['file'] : $_FILES['image'];
 
 // Check for upload errors
 if ($file['error'] !== UPLOAD_ERR_OK) {
