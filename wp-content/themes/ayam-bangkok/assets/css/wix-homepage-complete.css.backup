@@ -53,8 +53,8 @@
 .wix-logo img,
 .wix-logo-img,
 .wix-logo .custom-logo {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 120px;
     display: block;
     object-fit: contain;
 }
