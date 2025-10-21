@@ -214,17 +214,87 @@ function get_gallery_image_url($path) {
 }
 
 @media (max-width: 768px) {
+    .gallery-hero {
+        padding: 60px 20px 40px;
+    }
+
     .gallery-hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
+
+    .gallery-hero p {
+        font-size: 1.1rem;
+    }
+
     .gallery-stats {
-        gap: 30px;
+        gap: 25px;
+        flex-wrap: wrap;
     }
+
     .stat-number {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
+
+    .stat-label {
+        font-size: 0.8rem;
+    }
+
+    .categories-grid-section {
+        padding: 0 15px 60px;
+        margin-top: -30px;
+    }
+
     .categories-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .category-card {
+        border-radius: 15px;
+    }
+
+    .category-thumbnail-wrapper {
+        height: 180px;
+    }
+
+    .category-info {
+        padding: 15px;
+    }
+
+    .category-number {
+        font-size: 0.75rem;
+    }
+
+    .category-name {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+
+    .category-meta {
+        font-size: 0.8rem;
+    }
+
+    .category-view-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .categories-grid {
+        gap: 12px;
+    }
+
+    .category-thumbnail-wrapper {
+        height: 150px;
+    }
+
+    .category-info {
+        padding: 12px;
     }
 }
 </style>
