@@ -2,8 +2,9 @@
 
 /* Hero Slider Container */
 .hero-slider-section {
-    height: 76vh !important;
-    min-height: 600px !important;
+    height: 55vh !important;
+    min-height: 450px !important;
+    max-height: 650px !important;
     position: relative !important;
     overflow: hidden !important;
     background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
@@ -24,7 +25,7 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    min-height: 100vh !important;
+    height: 100% !important;
 }
 
 /* Force background image to show */
