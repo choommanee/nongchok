@@ -7,6 +7,9 @@ global $wpdb;
 $categories_table = $wpdb->prefix . 'gallery_categories';
 $images_table = $wpdb->prefix . 'gallery_images';
 
+// Get category from URL parameter
+$category_code = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
+
 // Helper function to get correct image URL (local uses production images)
 function get_gallery_image_url_detail($path) {
     // If local development, use production URL
@@ -19,7 +22,7 @@ function get_gallery_image_url_detail($path) {
 
 // Get category info
 $category = $wpdb->get_row($wpdb->prepare(
-    "SELECT * FROM {$categories_table} WHERE category_code = %s",
+    "SELECT * FROM {$categories_table} WHERE category_number = %s",
     $category_code
 ));
 
@@ -183,10 +186,29 @@ $images = $wpdb->get_results($wpdb->prepare(
 
             <div class="category-detail-meta">
                 <span><i class="fas fa-images"></i> <?php echo count($images); ?> Photos</span>
-                <span><i class="fas fa-hashtag"></i> <?php echo $category->category_code; ?></span>
+                <span><i class="fas fa-hashtag"></i> <?php echo $category->category_number; ?></span>
             </div>
         </div>
     </section>
+
+    <!-- Video Section (if exists) -->
+    <?php if (!empty($category->video_url)): ?>
+    <section class="category-video-section">
+        <div style="max-width: 1400px; margin: 40px auto; padding: 0 20px;">
+            <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: #2d3748;">
+                <i class="fas fa-video"></i> Video Showcase
+            </h2>
+            <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <iframe
+                    src="<?php echo esc_url($category->video_url); ?>"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                    allowfullscreen
+                    loading="lazy"
+                ></iframe>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
 
     <!-- Images Grid -->
     <section class="category-images-section">
@@ -195,7 +217,7 @@ $images = $wpdb->get_results($wpdb->prepare(
                 <?php foreach ($images as $index => $image): ?>
                     <div class="image-card" data-aos="fade-up" data-aos-delay="<?php echo ($index % 12) * 50; ?>">
                         <a href="<?php echo esc_url(get_gallery_image_url_detail($image->image_url)); ?>"
-                           data-lightbox="gallery-<?php echo $category->category_code; ?>"
+                           data-lightbox="gallery-<?php echo $category->category_number; ?>"
                            data-title="<?php echo esc_attr($category->category_name); ?> - Photo <?php echo $index + 1; ?>">
 
                             <div class="image-wrapper">
