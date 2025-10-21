@@ -264,9 +264,9 @@ get_header(); ?>
             
             <div class="news-video-grid" data-aos="fade-up" data-aos-delay="100">
                 <?php
-                // Get latest 3 posts
+                // Get latest 3 news posts (using ayam_news post type for /news/ URLs)
                 $news_query = new WP_Query([
-                    'post_type' => 'post',
+                    'post_type' => 'ayam_news',
                     'posts_per_page' => 3,
                     'orderby' => 'date',
                     'order' => 'DESC'
