@@ -277,17 +277,20 @@ body.page-about * {
 
     .wix-nav {
         position: fixed;
-        top: 66px;
+        top: 0;
         right: -100%;
-        width: 260px;
-        height: calc(100vh - 66px);
-        background: #1E2950;
+        width: 100%;
+        height: 100vh;
+        background: #ca4249 !important;
         transition: right 0.3s ease;
-        padding: 10px 0;
-        z-index: 1001;
+        padding: 60px 20px;
+        z-index: 9999;
         overflow-y: auto;
-        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
+        box-shadow: none;
         order: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .wix-nav.active {
@@ -296,24 +299,58 @@ body.page-about * {
 
     .wix-menu {
         flex-direction: column;
-        gap: 0;
+        gap: 20px;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
     }
 
     .wix-menu li {
-        width: 100%;
+        width: auto;
+        text-align: center;
     }
 
     .wix-menu a {
-        padding: 12px 25px;
+        padding: 15px 30px;
         border-radius: 0;
-        font-size: 15px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 36px !important;
+        font-weight: 700 !important;
+        border-bottom: none;
         display: block;
-        width: 100%;
+        width: auto;
+        color: #fff !important;
+        text-transform: capitalize;
+        letter-spacing: 0.5px;
+    }
+
+    .wix-menu li:first-child a {
+        color: #1E2950 !important;
     }
 
     .wix-menu a:hover {
-        background: rgba(202, 66, 73, 0.2);
+        background: transparent !important;
+        color: #fff !important;
+        opacity: 0.9;
+    }
+
+    .wix-menu li:first-child a:hover {
+        color: #1E2950 !important;
+    }
+
+    /* Close button X styling */
+    .wix-mobile-toggle.active {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        width: 40px;
+        height: 40px;
+    }
+
+    .wix-mobile-toggle.active span {
+        background: #1E2950 !important;
+        width: 30px;
+        height: 3px;
     }
 }
 
