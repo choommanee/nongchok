@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Theme constants
-define('AYAM_THEME_VERSION', '1.0.3');
+define('AYAM_THEME_VERSION', '1.0.4');
 define('AYAM_THEME_URI', get_template_directory_uri());
 define('AYAM_THEME_PATH', get_template_directory());
 
