@@ -4,6 +4,89 @@
  * For Service, News, Gallery, Contact pages
  */
 
+/* ===== BREADCRUMB STYLES ===== */
+.breadcrumbs {
+    background: #f8f9fa;
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 0;
+}
+
+.breadcrumbs .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.breadcrumb-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+.breadcrumb-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.breadcrumb-list li::after {
+    content: '›';
+    color: #9ca3af;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.breadcrumb-list li:last-child::after {
+    content: '';
+}
+
+.breadcrumb-list a {
+    color: #6b7280;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.breadcrumb-list a:hover {
+    color: #CA4249;
+}
+
+.breadcrumb-list a i {
+    font-size: 12px;
+}
+
+.breadcrumb-list .current {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .breadcrumbs {
+        padding: 10px 0;
+    }
+
+    .breadcrumb-list {
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    .breadcrumb-list li {
+        gap: 6px;
+    }
+
+    .breadcrumb-list li::after {
+        font-size: 14px;
+    }
+}
+
 /* ===== COMMON PAGE STYLES ===== */
 .wix-service-page,
 .wix-news-page,
