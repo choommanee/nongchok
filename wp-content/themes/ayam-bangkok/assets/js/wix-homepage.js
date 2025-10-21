@@ -109,12 +109,23 @@
             const $nav = $('.wix-nav');
             const $toggle = $(this);
 
+            console.log('Nav element found:', $nav.length);
+            console.log('Nav classes before:', $nav.attr('class'));
+
             $nav.toggleClass('active');
             $toggle.toggleClass('active');
             $overlay.toggleClass('active');
 
+            console.log('Nav classes after:', $nav.attr('class'));
             console.log('Nav has active class:', $nav.hasClass('active'));
             console.log('Toggle has active class:', $toggle.hasClass('active'));
+
+            // Force with jQuery
+            if (!$nav.hasClass('active')) {
+                console.log('Adding active class manually...');
+                $nav.addClass('active');
+                console.log('After manual add:', $nav.hasClass('active'));
+            }
         });
 
         // Close menu when clicking overlay
