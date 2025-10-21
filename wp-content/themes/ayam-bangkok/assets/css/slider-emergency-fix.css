@@ -202,28 +202,49 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    /* Slider Container - Compact for mobile */
+    .hero-slider-section {
+        height: 45vh !important;
+        min-height: 350px !important;
+        max-height: 450px !important;
+        margin-top: 0 !important;
+    }
+
     .hero-swiper .slide-content {
         padding: 0 1rem !important;
     }
-    
+
     .hero-swiper .slide-title {
-        font-size: clamp(1.8rem, 8vw, 2.5rem) !important;
+        font-size: clamp(1.5rem, 6vw, 2rem) !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    .hero-swiper .slide-description {
+        font-size: clamp(0.9rem, 3.5vw, 1.1rem) !important;
         margin-bottom: 1rem !important;
     }
-    
-    .hero-swiper .slide-description {
-        font-size: clamp(1rem, 4vw, 1.2rem) !important;
-        margin-bottom: 1.5rem !important;
-    }
-    
+
     .hero-swiper .slide-buttons {
         flex-direction: column !important;
-        gap: 0.75rem !important;
+        gap: 0.5rem !important;
     }
-    
+
     .hero-swiper .btn-modern {
         width: 100% !important;
-        max-width: 280px !important;
-        padding: 0.75rem 1.5rem !important;
+        max-width: 250px !important;
+        padding: 0.6rem 1.2rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Navigation buttons - smaller on mobile */
+    .hero-swiper .swiper-button-next,
+    .hero-swiper .swiper-button-prev {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .hero-swiper .swiper-button-next::after,
+    .hero-swiper .swiper-button-prev::after {
+        font-size: 1rem !important;
     }
 }
