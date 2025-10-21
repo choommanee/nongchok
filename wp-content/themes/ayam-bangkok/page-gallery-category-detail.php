@@ -35,7 +35,7 @@ if (!$category) {
 $images = $wpdb->get_results($wpdb->prepare(
     "SELECT * FROM {$images_table}
      WHERE category_id = %d
-     ORDER BY display_order ASC",
+     ORDER BY sort_order ASC",
     $category->id
 ));
 
