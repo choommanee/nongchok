@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Theme constants
-define('AYAM_THEME_VERSION', '1.2.8');
+define('AYAM_THEME_VERSION', '1.2.9');
 define('AYAM_THEME_URI', get_template_directory_uri());
 define('AYAM_THEME_PATH', get_template_directory());
 
@@ -131,6 +131,7 @@ function ayam_theme_scripts()
 
     // About Page CSS
     if (is_page_template('page-about.php') || is_page('about') || is_page('about-us') || is_page(27)) {
+        wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION);
         wp_enqueue_style('about-page', AYAM_THEME_URI . '/assets/css/about.css', array(), AYAM_THEME_VERSION);
     }
 
