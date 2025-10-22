@@ -45,82 +45,81 @@ $images = $wpdb->get_results($wpdb->prepare(
 <style>
 .category-detail-page {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-    background: #f7fafc;
+    background: #fff;
     min-height: 100vh;
 }
 
 .category-detail-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 60px 20px 40px;
+    background: #fff;
+    padding: 40px 20px 30px;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .category-header-container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 80px;
 }
 
 .back-button {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    color: white !important;
+    gap: 8px;
+    color: #6b7280 !important;
     text-decoration: none !important;
-    margin-bottom: 30px;
-    font-weight: 500;
-    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
 }
 
 .back-button:hover {
-    transform: translateX(-5px);
-    color: white !important;
+    color: #CA4249 !important;
 }
 
 .category-detail-title {
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 10px;
+    color: #1E2950;
+    margin-bottom: 15px;
 }
 
 .category-detail-meta {
     display: flex;
-    gap: 30px;
-    font-size: 1.1rem;
-    opacity: 0.9;
+    gap: 20px;
+    font-size: 0.95rem;
+    color: #6b7280;
     flex-wrap: wrap;
 }
 
+.category-detail-meta i {
+    color: #CA4249;
+    margin-right: 5px;
+}
+
 .category-images-section {
-    max-width: 1400px;
-    margin: -20px auto 0;
-    padding: 0 20px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 80px 80px;
 }
 
 .images-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
-    margin-top: 40px;
 }
 
 .image-card {
-    background: white;
-    border-radius: 15px;
+    background: #fff;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
     position: relative;
     cursor: pointer;
-}
-
-.image-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    aspect-ratio: 1;
 }
 
 .image-wrapper {
     width: 100%;
-    height: 350px;
+    height: 100%;
     overflow: hidden;
     position: relative;
 }
@@ -129,11 +128,11 @@ $images = $wpdb->get_results($wpdb->prepare(
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.3s ease;
 }
 
 .image-card:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .image-overlay {
@@ -142,7 +141,7 @@ $images = $wpdb->get_results($wpdb->prepare(
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.3);
     opacity: 0;
     transition: opacity 0.3s ease;
     display: flex;
@@ -155,20 +154,61 @@ $images = $wpdb->get_results($wpdb->prepare(
 }
 
 .zoom-icon {
-    font-size: 3rem;
+    font-size: 2rem;
     color: white;
 }
 
+.category-video-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 80px;
+}
+
+.video-section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1E2950;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
+    .category-header-container,
+    .category-images-section,
+    .category-video-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
     .category-detail-title {
         font-size: 2rem;
     }
+
     .category-detail-meta {
-        flex-direction: column;
-        gap: 10px;
+        gap: 15px;
+        font-size: 0.9rem;
     }
+
     .images-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-detail-title {
+        font-size: 1.6rem;
+    }
+
+    .images-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 }
 </style>
@@ -194,18 +234,16 @@ $images = $wpdb->get_results($wpdb->prepare(
     <!-- Video Section (if exists) -->
     <?php if (!empty($category->video_url)): ?>
     <section class="category-video-section">
-        <div style="max-width: 1400px; margin: 40px auto; padding: 0 20px;">
-            <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: #2d3748;">
-                <i class="fas fa-video"></i> Video Showcase
-            </h2>
-            <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                <iframe
-                    src="<?php echo esc_url($category->video_url); ?>"
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                    allowfullscreen
-                    loading="lazy"
-                ></iframe>
-            </div>
+        <h2 class="video-section-title">
+            <i class="fas fa-video"></i> Video Showcase
+        </h2>
+        <div class="video-container">
+            <iframe
+                src="<?php echo esc_url($category->video_url); ?>"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                allowfullscreen
+                loading="lazy"
+            ></iframe>
         </div>
     </section>
     <?php endif; ?>
