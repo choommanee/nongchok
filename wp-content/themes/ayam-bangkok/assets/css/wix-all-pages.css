@@ -15,7 +15,7 @@
 .breadcrumbs .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 80px;
 }
 
 .breadcrumb-list {
@@ -71,6 +71,10 @@
 @media (max-width: 768px) {
     .breadcrumbs {
         padding: 10px 0;
+    }
+
+    .breadcrumbs .container {
+        padding: 0 20px;
     }
 
     .breadcrumb-list {
