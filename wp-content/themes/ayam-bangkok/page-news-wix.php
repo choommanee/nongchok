@@ -19,87 +19,186 @@ $news_query = new WP_Query($args);
 
 ?>
 
-<main id="primary" class="site-main wix-style-news">
+<style>
+.news-page-wix {
+    background: #fff;
+}
 
-    <!-- News Hero Section -->
-    <section class="news-hero-section">
-        <div class="container">
-            <div class="news-hero-content" data-aos="fade-up">
-                <h1 class="news-main-title">News</h1>
-            </div>
-        </div>
+.news-hero-simple {
+    background: #fff;
+    padding: 60px 20px 50px;
+    text-align: center;
+}
+
+.news-hero-simple h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.news-articles-section {
+    background: #CA4249;
+    padding: 60px 20px;
+}
+
+.news-articles-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.news-articles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.news-article-card {
+    text-decoration: none;
+    display: block;
+}
+
+.news-article-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: #fff;
+}
+
+.news-article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-article-title-box {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.news-article-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0;
+}
+
+.news-video-section {
+    background: #fff;
+    padding: 80px 20px;
+}
+
+.news-video-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.news-video-section h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1E2950;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .news-articles-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .news-hero-simple h1 {
+        font-size: 2.2rem;
+    }
+
+    .news-articles-section {
+        padding: 40px 20px;
+    }
+
+    .news-articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .news-article-title-box {
+        padding: 15px;
+    }
+
+    .news-article-title {
+        font-size: 0.9rem;
+    }
+
+    .news-video-section h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-hero-simple h1 {
+        font-size: 1.8rem;
+    }
+
+    .news-articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .news-article-title {
+        font-size: 0.85rem;
+    }
+}
+</style>
+
+<main id="primary" class="site-main news-page-wix">
+
+    <!-- Hero Section -->
+    <section class="news-hero-simple">
+        <h1>Article & News</h1>
     </section>
 
-    <!-- Video Gallery Grid -->
-    <section class="news-video-grid-section">
-        <div class="container">
+    <!-- Articles Grid -->
+    <section class="news-articles-section">
+        <div class="news-articles-container">
             <?php if ($news_query->have_posts()): ?>
-                <div class="news-video-grid" data-aos="fade-up">
+                <div class="news-articles-grid">
                     <?php
-                    $count = 0;
                     while ($news_query->have_posts()) :
                         $news_query->the_post();
-                        $count++;
-                        $video_duration = get_post_meta(get_the_ID(), 'video_duration', true) ?: '00:23';
                     ?>
-                        <article class="news-video-card" data-aos="fade-up" data-aos-delay="<?php echo ($count % 8) * 50; ?>">
-                            <a href="<?php the_permalink(); ?>" class="news-video-link">
-                                <div class="news-video-thumbnail">
-                                    <?php if (has_post_thumbnail()): ?>
-                                        <?php the_post_thumbnail('large'); ?>
-                                    <?php else: ?>
-                                        <div class="news-video-placeholder"></div>
-                                    <?php endif; ?>
-
-                                    <!-- Play Button Overlay -->
-                                    <div class="news-video-play-overlay">
-                                        <div class="news-video-play-button">
-                                            <i class="fas fa-play"></i>
-                                        </div>
-                                    </div>
-
-                                    <!-- Video Duration -->
-                                    <span class="news-video-duration"><?php echo esc_html($video_duration); ?></span>
-                                </div>
-
-                                <div class="news-video-content">
-                                    <h2 class="news-video-title">
-                                        <?php the_title(); ?>
-                                    </h2>
-
-                                    <div class="news-video-desc">
-                                        <?php echo wp_trim_words(get_the_excerpt(), 20, '...'); ?>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
+                        <a href="<?php the_permalink(); ?>" class="news-article-card">
+                            <div class="news-article-image">
+                                <?php if (has_post_thumbnail()): ?>
+                                    <?php the_post_thumbnail('large'); ?>
+                                <?php else: ?>
+                                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="news-article-title-box">
+                                <h3 class="news-article-title"><?php the_title(); ?></h3>
+                            </div>
+                        </a>
                     <?php endwhile; ?>
                 </div>
 
-                <?php
-                // Pagination
-                if ($news_query->max_num_pages > 1):
-                ?>
-                    <div class="news-pagination" data-aos="fade-up">
-                        <?php
-                        echo paginate_links(array(
-                            'total' => $news_query->max_num_pages,
-                            'prev_text' => '<i class="fas fa-chevron-left"></i>',
-                            'next_text' => '<i class="fas fa-chevron-right"></i>',
-                        ));
-                        ?>
-                    </div>
-                <?php endif; ?>
-
             <?php else: ?>
-                <div class="no-news-message">
-                    <i class="far fa-video"></i>
-                    <p>ยังไม่มีวิดีโอในขณะนี้</p>
-                    <small>กรุณาเพิ่มข่าวสารจากหลังบ้าน</small>
+                <div style="text-align: center; padding: 60px 20px; color: #fff;">
+                    <p>ยังไม่มีข่าวสารในขณะนี้</p>
                 </div>
             <?php endif; ?>
 
             <?php wp_reset_postdata(); ?>
+        </div>
+    </section>
+
+    <!-- Video Content Section -->
+    <section class="news-video-section">
+        <div class="news-video-container">
+            <h2>Video Content</h2>
+            <!-- Video content will go here in future -->
         </div>
     </section>
 
