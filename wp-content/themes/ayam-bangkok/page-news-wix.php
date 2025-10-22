@@ -39,7 +39,7 @@ $news_query = new WP_Query($args);
 }
 
 .news-articles-section {
-    background: #CA4249;
+    background: #FAF9F9FF;
     padding: 60px 20px;
 }
 
@@ -70,6 +70,7 @@ $news_query = new WP_Query($args);
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center bottom;
 }
 
 .news-article-title-box {
