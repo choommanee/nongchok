@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Theme constants
-define('AYAM_THEME_VERSION', '1.3.2');
+define('AYAM_THEME_VERSION', '1.3.3');
 define('AYAM_THEME_URI', get_template_directory_uri());
 define('AYAM_THEME_PATH', get_template_directory());
 
@@ -138,6 +138,7 @@ function ayam_theme_scripts()
     // Service Page CSS - Load after wix-homepage-complete to ensure font overrides work
     // Also use for News, Gallery, Contact, and Single News pages since they share the same design
     if (is_page_template('page-service.php') || is_page('service') || is_page_template('page-news-wix.php') || is_page('news-1') || is_page(168) || is_page_template('page-gallery-wix.php') || is_page('gallery') || is_page(253) || is_page_template('page-contact-wix.php') || is_page('contact') || is_singular('ayam_news')) {
+        wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
         wp_enqueue_style('service-page', AYAM_THEME_URI . '/assets/css/service.css', array('wix-homepage-complete'), AYAM_THEME_VERSION . '.' . time());
     }
 
