@@ -1040,16 +1040,16 @@ class AyamAboutAdmin {
                             <input type="text"
                                    id="shipment_date"
                                    name="shipment_date"
-                                   value="15 ตุลาคม 2025"
+                                   value="<?php echo $is_edit ? esc_attr($category->shipment_date) : ''; ?>"
                                    placeholder="เช่น 15 ตุลาคม 2025">
                         </div>
 
                         <div class="form-field">
-                            <label for="owner_name">Owner</label>
+                            <label for="owner">Owner</label>
                             <input type="text"
-                                   id="owner_name"
-                                   name="owner_name"
-                                   value="Owner: Abdul Rahim"
+                                   id="owner"
+                                   name="owner"
+                                   value="<?php echo $is_edit ? esc_attr($category->owner) : ''; ?>"
                                    placeholder="เช่น Abdul Rahim">
                         </div>
                     </div>
@@ -1145,6 +1145,8 @@ class AyamAboutAdmin {
         $category_id = isset($_POST['category_id']) ? intval($_POST['category_id']) : 0;
         $category_number = sanitize_text_field($_POST['category_number']);
         $category_name = sanitize_text_field($_POST['category_name']);
+        $shipment_date = isset($_POST['shipment_date']) ? sanitize_text_field($_POST['shipment_date']) : '';
+        $owner = isset($_POST['owner']) ? sanitize_text_field($_POST['owner']) : '';
 
         $is_edit = ($category_id > 0);
 
@@ -1152,7 +1154,11 @@ class AyamAboutAdmin {
         if ($is_edit) {
             $wpdb->update(
                 $categories_table,
-                array('category_name' => $category_name),
+                array(
+                    'category_name' => $category_name,
+                    'shipment_date' => $shipment_date,
+                    'owner' => $owner
+                ),
                 array('id' => $category_id)
             );
         } else {
@@ -1171,6 +1177,8 @@ class AyamAboutAdmin {
                 array(
                     'category_number' => $category_number,
                     'category_name' => $category_name,
+                    'shipment_date' => $shipment_date,
+                    'owner' => $owner,
                     'created_at' => current_time('mysql')
                 )
             );

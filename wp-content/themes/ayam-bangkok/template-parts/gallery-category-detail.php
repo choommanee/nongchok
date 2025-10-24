@@ -285,7 +285,7 @@ foreach ($all_media as $index => $media) {
     <div class="gallery-container">
         <!-- Left Column: Category Info -->
         <aside class="category-info-card">
-            <h1 class="category-title">ตัวอย่าง Gallery ให้ลูกค้าเข้ามาดู</h1>
+            <h1 class="category-title"><?php echo esc_html($category->category_name); ?></h1>
 
             <?php
             // Get first image for display
@@ -298,20 +298,24 @@ foreach ($all_media as $index => $media) {
             <?php endif; ?>
 
             <div class="category-details">
+                <?php if (!empty($category->shipment_date)): ?>
                 <div class="detail-item">
                     <div class="detail-label">Shipment วันที่</div>
-                    <div class="detail-value">15 ตุลาคม 2025</div>
+                    <div class="detail-value"><?php echo esc_html($category->shipment_date); ?></div>
                 </div>
+                <?php endif; ?>
 
                 <div class="detail-item">
                     <div class="detail-label">Leg band:</div>
                     <div class="detail-value"><?php echo esc_html($category->category_number); ?></div>
                 </div>
 
+                <?php if (!empty($category->owner)): ?>
                 <div class="detail-item">
-                    <div class="detail-label">ลูกค้าคิด เข้าไปดู (โครีกดูได้)</div>
-                    <div class="detail-value">Owner: Abdul Rahim</div>
+                    <div class="detail-label">Owner</div>
+                    <div class="detail-value"><?php echo esc_html($category->owner); ?></div>
                 </div>
+                <?php endif; ?>
             </div>
         </aside>
 
