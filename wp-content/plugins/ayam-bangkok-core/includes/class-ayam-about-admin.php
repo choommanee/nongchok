@@ -12,6 +12,7 @@ class AyamAboutAdmin {
     public function __construct() {
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_init', array($this, 'handle_form_submissions'));
+        add_action('admin_init', array($this, 'handle_gallery_actions'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
     }
     
@@ -684,6 +685,12 @@ class AyamAboutAdmin {
         <div class="wrap">
             <h1>จัดการ Gallery Categories</h1>
 
+            <?php if (isset($_GET['deleted']) && $_GET['deleted'] == '1'): ?>
+                <div class="notice notice-success is-dismissible">
+                    <p>✅ ลบ Category #<?php echo esc_html($_GET['category']); ?> เรียบร้อยแล้ว</p>
+                </div>
+            <?php endif; ?>
+
             <div class="notice notice-info">
                 <p><strong>📊 สรุป:</strong> มี <?php echo count($categories); ?> categories พร้อม <?php echo array_sum(array_column($categories, 'total_images')); ?> รูปภาพ</p>
                 <p><strong>📂 Location:</strong> /wp-content/uploads/gallery/</p>
@@ -723,8 +730,20 @@ class AyamAboutAdmin {
                                 <td>
                                     <a href="<?php echo add_query_arg('category', $cat->category_number, home_url('/gallery')); ?>"
                                        class="button button-small"
-                                       target="_blank">
+                                       target="_blank"
+                                       title="ดูหน้า Gallery">
                                         <span class="dashicons dashicons-visibility"></span> View
+                                    </a>
+                                    <a href="<?php echo add_query_arg(array('page' => 'ayam-gallery-images', 'action' => 'edit', 'id' => $cat->id), admin_url('admin.php')); ?>"
+                                       class="button button-small button-primary"
+                                       title="แก้ไข Category">
+                                        <span class="dashicons dashicons-edit"></span> Edit
+                                    </a>
+                                    <a href="<?php echo wp_nonce_url(add_query_arg(array('page' => 'ayam-gallery-images', 'action' => 'delete', 'id' => $cat->id), admin_url('admin.php')), 'delete_category_' . $cat->id); ?>"
+                                       class="button button-small button-link-delete"
+                                       onclick="return confirm('คุณแน่ใจหรือไม่ที่จะลบ Category #<?php echo esc_js($cat->category_number); ?>? รูปภาพทั้งหมด <?php echo (int)$cat->total_images; ?> รูปจะถูกลบด้วย');"
+                                       title="ลบ Category">
+                                        <span class="dashicons dashicons-trash"></span> Delete
                                     </a>
                                 </td>
                             </tr>
@@ -734,6 +753,65 @@ class AyamAboutAdmin {
             </table>
         </div>
         <?php
+    }
+
+    /**
+     * Handle gallery actions (delete, edit)
+     */
+    public function handle_gallery_actions() {
+        if (!isset($_GET['page']) || $_GET['page'] !== 'ayam-gallery-images') {
+            return;
+        }
+
+        if (!isset($_GET['action']) || !isset($_GET['id'])) {
+            return;
+        }
+
+        if (!current_user_can('manage_options')) {
+            wp_die('Unauthorized');
+        }
+
+        $action = sanitize_text_field($_GET['action']);
+        $category_id = intval($_GET['id']);
+
+        if ($action === 'delete') {
+            // Verify nonce
+            if (!isset($_GET['_wpnonce']) || !wp_verify_nonce($_GET['_wpnonce'], 'delete_category_' . $category_id)) {
+                wp_die('Security check failed');
+            }
+
+            global $wpdb;
+            $categories_table = $wpdb->prefix . 'gallery_categories';
+            $images_table = $wpdb->prefix . 'gallery_images';
+
+            // Get category info before deleting
+            $category = $wpdb->get_row($wpdb->prepare(
+                "SELECT * FROM {$categories_table} WHERE id = %d",
+                $category_id
+            ));
+
+            if (!$category) {
+                wp_die('Category not found');
+            }
+
+            // Delete all images for this category (CASCADE should handle this, but let's be safe)
+            $wpdb->delete($images_table, array('category_id' => $category_id));
+
+            // Delete the category
+            $deleted = $wpdb->delete($categories_table, array('id' => $category_id));
+
+            if ($deleted) {
+                // Redirect with success message
+                wp_redirect(add_query_arg(array(
+                    'page' => 'ayam-gallery-images',
+                    'deleted' => '1',
+                    'category' => $category->category_number
+                ), admin_url('admin.php')));
+                exit;
+            } else {
+                wp_die('Failed to delete category');
+            }
+        }
     }
 
     /**
