@@ -31,20 +31,31 @@ if (!$category) {
     return;
 }
 
-// Get images separated by media type
-$images = $wpdb->get_results($wpdb->prepare(
+// Get all media items
+$all_media = $wpdb->get_results($wpdb->prepare(
     "SELECT * FROM {$images_table}
-     WHERE category_id = %d AND (media_type = 'image' OR media_type IS NULL)
+     WHERE category_id = %d
      ORDER BY sort_order ASC",
     $category->id
 ));
 
-$videos = $wpdb->get_results($wpdb->prepare(
-    "SELECT * FROM {$images_table}
-     WHERE category_id = %d AND media_type = 'video'
-     ORDER BY sort_order ASC",
-    $category->id
-));
+// Define 6 media slots with labels
+$media_slots = [
+    1 => ['label' => 'เอกสารรับไว้', 'media' => null],
+    2 => ['label' => 'ภาพชั่งน้ำหนัก', 'media' => null],
+    3 => ['label' => 'ภาพหน้าแซงไก่หน้า', 'media' => null],
+    4 => ['label' => 'ภาพหน้าแซงไก่หลัง', 'media' => null],
+    5 => ['label' => 'ภาพยิ่งสวยๆ', 'media' => null],
+    6 => ['label' => 'วิดีโอไก่ต่ อยู่ฟาร์ม', 'media' => null],
+];
+
+// Map media to slots based on sort_order
+foreach ($all_media as $index => $media) {
+    $slot_number = $index + 1;
+    if ($slot_number <= 6) {
+        $media_slots[$slot_number]['media'] = $media;
+    }
+}
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
@@ -52,20 +63,18 @@ $videos = $wpdb->get_results($wpdb->prepare(
 <style>
 .category-detail-page {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-    background: #fff;
+    background: #f9fafb;
     min-height: 100vh;
+    padding: 40px 20px;
 }
 
-.category-detail-header {
-    background: #fff;
-    padding: 40px 20px 30px;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.category-header-container {
-    max-width: 1200px;
+.gallery-container {
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 80px;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 40px;
+    align-items: start;
 }
 
 .back-button {
@@ -74,7 +83,7 @@ $videos = $wpdb->get_results($wpdb->prepare(
     gap: 8px;
     color: #6b7280 !important;
     text-decoration: none !important;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-weight: 400;
     font-size: 0.95rem;
     transition: color 0.2s ease;
@@ -84,85 +93,123 @@ $videos = $wpdb->get_results($wpdb->prepare(
     color: #CA4249 !important;
 }
 
-.category-detail-title {
-    font-size: 2.5rem;
+/* Left Column - Category Info */
+.category-info-card {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 40px;
+}
+
+.category-title {
+    font-size: 1.5rem;
     font-weight: 700;
     color: #1E2950;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.category-detail-meta {
-    display: flex;
-    gap: 20px;
-    font-size: 0.95rem;
-    color: #6b7280;
-    flex-wrap: wrap;
-}
-
-.category-detail-meta i {
-    color: #CA4249;
-    margin-right: 5px;
-}
-
-.category-images-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 80px 40px;
-}
-
-.section-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1E2950;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.section-title i {
-    color: #CA4249;
-}
-
-.images-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.image-card {
-    background: #fff;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    aspect-ratio: 1;
-}
-
-.image-wrapper {
+.category-image {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.category-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.detail-label {
+    font-size: 0.85rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.detail-value {
+    font-size: 1rem;
+    color: #1E2950;
+    font-weight: 600;
+}
+
+/* Right Column - Media Slots Grid */
+.media-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.media-slot {
+    background: white;
+    border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 2px solid #e5e7eb;
     position: relative;
 }
 
-.image-card img {
+.media-slot.empty {
+    border-style: dashed;
+    background: #f9fafb;
+}
+
+.media-content {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.media-content img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-.image-card:hover img {
+.media-content:hover img {
     transform: scale(1.05);
 }
 
-.image-title {
-    padding: 12px;
-    font-size: 0.9rem;
-    color: #4a5568;
+.media-content iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.slot-label {
+    padding: 12px 15px;
     text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #4a5568;
     background: #f7fafc;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid #e5e7eb;
+}
+
+.empty-slot-placeholder {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e0;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 20px;
 }
 
 .image-overlay {
@@ -179,7 +226,7 @@ $videos = $wpdb->get_results($wpdb->prepare(
     justify-content: center;
 }
 
-.image-card:hover .image-overlay {
+.media-content:hover .image-overlay {
     opacity: 1;
 }
 
@@ -188,197 +235,140 @@ $videos = $wpdb->get_results($wpdb->prepare(
     color: white;
 }
 
-.category-video-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 80px 80px;
-}
+@media (max-width: 1024px) {
+    .gallery-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
 
-.videos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 30px;
-}
-
-.video-card {
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.video-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-}
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    background: #000;
-}
-
-.video-title {
-    padding: 15px;
-    font-size: 0.95rem;
-    color: #2d3748;
-    font-weight: 500;
-    background: #fff;
+    .category-info-card {
+        position: relative;
+        top: 0;
+    }
 }
 
 @media (max-width: 768px) {
-    .category-header-container,
-    .category-images-section,
-    .category-video-section {
-        padding-left: 20px;
-        padding-right: 20px;
+    .category-detail-page {
+        padding: 20px 15px;
     }
 
-    .category-detail-title {
-        font-size: 2rem;
-    }
-
-    .category-detail-meta {
-        gap: 15px;
-        font-size: 0.9rem;
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-    }
-
-    .images-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-
-    .videos-grid {
-        grid-template-columns: 1fr;
+    .gallery-container {
         gap: 20px;
+    }
+
+    .media-slots-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .category-title {
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 480px) {
-    .category-detail-title {
-        font-size: 1.6rem;
+    .category-info-card {
+        padding: 20px;
     }
 
-    .section-title {
-        font-size: 1.3rem;
-    }
-
-    .images-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+    .media-slots-grid {
+        gap: 12px;
     }
 }
 </style>
 
 <main class="category-detail-page">
+    <a href="<?php echo remove_query_arg('category'); ?>" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Gallery
+    </a>
 
-    <!-- Header -->
-    <section class="category-detail-header">
-        <div class="category-header-container">
-            <a href="<?php echo remove_query_arg('category'); ?>" class="back-button">
-                <i class="fas fa-arrow-left"></i> Back to Gallery
-            </a>
+    <div class="gallery-container">
+        <!-- Left Column: Category Info -->
+        <aside class="category-info-card">
+            <h1 class="category-title">ตัวอย่าง Gallery ให้ลูกค้าเข้ามาดู</h1>
 
-            <h1 class="category-detail-title"><?php echo esc_html($category->category_name); ?></h1>
+            <?php
+            // Get first image for display
+            $main_image = !empty($all_media) ? $all_media[0] : null;
+            if ($main_image):
+            ?>
+                <img src="<?php echo esc_url(get_gallery_image_url_detail($main_image->image_url)); ?>"
+                     alt="<?php echo esc_attr($category->category_name); ?>"
+                     class="category-image">
+            <?php endif; ?>
 
-            <div class="category-detail-meta">
-                <span><i class="fas fa-images"></i> <?php echo count($images); ?> Photos</span>
-                <?php if (!empty($videos)): ?>
-                <span><i class="fas fa-video"></i> <?php echo count($videos); ?> Videos</span>
-                <?php endif; ?>
-                <span><i class="fas fa-hashtag"></i> <?php echo $category->category_number; ?></span>
+            <div class="category-details">
+                <div class="detail-item">
+                    <div class="detail-label">Shipment วันที่</div>
+                    <div class="detail-value">15 ตุลาคม 2025</div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">Leg band:</div>
+                    <div class="detail-value"><?php echo esc_html($category->category_number); ?></div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">ลูกค้าคิด เข้าไปดู (โครีกดูได้)</div>
+                    <div class="detail-value">Owner: Abdul Rahim</div>
+                </div>
             </div>
-        </div>
-    </section>
+        </aside>
 
-    <!-- Images Grid Section -->
-    <section class="category-images-section">
-        <h2 class="section-title">
-            <i class="fas fa-images"></i> ภาพถ่าย
-        </h2>
-        <?php if (!empty($images)): ?>
-            <div class="images-grid">
-                <?php foreach ($images as $index => $image): ?>
-                    <div class="image-card" data-aos="fade-up" data-aos-delay="<?php echo ($index % 12) * 50; ?>">
-                        <a href="<?php echo esc_url(get_gallery_image_url_detail($image->image_url)); ?>"
-                           data-lightbox="gallery-<?php echo $category->category_number; ?>"
-                           data-title="<?php echo esc_attr($image->title ?: $category->category_name . ' - Photo ' . ($index + 1)); ?>">
+        <!-- Right Column: Media Slots -->
+        <div class="media-slots-grid">
+            <?php foreach ($media_slots as $slot_num => $slot): ?>
+                <div class="media-slot <?php echo empty($slot['media']) ? 'empty' : ''; ?>">
+                    <?php if (!empty($slot['media'])):
+                        $media = $slot['media'];
+                        $is_video = ($media->media_type === 'video');
 
-                            <div class="image-wrapper">
-                                <img src="<?php echo esc_url(get_gallery_image_url_detail($image->image_url)); ?>"
-                                     alt="<?php echo esc_attr($image->alt_text ?: $category->category_name . ' - ' . ($index + 1)); ?>"
-                                     loading="lazy">
-
-                                <div class="image-overlay">
-                                    <div class="zoom-icon">
-                                        <i class="fas fa-search-plus"></i>
+                        if ($is_video):
+                            // Video content
+                            $video_url = $media->image_url;
+                            if (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
+                                if (strpos($video_url, 'youtu.be') !== false) {
+                                    preg_match('/youtu\.be\/([^?]+)/', $video_url, $matches);
+                                    $video_id = $matches[1] ?? '';
+                                } else {
+                                    preg_match('/[?&]v=([^&]+)/', $video_url, $matches);
+                                    $video_id = $matches[1] ?? '';
+                                }
+                                $embed_url = 'https://www.youtube.com/embed/' . $video_id;
+                            } else {
+                                $embed_url = $video_url;
+                            }
+                        ?>
+                            <div class="media-content">
+                                <iframe src="<?php echo esc_url($embed_url); ?>" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        <?php else: ?>
+                            <a href="<?php echo esc_url(get_gallery_image_url_detail($media->image_url)); ?>"
+                               data-lightbox="gallery-<?php echo $category->category_number; ?>"
+                               data-title="<?php echo esc_attr($slot['label']); ?>">
+                                <div class="media-content">
+                                    <img src="<?php echo esc_url(get_gallery_image_url_detail($media->image_url)); ?>"
+                                         alt="<?php echo esc_attr($slot['label']); ?>"
+                                         loading="lazy">
+                                    <div class="image-overlay">
+                                        <div class="zoom-icon">
+                                            <i class="fas fa-search-plus"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                        <?php if (!empty($image->title)): ?>
-                        <div class="image-title"><?php echo esc_html($image->title); ?></div>
+                            </a>
                         <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php else: ?>
-            <div style="text-align: center; padding: 60px 20px; color: #718096;">
-                <i class="fas fa-images" style="font-size: 3rem; color: #cbd5e0; margin-bottom: 15px;"></i>
-                <p>ยังไม่มีภาพถ่าย</p>
-            </div>
-        <?php endif; ?>
-    </section>
-
-    <!-- Videos Section -->
-    <?php if (!empty($videos)): ?>
-    <section class="category-video-section">
-        <h2 class="section-title">
-            <i class="fas fa-video"></i> วิดีโอ
-        </h2>
-        <div class="videos-grid">
-            <?php foreach ($videos as $index => $video): ?>
-                <div class="video-card" data-aos="fade-up" data-aos-delay="<?php echo ($index % 6) * 50; ?>">
-                    <div class="video-container">
-                        <?php
-                        // Check if it's a YouTube URL
-                        $video_url = $video->image_url;
-                        if (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
-                            // Convert to embed URL
-                            if (strpos($video_url, 'youtu.be') !== false) {
-                                preg_match('/youtu\.be\/([^?]+)/', $video_url, $matches);
-                                $video_id = $matches[1] ?? '';
-                            } else {
-                                preg_match('/[?&]v=([^&]+)/', $video_url, $matches);
-                                $video_id = $matches[1] ?? '';
-                            }
-                            $embed_url = 'https://www.youtube.com/embed/' . $video_id;
-                        } else {
-                            $embed_url = $video_url;
-                        }
-                        ?>
-                        <iframe
-                            src="<?php echo esc_url($embed_url); ?>"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                            allowfullscreen
-                            loading="lazy"
-                        ></iframe>
-                    </div>
-                    <?php if (!empty($video->title)): ?>
-                    <div class="video-title"><?php echo esc_html($video->title); ?></div>
+                    <?php else: ?>
+                        <div class="empty-slot-placeholder">
+                            รอเพิ่งวิดีโอ<br>หลังจากได้อยู่มาแล้ว<br>3-4 วัน
+                        </div>
                     <?php endif; ?>
+
+                    <div class="slot-label"><?php echo esc_html($slot['label']); ?></div>
                 </div>
             <?php endforeach; ?>
         </div>
-    </section>
-    <?php endif; ?>
+    </div>
 
 </main>
 
