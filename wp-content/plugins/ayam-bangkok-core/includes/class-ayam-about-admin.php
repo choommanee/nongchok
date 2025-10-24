@@ -145,14 +145,26 @@ class AyamAboutAdmin {
      * Handle form submissions
      */
     public function handle_form_submissions() {
+        // Handle gallery save separately (uses different nonce)
+        if (isset($_POST['action']) && $_POST['action'] === 'save_gallery_category') {
+            if (!isset($_POST['ayam_gallery_nonce']) || !wp_verify_nonce($_POST['ayam_gallery_nonce'], 'ayam_gallery_save')) {
+                wp_die('Security check failed');
+            }
+            if (!current_user_can('manage_options')) {
+                wp_die('Unauthorized');
+            }
+            $this->save_gallery_category();
+            return;
+        }
+
         if (!isset($_POST['ayam_about_nonce']) || !wp_verify_nonce($_POST['ayam_about_nonce'], 'ayam_about_action')) {
             return;
         }
-        
+
         if (!current_user_can('manage_options')) {
             return;
         }
-        
+
         $action = isset($_POST['action']) ? sanitize_text_field($_POST['action']) : '';
         
         switch ($action) {
@@ -669,7 +681,19 @@ class AyamAboutAdmin {
     public function gallery_images_page() {
         global $wpdb;
 
-        // Get all gallery images from database
+        // Check if we're editing or adding
+        $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : 'list';
+        $category_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+        if ($action === 'edit' && $category_id > 0) {
+            $this->gallery_edit_page($category_id);
+            return;
+        } elseif ($action === 'add') {
+            $this->gallery_add_page();
+            return;
+        }
+
+        // List view
         $categories_table = $wpdb->prefix . 'gallery_categories';
         $images_table = $wpdb->prefix . 'gallery_images';
 
@@ -683,11 +707,23 @@ class AyamAboutAdmin {
 
         ?>
         <div class="wrap">
-            <h1>จัดการ Gallery Categories</h1>
+            <h1>
+                จัดการ Gallery Categories
+                <a href="<?php echo add_query_arg(array('page' => 'ayam-gallery-images', 'action' => 'add'), admin_url('admin.php')); ?>"
+                   class="page-title-action">
+                    <span class="dashicons dashicons-plus-alt"></span> เพิ่ม Category ใหม่
+                </a>
+            </h1>
 
             <?php if (isset($_GET['deleted']) && $_GET['deleted'] == '1'): ?>
                 <div class="notice notice-success is-dismissible">
                     <p>✅ ลบ Category #<?php echo esc_html($_GET['category']); ?> เรียบร้อยแล้ว</p>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($_GET['saved']) && $_GET['saved'] == '1'): ?>
+                <div class="notice notice-success is-dismissible">
+                    <p>✅ บันทึกข้อมูลเรียบร้อยแล้ว</p>
                 </div>
             <?php endif; ?>
 
@@ -812,6 +848,393 @@ class AyamAboutAdmin {
                 wp_die('Failed to delete category');
             }
         }
+    }
+
+    /**
+     * Gallery Add Page
+     */
+    private function gallery_add_page() {
+        $this->gallery_form_page(null);
+    }
+
+    /**
+     * Gallery Edit Page
+     */
+    private function gallery_edit_page($category_id) {
+        global $wpdb;
+        $categories_table = $wpdb->prefix . 'gallery_categories';
+        $images_table = $wpdb->prefix . 'gallery_images';
+
+        $category = $wpdb->get_row($wpdb->prepare(
+            "SELECT * FROM {$categories_table} WHERE id = %d",
+            $category_id
+        ));
+
+        if (!$category) {
+            echo '<div class="wrap"><h1>Category not found</h1></div>';
+            return;
+        }
+
+        // Get existing media for this category
+        $existing_media = $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM {$images_table} WHERE category_id = %d ORDER BY sort_order ASC",
+            $category_id
+        ), ARRAY_A);
+
+        $this->gallery_form_page($category, $existing_media);
+    }
+
+    /**
+     * Gallery Form Page (Add/Edit)
+     */
+    private function gallery_form_page($category = null, $existing_media = array()) {
+        $is_edit = ($category !== null);
+        $category_id = $is_edit ? $category->id : 0;
+
+        // Prepare 6 media slots
+        $media_slots = array(
+            1 => array('label' => 'เอกสารรับไว้', 'media_type' => 'image', 'url' => ''),
+            2 => array('label' => 'ภาพชั่งน้ำหนัก', 'media_type' => 'image', 'url' => ''),
+            3 => array('label' => 'ภาพหน้าแซงไก่หน้า', 'media_type' => 'image', 'url' => ''),
+            4 => array('label' => 'ภาพหน้าแซงไก่หลัง', 'media_type' => 'image', 'url' => ''),
+            5 => array('label' => 'ภาพยิ่งสวยๆ', 'media_type' => 'image', 'url' => ''),
+            6 => array('label' => 'วิดีโอไก่ต่ อยู่ฟาร์ม', 'media_type' => 'video', 'url' => ''),
+        );
+
+        // Fill with existing media if editing
+        if ($is_edit && !empty($existing_media)) {
+            foreach ($existing_media as $index => $media) {
+                $slot_num = $index + 1;
+                if ($slot_num <= 6) {
+                    $media_slots[$slot_num]['url'] = $media['image_url'];
+                    $media_slots[$slot_num]['media_type'] = $media['media_type'] ?? 'image';
+                    if (!empty($media['title'])) {
+                        $media_slots[$slot_num]['label'] = $media['title'];
+                    }
+                }
+            }
+        }
+        ?>
+        <div class="wrap">
+            <h1><?php echo $is_edit ? 'แก้ไข Category' : 'เพิ่ม Category ใหม่'; ?></h1>
+
+            <form method="post" action="<?php echo admin_url('admin.php?page=ayam-gallery-images'); ?>" enctype="multipart/form-data">
+                <?php wp_nonce_field('ayam_gallery_save', 'ayam_gallery_nonce'); ?>
+                <input type="hidden" name="action" value="save_gallery_category">
+                <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
+
+                <style>
+                .gallery-form-container {
+                    display: grid;
+                    grid-template-columns: 400px 1fr;
+                    gap: 30px;
+                    margin-top: 20px;
+                }
+                .category-info-section {
+                    background: white;
+                    padding: 20px;
+                    border: 1px solid #ccd0d4;
+                    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+                }
+                .category-info-section h2 {
+                    margin-top: 0;
+                    border-bottom: 1px solid #ddd;
+                    padding-bottom: 10px;
+                }
+                .form-field {
+                    margin-bottom: 20px;
+                }
+                .form-field label {
+                    display: block;
+                    font-weight: 600;
+                    margin-bottom: 5px;
+                }
+                .form-field input[type="text"],
+                .form-field input[type="number"],
+                .form-field textarea {
+                    width: 100%;
+                    padding: 8px;
+                }
+                .media-slots-section {
+                    background: white;
+                    padding: 20px;
+                    border: 1px solid #ccd0d4;
+                    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+                }
+                .media-slots-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 20px;
+                    margin-top: 20px;
+                }
+                .media-slot-item {
+                    border: 2px solid #ddd;
+                    padding: 15px;
+                    border-radius: 4px;
+                    background: #f9f9f9;
+                }
+                .media-slot-item h4 {
+                    margin-top: 0;
+                    color: #2271b1;
+                }
+                .media-preview {
+                    width: 100%;
+                    aspect-ratio: 1;
+                    background: #e0e0e0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 10px;
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+                .media-preview img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+                .media-preview iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: 0;
+                }
+                .media-type-selector {
+                    margin-bottom: 10px;
+                }
+                .submit-section {
+                    margin-top: 20px;
+                    padding-top: 20px;
+                    border-top: 1px solid #ddd;
+                }
+                </style>
+
+                <div class="gallery-form-container">
+                    <!-- Left: Category Info -->
+                    <div class="category-info-section">
+                        <h2>ข้อมูล Category</h2>
+
+                        <div class="form-field">
+                            <label for="category_number">Category Number <span style="color:red;">*</span></label>
+                            <input type="text"
+                                   id="category_number"
+                                   name="category_number"
+                                   value="<?php echo $is_edit ? esc_attr($category->category_number) : ''; ?>"
+                                   placeholder="เช่น 001"
+                                   required
+                                   <?php echo $is_edit ? 'readonly' : ''; ?>>
+                            <small>รูปแบบ: 001, 002, 003...</small>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="category_name">ชื่อ Category <span style="color:red;">*</span></label>
+                            <input type="text"
+                                   id="category_name"
+                                   name="category_name"
+                                   value="<?php echo $is_edit ? esc_attr($category->category_name) : ''; ?>"
+                                   placeholder="เช่น Rooster Category 001"
+                                   required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="shipment_date">Shipment วันที่</label>
+                            <input type="text"
+                                   id="shipment_date"
+                                   name="shipment_date"
+                                   value="15 ตุลาคม 2025"
+                                   placeholder="เช่น 15 ตุลาคม 2025">
+                        </div>
+
+                        <div class="form-field">
+                            <label for="owner_name">Owner</label>
+                            <input type="text"
+                                   id="owner_name"
+                                   name="owner_name"
+                                   value="Owner: Abdul Rahim"
+                                   placeholder="เช่น Abdul Rahim">
+                        </div>
+                    </div>
+
+                    <!-- Right: Media Slots -->
+                    <div class="media-slots-section">
+                        <h2>Media Slots (6 ช่อง)</h2>
+                        <div class="media-slots-grid">
+                            <?php foreach ($media_slots as $slot_num => $slot): ?>
+                                <div class="media-slot-item">
+                                    <h4>Slot #<?php echo $slot_num; ?></h4>
+
+                                    <div class="form-field">
+                                        <label>Label:</label>
+                                        <input type="text"
+                                               name="slot_<?php echo $slot_num; ?>_label"
+                                               value="<?php echo esc_attr($slot['label']); ?>"
+                                               placeholder="ชื่อช่อง">
+                                    </div>
+
+                                    <div class="media-type-selector">
+                                        <label>ประเภท:</label>
+                                        <label style="margin-right: 15px;">
+                                            <input type="radio"
+                                                   name="slot_<?php echo $slot_num; ?>_type"
+                                                   value="image"
+                                                   <?php checked($slot['media_type'], 'image'); ?>>
+                                            รูปภาพ
+                                        </label>
+                                        <label>
+                                            <input type="radio"
+                                                   name="slot_<?php echo $slot_num; ?>_type"
+                                                   value="video"
+                                                   <?php checked($slot['media_type'], 'video'); ?>>
+                                            วิดีโอ
+                                        </label>
+                                    </div>
+
+                                    <div class="media-preview" id="preview_<?php echo $slot_num; ?>">
+                                        <?php if (!empty($slot['url'])): ?>
+                                            <?php if ($slot['media_type'] === 'video'): ?>
+                                                <iframe src="<?php echo esc_url($slot['url']); ?>" allowfullscreen></iframe>
+                                            <?php else: ?>
+                                                <img src="<?php echo esc_url($slot['url']); ?>" alt="Slot <?php echo $slot_num; ?>">
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <span style="color: #999;">ยังไม่มีไฟล์</span>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label>อัพโหลดรูป:</label>
+                                        <input type="file"
+                                               name="slot_<?php echo $slot_num; ?>_file"
+                                               accept="image/*">
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label>หรือใส่ URL วิดีโอ:</label>
+                                        <input type="url"
+                                               name="slot_<?php echo $slot_num; ?>_url"
+                                               value="<?php echo $slot['media_type'] === 'video' ? esc_attr($slot['url']) : ''; ?>"
+                                               placeholder="https://youtube.com/...">
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <div class="submit-section">
+                            <button type="submit" class="button button-primary button-large">
+                                <span class="dashicons dashicons-saved"></span> บันทึกข้อมูล
+                            </button>
+                            <a href="<?php echo admin_url('admin.php?page=ayam-gallery-images'); ?>"
+                               class="button button-large">
+                                ยกเลิก
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <?php
+    }
+
+    /**
+     * Save Gallery Category
+     */
+    private function save_gallery_category() {
+        global $wpdb;
+        $categories_table = $wpdb->prefix . 'gallery_categories';
+        $images_table = $wpdb->prefix . 'gallery_images';
+
+        $category_id = isset($_POST['category_id']) ? intval($_POST['category_id']) : 0;
+        $category_number = sanitize_text_field($_POST['category_number']);
+        $category_name = sanitize_text_field($_POST['category_name']);
+
+        $is_edit = ($category_id > 0);
+
+        // Save or update category
+        if ($is_edit) {
+            $wpdb->update(
+                $categories_table,
+                array('category_name' => $category_name),
+                array('id' => $category_id)
+            );
+        } else {
+            // Check if category number already exists
+            $exists = $wpdb->get_var($wpdb->prepare(
+                "SELECT id FROM {$categories_table} WHERE category_number = %s",
+                $category_number
+            ));
+
+            if ($exists) {
+                wp_die('Category number already exists!');
+            }
+
+            $wpdb->insert(
+                $categories_table,
+                array(
+                    'category_number' => $category_number,
+                    'category_name' => $category_name,
+                    'created_at' => current_time('mysql')
+                )
+            );
+            $category_id = $wpdb->insert_id;
+        }
+
+        // Delete existing media for this category if editing
+        if ($is_edit) {
+            $wpdb->delete($images_table, array('category_id' => $category_id));
+        }
+
+        // Process 6 media slots
+        $upload_dir = wp_upload_dir();
+        $gallery_dir = $upload_dir['basedir'] . '/gallery/' . $category_number;
+
+        if (!file_exists($gallery_dir)) {
+            wp_mkdir_p($gallery_dir);
+        }
+
+        for ($slot_num = 1; $slot_num <= 6; $slot_num++) {
+            $label = isset($_POST["slot_{$slot_num}_label"]) ? sanitize_text_field($_POST["slot_{$slot_num}_label"]) : '';
+            $media_type = isset($_POST["slot_{$slot_num}_type"]) ? sanitize_text_field($_POST["slot_{$slot_num}_type"]) : 'image';
+            $video_url = isset($_POST["slot_{$slot_num}_url"]) ? esc_url_raw($_POST["slot_{$slot_num}_url"]) : '';
+
+            $image_url = '';
+
+            // Handle file upload
+            if (isset($_FILES["slot_{$slot_num}_file"]) && $_FILES["slot_{$slot_num}_file"]['error'] === 0) {
+                $file = $_FILES["slot_{$slot_num}_file"];
+                $filename = time() . '_' . $slot_num . '_' . basename($file['name']);
+                $filepath = $gallery_dir . '/' . $filename;
+
+                if (move_uploaded_file($file['tmp_name'], $filepath)) {
+                    $image_url = $upload_dir['baseurl'] . '/gallery/' . $category_number . '/' . $filename;
+                    $media_type = 'image'; // Force image type when file is uploaded
+                }
+            } elseif (!empty($video_url)) {
+                // Use video URL
+                $image_url = $video_url;
+                $media_type = 'video';
+            }
+
+            // Only insert if we have a URL
+            if (!empty($image_url)) {
+                $wpdb->insert(
+                    $images_table,
+                    array(
+                        'category_id' => $category_id,
+                        'image_url' => $image_url,
+                        'media_type' => $media_type,
+                        'title' => $label,
+                        'sort_order' => $slot_num,
+                        'created_at' => current_time('mysql')
+                    )
+                );
+            }
+        }
+
+        // Redirect with success message
+        wp_redirect(add_query_arg(array(
+            'page' => 'ayam-gallery-images',
+            'saved' => '1'
+        ), admin_url('admin.php')));
+        exit;
     }
 
     /**
