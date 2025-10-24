@@ -300,8 +300,8 @@ foreach ($all_media as $index => $media) {
             <div class="category-details">
                 <?php if (!empty($category->shipment_date)): ?>
                 <div class="detail-item">
-                    <div class="detail-label">Shipment วันที่</div>
-                    <div class="detail-value"><?php echo esc_html($category->shipment_date); ?></div>
+                    <div class="detail-label">Shipment</div>
+                    <div class="detail-value">Shipment วันที่ <?php echo esc_html($category->shipment_date); ?></div>
                 </div>
                 <?php endif; ?>
 
