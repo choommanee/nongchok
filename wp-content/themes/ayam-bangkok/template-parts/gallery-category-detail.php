@@ -31,10 +31,17 @@ if (!$category) {
     return;
 }
 
-// Get all images
+// Get images separated by media type
 $images = $wpdb->get_results($wpdb->prepare(
     "SELECT * FROM {$images_table}
-     WHERE category_id = %d
+     WHERE category_id = %d AND (media_type = 'image' OR media_type IS NULL)
+     ORDER BY sort_order ASC",
+    $category->id
+));
+
+$videos = $wpdb->get_results($wpdb->prepare(
+    "SELECT * FROM {$images_table}
+     WHERE category_id = %d AND media_type = 'video'
      ORDER BY sort_order ASC",
     $category->id
 ));
@@ -100,7 +107,21 @@ $images = $wpdb->get_results($wpdb->prepare(
 .category-images-section {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 80px 80px;
+    padding: 40px 80px 40px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1E2950;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-title i {
+    color: #CA4249;
 }
 
 .images-grid {
@@ -135,6 +156,15 @@ $images = $wpdb->get_results($wpdb->prepare(
     transform: scale(1.05);
 }
 
+.image-title {
+    padding: 12px;
+    font-size: 0.9rem;
+    color: #4a5568;
+    text-align: center;
+    background: #f7fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
 .image-overlay {
     position: absolute;
     top: 0;
@@ -160,15 +190,27 @@ $images = $wpdb->get_results($wpdb->prepare(
 
 .category-video-section {
     max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 80px;
+    margin: 0 auto;
+    padding: 40px 80px 80px;
 }
 
-.video-section-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #1E2950;
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.video-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
 .video-container {
@@ -176,6 +218,15 @@ $images = $wpdb->get_results($wpdb->prepare(
     padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
+    background: #000;
+}
+
+.video-title {
+    padding: 15px;
+    font-size: 0.95rem;
+    color: #2d3748;
+    font-weight: 500;
+    background: #fff;
 }
 
 @media (max-width: 768px) {
@@ -195,15 +246,28 @@ $images = $wpdb->get_results($wpdb->prepare(
         font-size: 0.9rem;
     }
 
+    .section-title {
+        font-size: 1.5rem;
+    }
+
     .images-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
+    }
+
+    .videos-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
 
 @media (max-width: 480px) {
     .category-detail-title {
         font-size: 1.6rem;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
     }
 
     .images-grid {
@@ -226,41 +290,30 @@ $images = $wpdb->get_results($wpdb->prepare(
 
             <div class="category-detail-meta">
                 <span><i class="fas fa-images"></i> <?php echo count($images); ?> Photos</span>
+                <?php if (!empty($videos)): ?>
+                <span><i class="fas fa-video"></i> <?php echo count($videos); ?> Videos</span>
+                <?php endif; ?>
                 <span><i class="fas fa-hashtag"></i> <?php echo $category->category_number; ?></span>
             </div>
         </div>
     </section>
 
-    <!-- Video Section (if exists) -->
-    <?php if (!empty($category->video_url)): ?>
-    <section class="category-video-section">
-        <h2 class="video-section-title">
-            <i class="fas fa-video"></i> Video Showcase
-        </h2>
-        <div class="video-container">
-            <iframe
-                src="<?php echo esc_url($category->video_url); ?>"
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                allowfullscreen
-                loading="lazy"
-            ></iframe>
-        </div>
-    </section>
-    <?php endif; ?>
-
-    <!-- Images Grid -->
+    <!-- Images Grid Section -->
     <section class="category-images-section">
+        <h2 class="section-title">
+            <i class="fas fa-images"></i> ภาพถ่าย
+        </h2>
         <?php if (!empty($images)): ?>
             <div class="images-grid">
                 <?php foreach ($images as $index => $image): ?>
                     <div class="image-card" data-aos="fade-up" data-aos-delay="<?php echo ($index % 12) * 50; ?>">
                         <a href="<?php echo esc_url(get_gallery_image_url_detail($image->image_url)); ?>"
                            data-lightbox="gallery-<?php echo $category->category_number; ?>"
-                           data-title="<?php echo esc_attr($category->category_name); ?> - Photo <?php echo $index + 1; ?>">
+                           data-title="<?php echo esc_attr($image->title ?: $category->category_name . ' - Photo ' . ($index + 1)); ?>">
 
                             <div class="image-wrapper">
                                 <img src="<?php echo esc_url(get_gallery_image_url_detail($image->image_url)); ?>"
-                                     alt="<?php echo esc_attr($category->category_name); ?> - <?php echo $index + 1; ?>"
+                                     alt="<?php echo esc_attr($image->alt_text ?: $category->category_name . ' - ' . ($index + 1)); ?>"
                                      loading="lazy">
 
                                 <div class="image-overlay">
@@ -270,16 +323,62 @@ $images = $wpdb->get_results($wpdb->prepare(
                                 </div>
                             </div>
                         </a>
+                        <?php if (!empty($image->title)): ?>
+                        <div class="image-title"><?php echo esc_html($image->title); ?></div>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <div style="text-align: center; padding: 100px 20px; color: #718096;">
-                <i class="fas fa-images" style="font-size: 5rem; color: #cbd5e0; margin-bottom: 20px;"></i>
-                <p>No images in this category yet.</p>
+            <div style="text-align: center; padding: 60px 20px; color: #718096;">
+                <i class="fas fa-images" style="font-size: 3rem; color: #cbd5e0; margin-bottom: 15px;"></i>
+                <p>ยังไม่มีภาพถ่าย</p>
             </div>
         <?php endif; ?>
     </section>
+
+    <!-- Videos Section -->
+    <?php if (!empty($videos)): ?>
+    <section class="category-video-section">
+        <h2 class="section-title">
+            <i class="fas fa-video"></i> วิดีโอ
+        </h2>
+        <div class="videos-grid">
+            <?php foreach ($videos as $index => $video): ?>
+                <div class="video-card" data-aos="fade-up" data-aos-delay="<?php echo ($index % 6) * 50; ?>">
+                    <div class="video-container">
+                        <?php
+                        // Check if it's a YouTube URL
+                        $video_url = $video->image_url;
+                        if (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
+                            // Convert to embed URL
+                            if (strpos($video_url, 'youtu.be') !== false) {
+                                preg_match('/youtu\.be\/([^?]+)/', $video_url, $matches);
+                                $video_id = $matches[1] ?? '';
+                            } else {
+                                preg_match('/[?&]v=([^&]+)/', $video_url, $matches);
+                                $video_id = $matches[1] ?? '';
+                            }
+                            $embed_url = 'https://www.youtube.com/embed/' . $video_id;
+                        } else {
+                            $embed_url = $video_url;
+                        }
+                        ?>
+                        <iframe
+                            src="<?php echo esc_url($embed_url); ?>"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                            allowfullscreen
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+                    <?php if (!empty($video->title)): ?>
+                    <div class="video-title"><?php echo esc_html($video->title); ?></div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
+    <?php endif; ?>
 
 </main>
 

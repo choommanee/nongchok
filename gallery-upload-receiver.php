@@ -22,6 +22,11 @@ if (empty($category)) {
     die('Category required');
 }
 
+$media_type = isset($_POST['media_type']) ? $_POST['media_type'] : 'image';
+if (!in_array($media_type, ['image', 'video'])) {
+    $media_type = 'image';
+}
+
 if (!isset($_FILES['file']) && !isset($_FILES['image'])) {
     http_response_code(400);
     die('No image uploaded');
@@ -51,7 +56,12 @@ if (file_exists($target)) {
 
 if (move_uploaded_file($file['tmp_name'], $target)) {
     chmod($target, 0644);
-    echo json_encode(['success' => true, 'file' => $filename, 'size' => filesize($target)]);
+    echo json_encode([
+        'success' => true,
+        'file' => $filename,
+        'size' => filesize($target),
+        'media_type' => $media_type
+    ]);
 } else {
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => 'Move failed', 'tmp' => $file['tmp_name']]);
