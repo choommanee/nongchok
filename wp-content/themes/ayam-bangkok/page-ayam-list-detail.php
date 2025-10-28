@@ -111,46 +111,53 @@ $shipment = isset($_GET['shipment']) ? intval($_GET['shipment']) : 0;
         <?php
         // Query roosters from gallery categories with this shipment
         global $wpdb;
-        
-        // Find categories with this shipment number
+
+        // Find categories with this shipment number (exact match on shipment_date field)
         $categories = $wpdb->get_results($wpdb->prepare(
-            "SELECT category_number, category_name FROM {$wpdb->prefix}gallery_categories 
-            WHERE shipment_date LIKE %s OR category_name LIKE %s",
-            '%Shipment ' . $shipment . '%',
-            '%Shipment ' . $shipment . '%'
+            "SELECT c.category_number, c.category_name, c.image_count, c.thumbnail_url
+            FROM {$wpdb->prefix}gallery_categories c
+            WHERE c.shipment_date = %s
+            AND c.category_type = 'ayam_list'
+            ORDER BY c.category_number ASC",
+            'Shipment ' . $shipment
         ));
-        
-        if ($categories) {
+
+        if ($categories && count($categories) > 0) {
             foreach ($categories as $category) {
-                // Get images for this category
-                $images = $wpdb->get_results($wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}gallery_images 
-                    WHERE category_number = %s 
-                    ORDER BY image_order ASC, id ASC 
-                    LIMIT 20",
+                // Get first image for this category
+                $first_image = $wpdb->get_row($wpdb->prepare(
+                    "SELECT * FROM {$wpdb->prefix}gallery_images
+                    WHERE category_number = %s
+                    ORDER BY image_order ASC, id ASC
+                    LIMIT 1",
                     $category->category_number
                 ));
-                
-                if ($images) {
-                    foreach ($images as $image) {
-                        ?>
-                        <div class="rooster-card">
-                            <a href="<?php echo esc_url(home_url('/gallery/?category=' . $category->category_number)); ?>">
-                                <img src="<?php echo esc_url($image->image_url); ?>" 
-                                     alt="<?php echo esc_attr($category->category_name); ?>"
-                                     loading="lazy">
-                            </a>
-                            <div class="rooster-card-content">
-                                <h3><?php echo esc_html($category->category_name); ?></h3>
-                                <p>Category: <?php echo esc_html($category->category_number); ?></p>
-                            </div>
+
+                // Use thumbnail or first image
+                $image_url = $category->thumbnail_url;
+                if (!$image_url && $first_image) {
+                    $image_url = $first_image->image_url;
+                }
+
+                if ($image_url) {
+                    ?>
+                    <div class="rooster-card">
+                        <a href="<?php echo esc_url(home_url('/gallery/?category=' . $category->category_number)); ?>">
+                            <img src="<?php echo esc_url($image_url); ?>"
+                                 alt="<?php echo esc_attr($category->category_name); ?>"
+                                 loading="lazy">
+                        </a>
+                        <div class="rooster-card-content">
+                            <h3><?php echo esc_html($category->category_name); ?></h3>
+                            <p>Category: <?php echo esc_html($category->category_number); ?></p>
+                            <p><?php echo esc_html($category->image_count); ?> images</p>
                         </div>
-                        <?php
-                    }
+                    </div>
+                    <?php
                 }
             }
         } else {
-            echo '<div class="no-roosters">No roosters found for Shipment ' . $shipment . '</div>';
+            echo '<div class="no-roosters">ยังไม่มีไก่ใน Shipment ' . $shipment . '<br><small>กรุณาสร้าง category และตั้งค่า shipment ที่หน้า Admin</small></div>';
         }
         ?>
     </div>
