@@ -13,12 +13,12 @@
     <?php wp_head(); ?>
 
     <style>
-    /* Gallery Submenu Dropdown - Override all other styles */
-    .wix-menu li.has-submenu {
+    /* Gallery Submenu Dropdown - Override all other styles with higher specificity */
+    .wix-header .wix-nav .wix-menu li.has-submenu {
         position: relative !important;
     }
 
-    .wix-menu .submenu {
+    .wix-header .wix-nav .wix-menu li.has-submenu .submenu {
         display: none !important;
         position: absolute !important;
         top: 100% !important;
@@ -32,31 +32,34 @@
         z-index: 1001 !important;
     }
 
-    .wix-menu li.has-submenu:hover .submenu {
+    .wix-header .wix-nav .wix-menu li.has-submenu:hover .submenu {
         display: block !important;
     }
 
-    .wix-menu .submenu li {
+    .wix-header .wix-nav .wix-menu li.has-submenu .submenu li {
         margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
     }
 
-    .wix-menu .submenu a {
+    .wix-header .wix-nav .wix-menu li.has-submenu .submenu li a {
         padding: 10px 20px !important;
         display: block !important;
         font-size: 13px !important;
         color: white !important;
         text-decoration: none !important;
         transition: background 0.3s ease, color 0.3s ease !important;
+        background: transparent !important;
     }
 
-    .wix-menu .submenu a:hover {
+    .wix-header .wix-nav .wix-menu li.has-submenu .submenu li a:hover {
         background: #3d5568 !important;
         color: #C4504A !important;
     }
 
     /* Mobile submenu */
     @media (max-width: 1024px) {
-        .wix-menu .submenu {
+        .wix-header .wix-nav .wix-menu li.has-submenu .submenu {
             position: static !important;
             display: none !important;
             background: #1f2d3d !important;
@@ -64,11 +67,11 @@
             padding-left: 20px !important;
         }
 
-        .wix-menu li.has-submenu.active .submenu {
+        .wix-header .wix-nav .wix-menu li.has-submenu.active .submenu {
             display: block !important;
         }
 
-        .wix-menu .submenu a {
+        .wix-header .wix-nav .wix-menu li.has-submenu .submenu li a {
             padding: 12px 20px !important;
             font-size: 12px !important;
         }
