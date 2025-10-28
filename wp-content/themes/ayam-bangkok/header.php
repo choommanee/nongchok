@@ -10,70 +10,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
 
+    <?php wp_head(); ?>
+
     <style>
-    /* Gallery Submenu Dropdown */
+    /* Gallery Submenu Dropdown - Override all other styles */
     .wix-menu li.has-submenu {
-        position: relative;
+        position: relative !important;
     }
 
     .wix-menu .submenu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background: #2B3E50;
-        min-width: 200px;
-        list-style: none;
-        margin: 0;
-        padding: 10px 0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        z-index: 1001;
+        display: none !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        background: #2B3E50 !important;
+        min-width: 200px !important;
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 10px 0 !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+        z-index: 1001 !important;
     }
 
     .wix-menu li.has-submenu:hover .submenu {
-        display: block;
+        display: block !important;
     }
 
     .wix-menu .submenu li {
-        margin: 0;
+        margin: 0 !important;
     }
 
     .wix-menu .submenu a {
-        padding: 10px 20px;
-        display: block;
-        font-size: 13px;
+        padding: 10px 20px !important;
+        display: block !important;
+        font-size: 13px !important;
         color: white !important;
-        text-decoration: none;
-        transition: background 0.3s ease, color 0.3s ease;
+        text-decoration: none !important;
+        transition: background 0.3s ease, color 0.3s ease !important;
     }
 
     .wix-menu .submenu a:hover {
-        background: #3d5568;
+        background: #3d5568 !important;
         color: #C4504A !important;
     }
 
     /* Mobile submenu */
     @media (max-width: 1024px) {
         .wix-menu .submenu {
-            position: static;
-            display: none;
-            background: #1f2d3d;
-            box-shadow: none;
-            padding-left: 20px;
+            position: static !important;
+            display: none !important;
+            background: #1f2d3d !important;
+            box-shadow: none !important;
+            padding-left: 20px !important;
         }
 
         .wix-menu li.has-submenu.active .submenu {
-            display: block;
+            display: block !important;
         }
 
         .wix-menu .submenu a {
-            padding: 12px 20px;
-            font-size: 12px;
+            padding: 12px 20px !important;
+            font-size: 12px !important;
         }
     }
     </style>
-
-    <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
