@@ -9,7 +9,70 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
-    
+
+    <style>
+    /* Gallery Submenu Dropdown */
+    .wix-menu li.has-submenu {
+        position: relative;
+    }
+
+    .wix-menu .submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #2B3E50;
+        min-width: 200px;
+        list-style: none;
+        margin: 0;
+        padding: 10px 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 1001;
+    }
+
+    .wix-menu li.has-submenu:hover .submenu {
+        display: block;
+    }
+
+    .wix-menu .submenu li {
+        margin: 0;
+    }
+
+    .wix-menu .submenu a {
+        padding: 10px 20px;
+        display: block;
+        font-size: 13px;
+        color: white !important;
+        text-decoration: none;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .wix-menu .submenu a:hover {
+        background: #3d5568;
+        color: #C4504A !important;
+    }
+
+    /* Mobile submenu */
+    @media (max-width: 1024px) {
+        .wix-menu .submenu {
+            position: static;
+            display: none;
+            background: #1f2d3d;
+            box-shadow: none;
+            padding-left: 20px;
+        }
+
+        .wix-menu li.has-submenu.active .submenu {
+            display: block;
+        }
+
+        .wix-menu .submenu a {
+            padding: 12px 20px;
+            font-size: 12px;
+        }
+    }
+    </style>
+
     <?php wp_head(); ?>
 </head>
 
@@ -66,7 +129,34 @@
 
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay"></div>
-    
+
+    <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileToggle = document.querySelector('.wix-mobile-toggle');
+        const wixNav = document.querySelector('.wix-nav');
+        const hasSubmenuItems = document.querySelectorAll('.wix-menu li.has-submenu');
+
+        // Toggle mobile menu
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function() {
+                wixNav.classList.toggle('active');
+            });
+        }
+
+        // Mobile submenu toggle
+        hasSubmenuItems.forEach(function(item) {
+            const link = item.querySelector('> a');
+            if (window.innerWidth <= 1024 && link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    item.classList.toggle('active');
+                });
+            }
+        });
+    });
+    </script>
+
     <?php
     // Display breadcrumbs on non-front pages
     if (!is_front_page()) {
