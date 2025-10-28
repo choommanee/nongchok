@@ -6,13 +6,14 @@
 global $wpdb;
 $categories_table = $wpdb->prefix . 'gallery_categories';
 
-// Get all categories
+// Get only 'gallery' type categories (not ayam_list or behind_scene)
 $categories = $wpdb->get_results("
     SELECT * FROM {$categories_table}
+    WHERE category_type = 'gallery' OR category_type IS NULL
     ORDER BY category_number ASC
 ");
 
-$total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table}");
+$total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table} WHERE category_type = 'gallery' OR category_type IS NULL");
 
 // Helper function to get correct image URL (local uses production images)
 function get_gallery_image_url($path) {

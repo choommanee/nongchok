@@ -15,7 +15,7 @@
 .breadcrumbs .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 80px;
+    padding: 0 120px;
 }
 
 .breadcrumb-list {
@@ -608,5 +608,66 @@
     
     .wix-section-title-center {
         font-size: 28px;
+    }
+}
+
+/* ===== GALLERY SUBMENU DROPDOWN ===== */
+.wix-menu li.has-submenu {
+    position: relative;
+}
+
+.wix-menu .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #2B3E50;
+    min-width: 200px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 1001;
+}
+
+.wix-menu li.has-submenu:hover .submenu {
+    display: block;
+}
+
+.wix-menu .submenu li {
+    margin: 0;
+}
+
+.wix-menu .submenu a {
+    padding: 10px 20px;
+    display: block;
+    font-size: 13px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.wix-menu .submenu a:hover {
+    background: #3d5568;
+    color: #C4504A;
+}
+
+/* Mobile submenu */
+@media (max-width: 1024px) {
+    .wix-menu .submenu {
+        position: static;
+        display: none;
+        background: #1f2d3d;
+        box-shadow: none;
+        padding-left: 20px;
+    }
+
+    .wix-menu li.has-submenu.active .submenu {
+        display: block;
+    }
+
+    .wix-menu .submenu a {
+        padding: 12px 20px;
+        font-size: 12px;
     }
 }
