@@ -6,14 +6,27 @@
 global $wpdb;
 $categories_table = $wpdb->prefix . 'gallery_categories';
 
-// Get only 'gallery' type categories (not ayam_list or behind_scene)
-$categories = $wpdb->get_results("
-    SELECT * FROM {$categories_table}
-    WHERE category_type = 'gallery' OR category_type IS NULL
-    ORDER BY category_number ASC
-");
+// Check if viewing Behind the Scene or Gallery
+$category_param = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
+$is_behind_scene = ($category_param === 'BTS');
 
-$total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table} WHERE category_type = 'gallery' OR category_type IS NULL");
+if ($is_behind_scene) {
+    // Get Behind the Scene categories
+    $categories = $wpdb->get_results("
+        SELECT * FROM {$categories_table}
+        WHERE category_type = 'behind_scene'
+        ORDER BY category_number ASC
+    ");
+    $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table} WHERE category_type = 'behind_scene'");
+} else {
+    // Get only 'gallery' type categories (not ayam_list or behind_scene)
+    $categories = $wpdb->get_results("
+        SELECT * FROM {$categories_table}
+        WHERE category_type = 'gallery' OR category_type IS NULL
+        ORDER BY category_number ASC
+    ");
+    $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table} WHERE category_type = 'gallery' OR category_type IS NULL");
+}
 
 // Helper function to get correct image URL (local uses production images)
 function get_gallery_image_url($path) {
@@ -187,7 +200,7 @@ function get_gallery_image_url($path) {
 
     <!-- Hero Section -->
     <section class="gallery-hero">
-        <h1>AYAM LIST</h1>
+        <h1><?php echo $is_behind_scene ? 'BEHIND THE SCENE' : 'GALLERY'; ?></h1>
     </section>
 
     <!-- Categories Grid -->
