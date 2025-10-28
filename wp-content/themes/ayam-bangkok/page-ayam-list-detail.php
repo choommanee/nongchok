@@ -10,6 +10,10 @@ $shipment = isset($_GET['shipment']) ? intval($_GET['shipment']) : 0;
 ?>
 
 <style>
+body {
+    padding-top: 60px !important;
+}
+
 .ayam-detail-page {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     background: #fff;
