@@ -1052,6 +1052,54 @@ class AyamAboutAdmin {
                                    value="<?php echo $is_edit ? esc_attr($category->owner) : ''; ?>"
                                    placeholder="เช่น Abdul Rahim">
                         </div>
+
+                        <div class="form-field">
+                            <label for="category_type">Category Type <span style="color:red;">*</span></label>
+                            <select id="category_type" name="category_type" required>
+                                <option value="gallery" <?php echo ($is_edit && $category->category_type === 'gallery') ? 'selected' : ''; ?>>Gallery</option>
+                                <option value="ayam_list" <?php echo ($is_edit && $category->category_type === 'ayam_list') ? 'selected' : ''; ?>>Ayam List</option>
+                                <option value="behind_scene" <?php echo ($is_edit && $category->category_type === 'behind_scene') ? 'selected' : ''; ?>>Behind the Scene</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field" id="shipment_number_field" style="display: none;">
+                            <label for="shipment_number">Shipment Number</label>
+                            <select id="shipment_number" name="shipment_number">
+                                <option value="">-- Select Shipment --</option>
+                                <?php
+                                // Extract shipment number from shipment_date
+                                $current_shipment = '';
+                                if ($is_edit && !empty($category->shipment_date) && preg_match('/Shipment (\d+)/', $category->shipment_date, $matches)) {
+                                    $current_shipment = $matches[1];
+                                }
+                                for ($i = 6; $i <= 20; $i++):
+                                ?>
+                                    <option value="<?php echo $i; ?>" <?php echo ($current_shipment === (string)$i) ? 'selected' : ''; ?>>
+                                        Shipment <?php echo $i; ?>
+                                    </option>
+                                <?php endfor; ?>
+                            </select>
+                            <small>เลือก Shipment สำหรับ Ayam List category</small>
+                        </div>
+
+                        <script>
+                        (function() {
+                            var categoryTypeSelect = document.getElementById('category_type');
+                            var shipmentField = document.getElementById('shipment_number_field');
+
+                            function toggleShipmentField() {
+                                if (categoryTypeSelect.value === 'ayam_list') {
+                                    shipmentField.style.display = 'block';
+                                } else {
+                                    shipmentField.style.display = 'none';
+                                    document.getElementById('shipment_number').value = '';
+                                }
+                            }
+
+                            categoryTypeSelect.addEventListener('change', toggleShipmentField);
+                            toggleShipmentField(); // Initial check
+                        })();
+                        </script>
                     </div>
 
                     <!-- Right: Media Slots -->
@@ -1147,6 +1195,13 @@ class AyamAboutAdmin {
         $category_name = sanitize_text_field($_POST['category_name']);
         $shipment_date = isset($_POST['shipment_date']) ? sanitize_text_field($_POST['shipment_date']) : '';
         $owner = isset($_POST['owner']) ? sanitize_text_field($_POST['owner']) : '';
+        $category_type = isset($_POST['category_type']) ? sanitize_text_field($_POST['category_type']) : 'gallery';
+        $shipment_number = isset($_POST['shipment_number']) ? sanitize_text_field($_POST['shipment_number']) : '';
+
+        // Build shipment_date from shipment_number if ayam_list
+        if ($category_type === 'ayam_list' && !empty($shipment_number)) {
+            $shipment_date = 'Shipment ' . $shipment_number;
+        }
 
         $is_edit = ($category_id > 0);
 
@@ -1157,7 +1212,8 @@ class AyamAboutAdmin {
                 array(
                     'category_name' => $category_name,
                     'shipment_date' => $shipment_date,
-                    'owner' => $owner
+                    'owner' => $owner,
+                    'category_type' => $category_type
                 ),
                 array('id' => $category_id)
             );
@@ -1179,6 +1235,7 @@ class AyamAboutAdmin {
                     'category_name' => $category_name,
                     'shipment_date' => $shipment_date,
                     'owner' => $owner,
+                    'category_type' => $category_type,
                     'created_at' => current_time('mysql')
                 )
             );
