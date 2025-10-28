@@ -902,8 +902,8 @@ class AyamAboutAdmin {
             2 => array('label' => 'ภาพชั่งน้ำหนัก', 'media_type' => 'image', 'url' => ''),
             3 => array('label' => 'ภาพหน้าแซงไก่หน้า', 'media_type' => 'image', 'url' => ''),
             4 => array('label' => 'ภาพหน้าแซงไก่หลัง', 'media_type' => 'image', 'url' => ''),
-            5 => array('label' => 'ภาพยิ่งสวยๆ', 'media_type' => 'image', 'url' => ''),
-            6 => array('label' => 'วิดีโอไก่ต่ อยู่ฟาร์ม', 'media_type' => 'video', 'url' => ''),
+            5 => array('label' => 'ภาพสวย', 'media_type' => 'image', 'url' => ''),
+            6 => array('label' => 'วิดีโอไก่', 'media_type' => 'video', 'url' => ''),
         );
 
         // Fill with existing media if editing
