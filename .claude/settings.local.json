@@ -54,7 +54,10 @@
       "Bash(while read img)",
       "Bash(do echo \"$img\")",
       "Bash(sips:*)",
-      "Bash(/Users/sakdachoommanee/Documents/httpdocs/nongchok/delete-prod-images.sh:*)"
+      "Bash(/Users/sakdachoommanee/Documents/httpdocs/nongchok/delete-prod-images.sh:*)",
+      "Bash(wp db query:*)",
+      "Bash(git restore:*)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "ask": []

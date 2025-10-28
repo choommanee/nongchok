@@ -888,8 +888,13 @@ class AyamAboutAdmin {
      * Gallery Form Page (Add/Edit)
      */
     private function gallery_form_page($category = null, $existing_media = array()) {
+        global $wpdb;
         $is_edit = ($category !== null);
         $category_id = $is_edit ? $category->id : 0;
+
+        // Get all active shipments
+        $shipments_table = $wpdb->prefix . 'ayam_shipments';
+        $shipments = $wpdb->get_results("SELECT * FROM {$shipments_table} WHERE is_active = 1 ORDER BY sort_order ASC, shipment_number ASC");
 
         // Prepare 6 media slots
         $media_slots = array(
@@ -1072,12 +1077,13 @@ class AyamAboutAdmin {
                                 if ($is_edit && !empty($category->shipment_date) && preg_match('/Shipment (\d+)/', $category->shipment_date, $matches)) {
                                     $current_shipment = $matches[1];
                                 }
-                                for ($i = 6; $i <= 20; $i++):
+                                foreach ($shipments as $ship):
                                 ?>
-                                    <option value="<?php echo $i; ?>" <?php echo ($current_shipment === (string)$i) ? 'selected' : ''; ?>>
-                                        Shipment <?php echo $i; ?>
+                                    <option value="<?php echo esc_attr($ship->shipment_number); ?>"
+                                            <?php echo ($current_shipment === (string)$ship->shipment_number) ? 'selected' : ''; ?>>
+                                        Shipment <?php echo esc_html($ship->shipment_number); ?> - <?php echo esc_html($ship->shipment_name); ?>
                                     </option>
-                                <?php endfor; ?>
+                                <?php endforeach; ?>
                             </select>
                             <small>เลือก Shipment สำหรับ Ayam List category</small>
                         </div>

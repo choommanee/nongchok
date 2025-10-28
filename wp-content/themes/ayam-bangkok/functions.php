@@ -7956,6 +7956,7 @@ add_action('wp_enqueue_scripts', 'ayam_force_wix_styles', 999);
 
 
 /**
- * Include Gallery Categories Admin
+ * Include Admin Pages
  */
 require_once AYAM_THEME_PATH . '/admin-gallery-categories.php';
+require_once AYAM_THEME_PATH . '/admin-shipment-management.php';

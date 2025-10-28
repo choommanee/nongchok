@@ -47,6 +47,10 @@ function ayam_gallery_categories_admin_menu() {
 function ayam_gallery_categories_admin_page() {
     global $wpdb;
     $categories_table = $wpdb->prefix . 'gallery_categories';
+    $shipments_table = $wpdb->prefix . 'ayam_shipments';
+
+    // Get all active shipments
+    $shipments = $wpdb->get_results("SELECT * FROM {$shipments_table} WHERE is_active = 1 ORDER BY sort_order ASC, shipment_number ASC");
 
     // Handle create new category
     if (isset($_POST['create_category']) && check_admin_referer('create_category_action')) {
@@ -152,9 +156,11 @@ function ayam_gallery_categories_admin_page() {
                         <td>
                             <select name="shipment_number" id="shipment_number" class="regular-text">
                                 <option value="">-- Select Shipment --</option>
-                                <?php for ($i = 6; $i <= 20; $i++): ?>
-                                    <option value="<?php echo $i; ?>">Shipment <?php echo $i; ?></option>
-                                <?php endfor; ?>
+                                <?php foreach ($shipments as $ship): ?>
+                                    <option value="<?php echo esc_attr($ship->shipment_number); ?>">
+                                        Shipment <?php echo esc_html($ship->shipment_number); ?> - <?php echo esc_html($ship->shipment_name); ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                             <p class="description">เลือก Shipment สำหรับ Ayam List category</p>
                         </td>
@@ -241,9 +247,11 @@ function ayam_gallery_categories_admin_page() {
                         <label><strong>Shipment Number:</strong></label><br>
                         <select name="shipment_number" id="edit-shipment-number" style="width: 100%; padding: 8px;">
                             <option value="">-- Select Shipment --</option>
-                            <?php for ($i = 6; $i <= 20; $i++): ?>
-                                <option value="<?php echo $i; ?>">Shipment <?php echo $i; ?></option>
-                            <?php endfor; ?>
+                            <?php foreach ($shipments as $ship): ?>
+                                <option value="<?php echo esc_attr($ship->shipment_number); ?>">
+                                    Shipment <?php echo esc_html($ship->shipment_number); ?> - <?php echo esc_html($ship->shipment_name); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                         <small>เลือก Shipment สำหรับ Ayam List category</small>
                     </p>
