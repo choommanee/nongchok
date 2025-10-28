@@ -7947,7 +7947,8 @@ function ayam_force_wix_styles() {
     if (is_page('news') || is_page(168)) {
         wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
     }
-    if (is_page('gallery')) {
+    if (is_page('gallery') || is_page('ayam-list') || is_page('ayam-list-detail')) {
+        wp_enqueue_style('wix-homepage-complete', AYAM_THEME_URI . '/assets/css/wix-homepage-complete.css', array(), AYAM_THEME_VERSION);
         wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
     }
 }
