@@ -8,6 +8,10 @@ get_header();
 ?>
 
 <style>
+body {
+    padding-top: 60px !important;
+}
+
 .ayam-list-page {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     background: #fff;
