@@ -45,8 +45,8 @@ $media_slots = [
     2 => ['label' => 'ภาพชั่งน้ำหนัก', 'media' => null],
     3 => ['label' => 'ภาพหน้าแซงไก่หน้า', 'media' => null],
     4 => ['label' => 'ภาพหน้าแซงไก่หลัง', 'media' => null],
-    5 => ['label' => 'ภาพยิ่งสวยๆ', 'media' => null],
-    6 => ['label' => 'วิดีโอไก่ต่ อยู่ฟาร์ม', 'media' => null],
+    5 => ['label' => 'ภาพสวยๆ', 'media' => null],
+    6 => ['label' => 'วิดีโอไก่', 'media' => null],
 ];
 
 // Map media to slots based on sort_order
