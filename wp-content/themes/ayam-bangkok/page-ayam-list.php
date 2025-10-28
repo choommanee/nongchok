@@ -8,20 +8,30 @@ get_header();
 ?>
 
 <style>
-.ayam-list-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 20px;
+.ayam-list-page {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    background: #fff;
+    min-height: 100vh;
+}
+
+.ayam-list-hero {
+    background: #fff;
+    padding: 60px 20px 40px;
     text-align: center;
 }
 
-.ayam-list-title {
-    font-size: 3rem;
+.ayam-list-hero h1 {
+    font-size: 3.5rem;
     font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 60px;
-    text-transform: uppercase;
+    color: #1E2950;
+    margin: 0;
     letter-spacing: 2px;
+}
+
+.ayam-list-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 80px 80px;
 }
 
 .shipment-grid {
@@ -52,8 +62,12 @@ get_header();
 }
 
 @media (max-width: 768px) {
-    .ayam-list-title {
-        font-size: 2rem;
+    .ayam-list-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .ayam-list-container {
+        padding: 30px 20px 60px;
     }
 
     .shipment-grid {
@@ -63,8 +77,14 @@ get_header();
 }
 </style>
 
-<div class="ayam-list-container">
-    <h1 class="ayam-list-title">AYAM LIST</h1>
+<main class="ayam-list-page">
+    <!-- Hero Section -->
+    <section class="ayam-list-hero">
+        <h1>AYAM LIST</h1>
+    </section>
+
+    <!-- Shipment Grid -->
+    <section class="ayam-list-container">
 
     <div class="shipment-grid">
         <?php
@@ -77,7 +97,8 @@ get_header();
         }
         ?>
     </div>
-</div>
+    </section>
+</main>
 
 <?php
 get_footer();

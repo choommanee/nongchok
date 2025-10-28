@@ -10,33 +10,48 @@ $shipment = isset($_GET['shipment']) ? intval($_GET['shipment']) : 0;
 ?>
 
 <style>
+.ayam-detail-page {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    background: #fff;
+    min-height: 100vh;
+}
+
+.ayam-detail-hero {
+    background: #fff;
+    padding: 60px 20px 40px;
+    text-align: center;
+}
+
+.ayam-detail-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1E2950;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
 .ayam-detail-container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 40px 80px 80px;
 }
 
 .back-button {
     display: inline-block;
     margin-bottom: 30px;
-    padding: 10px 20px;
-    background: #34495e;
+    padding: 10px 30px;
+    background: #CA4249;
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 4px;
     transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .back-button:hover {
-    background: #2c3e50;
-}
-
-.shipment-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 40px;
-    text-align: center;
+    background: #b03840;
+    color: white;
+    text-decoration: none;
 }
 
 .rooster-grid {
@@ -89,8 +104,12 @@ $shipment = isset($_GET['shipment']) ? intval($_GET['shipment']) : 0;
 }
 
 @media (max-width: 768px) {
-    .shipment-title {
-        font-size: 1.8rem;
+    .ayam-detail-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .ayam-detail-container {
+        padding: 30px 20px 60px;
     }
 
     .rooster-grid {
@@ -100,12 +119,17 @@ $shipment = isset($_GET['shipment']) ? intval($_GET['shipment']) : 0;
 }
 </style>
 
-<div class="ayam-detail-container">
-    <a href="<?php echo esc_url(home_url('/ayam-list/')); ?>" class="back-button">
-        ← Back to Shipment List
-    </a>
+<main class="ayam-detail-page">
+    <!-- Hero Section -->
+    <section class="ayam-detail-hero">
+        <h1>Shipment <?php echo $shipment; ?></h1>
+    </section>
 
-    <h1 class="shipment-title">Shipment <?php echo $shipment; ?></h1>
+    <!-- Content Section -->
+    <section class="ayam-detail-container">
+        <a href="<?php echo esc_url(home_url('/ayam-list/')); ?>" class="back-button">
+            ← Back to Shipment List
+        </a>
 
     <div class="rooster-grid">
         <?php
@@ -161,7 +185,8 @@ $shipment = isset($_GET['shipment']) ? intval($_GET['shipment']) : 0;
         }
         ?>
     </div>
-</div>
+    </section>
+</main>
 
 <?php
 get_footer();
