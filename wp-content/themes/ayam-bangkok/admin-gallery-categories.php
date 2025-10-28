@@ -3,19 +3,45 @@
  * Admin Page for Gallery Categories Management
  */
 
-// Add admin menu
-add_action('admin_menu', 'ayam_gallery_categories_admin_menu');
+// Add admin menu with priority 99 to load after parent menu
+add_action('admin_menu', 'ayam_gallery_categories_admin_menu', 99);
 
 function ayam_gallery_categories_admin_menu() {
-    // Add as submenu under existing Gallery admin menu
-    add_submenu_page(
-        'ayam-about-admin',
-        'จัดการประเภท Gallery',
-        'ประเภท Gallery',
-        'manage_options',
-        'gallery-categories',
-        'ayam_gallery_categories_admin_page'
-    );
+    // Check if parent menu exists, if not create standalone menu
+    global $menu;
+    $parent_exists = false;
+
+    if (is_array($menu)) {
+        foreach ($menu as $item) {
+            if (isset($item[2]) && $item[2] === 'ayam-about-admin') {
+                $parent_exists = true;
+                break;
+            }
+        }
+    }
+
+    if ($parent_exists) {
+        // Add as submenu under existing Gallery admin menu
+        add_submenu_page(
+            'ayam-about-admin',
+            'จัดการประเภท Gallery',
+            'ประเภท Gallery',
+            'manage_options',
+            'ayam-gallery-categories',
+            'ayam_gallery_categories_admin_page'
+        );
+    } else {
+        // Create standalone menu if parent doesn't exist
+        add_menu_page(
+            'จัดการ Gallery Categories',
+            'Gallery Categories',
+            'manage_options',
+            'ayam-gallery-categories',
+            'ayam_gallery_categories_admin_page',
+            'dashicons-images-alt2',
+            31
+        );
+    }
 }
 
 function ayam_gallery_categories_admin_page() {
