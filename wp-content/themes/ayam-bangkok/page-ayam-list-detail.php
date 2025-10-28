@@ -142,7 +142,7 @@ body {
 
         // Find categories with this shipment number (exact match on shipment_date field)
         $categories = $wpdb->get_results($wpdb->prepare(
-            "SELECT c.category_number, c.category_name, c.image_count, c.thumbnail_url
+            "SELECT c.id, c.category_number, c.category_name, c.image_count, c.thumbnail_url
             FROM {$wpdb->prefix}gallery_categories c
             WHERE c.shipment_date = %s
             AND c.category_type = 'ayam_list'
@@ -155,34 +155,35 @@ body {
                 // Get first image for this category
                 $first_image = $wpdb->get_row($wpdb->prepare(
                     "SELECT * FROM {$wpdb->prefix}gallery_images
-                    WHERE category_number = %s
-                    ORDER BY image_order ASC, id ASC
+                    WHERE category_id = %d
+                    ORDER BY sort_order ASC, id ASC
                     LIMIT 1",
-                    $category->category_number
+                    $category->id
                 ));
 
-                // Use thumbnail or first image
+                // Use thumbnail or first image or placeholder
                 $image_url = $category->thumbnail_url;
                 if (!$image_url && $first_image) {
                     $image_url = $first_image->image_url;
                 }
-
-                if ($image_url) {
-                    ?>
-                    <div class="rooster-card">
-                        <a href="<?php echo esc_url(home_url('/gallery/?category=' . $category->category_number)); ?>">
-                            <img src="<?php echo esc_url($image_url); ?>"
-                                 alt="<?php echo esc_attr($category->category_name); ?>"
-                                 loading="lazy">
-                        </a>
-                        <div class="rooster-card-content">
-                            <h3><?php echo esc_html($category->category_name); ?></h3>
-                            <p>Category: <?php echo esc_html($category->category_number); ?></p>
-                            <p><?php echo esc_html($category->image_count); ?> images</p>
-                        </div>
-                    </div>
-                    <?php
+                if (!$image_url) {
+                    // Use placeholder image
+                    $image_url = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="250" height="250"%3E%3Crect width="250" height="250" fill="%23ddd"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="18" fill="%23999"%3ENo Image%3C/text%3E%3C/svg%3E';
                 }
+                ?>
+                <div class="rooster-card">
+                    <a href="<?php echo esc_url(home_url('/gallery/?category=' . $category->category_number)); ?>">
+                        <img src="<?php echo esc_url($image_url); ?>"
+                             alt="<?php echo esc_attr($category->category_name); ?>"
+                             loading="lazy">
+                    </a>
+                    <div class="rooster-card-content">
+                        <h3><?php echo esc_html($category->category_name); ?></h3>
+                        <p>Category: <?php echo esc_html($category->category_number); ?></p>
+                        <p><?php echo esc_html($category->image_count); ?> images</p>
+                    </div>
+                </div>
+                <?php
             }
         } else {
             echo '<div class="no-roosters">ยังไม่มีไก่ใน Shipment ' . $shipment . '<br><small>กรุณาสร้าง category และตั้งค่า shipment ที่หน้า Admin</small></div>';
