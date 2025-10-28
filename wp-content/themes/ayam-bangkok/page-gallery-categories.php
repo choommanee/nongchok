@@ -14,8 +14,25 @@ $images_table = $wpdb->prefix . 'gallery_images';
 $category_number = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
 
 if (!empty($category_number)) {
-    // DETAIL VIEW - Show images for specific category
-    include(locate_template('template-parts/gallery-category-detail.php'));
+    // Check category type to determine which view to use
+    if ($category_number === 'BTS') {
+        // BTS is a filter, show landing page
+        include(locate_template('template-parts/gallery-categories-landing.php'));
+    } else {
+        // Get category info to check type
+        $category = $wpdb->get_row($wpdb->prepare(
+            "SELECT category_type FROM {$categories_table} WHERE category_number = %s",
+            $category_number
+        ));
+
+        if ($category && $category->category_type === 'behind_scene') {
+            // GRID VIEW - Show all images in grid for Behind the Scene
+            include(locate_template('template-parts/gallery-category-grid.php'));
+        } else {
+            // DETAIL VIEW - Show 6 slots for regular gallery
+            include(locate_template('template-parts/gallery-category-detail.php'));
+        }
+    }
 } else {
     // LANDING PAGE - Show all categories
     include(locate_template('template-parts/gallery-categories-landing.php'));
