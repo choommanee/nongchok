@@ -47,13 +47,50 @@ function ayam_gallery_categories_admin_menu() {
 function ayam_gallery_categories_admin_page() {
     global $wpdb;
     $categories_table = $wpdb->prefix . 'gallery_categories';
-    
-    // Handle form submissions
+
+    // Handle create new category
+    if (isset($_POST['create_category']) && check_admin_referer('create_category_action')) {
+        $category_number = sanitize_text_field($_POST['category_number']);
+        $category_name = sanitize_text_field($_POST['category_name']);
+        $category_type = sanitize_text_field($_POST['category_type']);
+        $shipment_number = sanitize_text_field($_POST['shipment_number']);
+
+        // Build shipment_date field
+        $shipment_date = '';
+        if ($category_type === 'ayam_list' && !empty($shipment_number)) {
+            $shipment_date = 'Shipment ' . $shipment_number;
+        }
+
+        $result = $wpdb->insert(
+            $categories_table,
+            array(
+                'category_number' => $category_number,
+                'category_name' => $category_name,
+                'category_type' => $category_type,
+                'shipment_date' => $shipment_date,
+                'image_count' => 0
+            )
+        );
+
+        if ($result) {
+            echo '<div class="notice notice-success"><p>Category created successfully!</p></div>';
+        } else {
+            echo '<div class="notice notice-error"><p>Error creating category: ' . $wpdb->last_error . '</p></div>';
+        }
+    }
+
+    // Handle update category
     if (isset($_POST['update_category_type']) && check_admin_referer('update_category_type_action')) {
         $category_id = intval($_POST['category_id']);
         $category_type = sanitize_text_field($_POST['category_type']);
-        $shipment_date = sanitize_text_field($_POST['shipment_date']);
-        
+        $shipment_number = sanitize_text_field($_POST['shipment_number']);
+
+        // Build shipment_date field
+        $shipment_date = '';
+        if ($category_type === 'ayam_list' && !empty($shipment_number)) {
+            $shipment_date = 'Shipment ' . $shipment_number;
+        }
+
         $wpdb->update(
             $categories_table,
             array(
@@ -62,17 +99,75 @@ function ayam_gallery_categories_admin_page() {
             ),
             array('id' => $category_id)
         );
-        
+
         echo '<div class="notice notice-success"><p>Category updated successfully!</p></div>';
     }
-    
+
     // Get all categories
     $categories = $wpdb->get_results("SELECT * FROM {$categories_table} ORDER BY category_number ASC");
     
     ?>
     <div class="wrap">
         <h1>Gallery Categories Management</h1>
-        
+
+        <button class="button button-primary" id="show-create-form" style="margin-bottom: 20px;">
+            <span class="dashicons dashicons-plus" style="margin-top: 3px;"></span> สร้าง Category ใหม่
+        </button>
+
+        <!-- Create Category Form -->
+        <div id="create-category-form" style="display:none; background: white; padding: 20px; border: 1px solid #ccc; margin-bottom: 20px;">
+            <h2>สร้าง Gallery Category ใหม่</h2>
+            <form method="post">
+                <?php wp_nonce_field('create_category_action'); ?>
+
+                <table class="form-table">
+                    <tr>
+                        <th><label for="category_number">Category Number *</label></th>
+                        <td>
+                            <input type="text" name="category_number" id="category_number"
+                                   placeholder="e.g., 051, BTS2" required
+                                   class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="category_name">Category Name *</label></th>
+                        <td>
+                            <input type="text" name="category_name" id="category_name"
+                                   placeholder="e.g., Rooster Category 051" required
+                                   class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="category_type_new">Category Type *</label></th>
+                        <td>
+                            <select name="category_type" id="category_type_new" class="regular-text">
+                                <option value="gallery">Gallery</option>
+                                <option value="ayam_list">Ayam List</option>
+                                <option value="behind_scene">Behind the Scene</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="shipment_row">
+                        <th><label for="shipment_number">Shipment Number</label></th>
+                        <td>
+                            <select name="shipment_number" id="shipment_number" class="regular-text">
+                                <option value="">-- Select Shipment --</option>
+                                <?php for ($i = 6; $i <= 20; $i++): ?>
+                                    <option value="<?php echo $i; ?>">Shipment <?php echo $i; ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <p class="description">เลือก Shipment สำหรับ Ayam List category</p>
+                        </td>
+                    </tr>
+                </table>
+
+                <p>
+                    <button type="submit" name="create_category" class="button button-primary">สร้าง Category</button>
+                    <button type="button" class="button" id="cancel-create">ยกเลิก</button>
+                </p>
+            </form>
+        </div>
+
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
@@ -141,13 +236,16 @@ function ayam_gallery_categories_admin_page() {
                             <option value="behind_scene">Behind the Scene</option>
                         </select>
                     </p>
-                    
-                    <p>
-                        <label><strong>Shipment Date/Info:</strong></label><br>
-                        <input type="text" name="shipment_date" id="edit-shipment-date" 
-                               placeholder="e.g., Shipment 6, Shipment 7" 
-                               style="width: 100%; padding: 8px;">
-                        <small>For Ayam List categories, enter shipment info (e.g., "Shipment 6")</small>
+
+                    <p id="edit-shipment-row">
+                        <label><strong>Shipment Number:</strong></label><br>
+                        <select name="shipment_number" id="edit-shipment-number" style="width: 100%; padding: 8px;">
+                            <option value="">-- Select Shipment --</option>
+                            <?php for ($i = 6; $i <= 20; $i++): ?>
+                                <option value="<?php echo $i; ?>">Shipment <?php echo $i; ?></option>
+                            <?php endfor; ?>
+                        </select>
+                        <small>เลือก Shipment สำหรับ Ayam List category</small>
                     </p>
                     
                     <p>
@@ -161,21 +259,64 @@ function ayam_gallery_categories_admin_page() {
     
     <script>
     jQuery(document).ready(function($) {
+        // Toggle create form
+        $('#show-create-form').on('click', function() {
+            $('#create-category-form').slideToggle();
+        });
+
+        $('#cancel-create').on('click', function() {
+            $('#create-category-form').slideUp();
+        });
+
+        // Show/hide shipment field in create form
+        $('#category_type_new').on('change', function() {
+            if ($(this).val() === 'ayam_list') {
+                $('#shipment_row').show();
+            } else {
+                $('#shipment_row').hide();
+                $('#shipment_number').val('');
+            }
+        }).trigger('change');
+
+        // Edit category
         $('.edit-category').on('click', function() {
             var id = $(this).data('id');
             var number = $(this).data('number');
             var name = $(this).data('name');
             var type = $(this).data('type');
             var shipment = $(this).data('shipment');
-            
+
             $('#edit-category-id').val(id);
             $('#edit-category-display').text(number + ' - ' + name);
             $('#edit-category-type').val(type || 'gallery');
-            $('#edit-shipment-date').val(shipment || '');
-            
+
+            // Extract shipment number from "Shipment X" format
+            var shipmentNum = '';
+            if (shipment && shipment.match(/Shipment (\d+)/)) {
+                shipmentNum = shipment.match(/Shipment (\d+)/)[1];
+            }
+            $('#edit-shipment-number').val(shipmentNum);
+
+            // Show/hide shipment field
+            if (type === 'ayam_list') {
+                $('#edit-shipment-row').show();
+            } else {
+                $('#edit-shipment-row').hide();
+            }
+
             $('#edit-category-modal').show();
         });
-        
+
+        // Show/hide shipment field in edit form
+        $('#edit-category-type').on('change', function() {
+            if ($(this).val() === 'ayam_list') {
+                $('#edit-shipment-row').show();
+            } else {
+                $('#edit-shipment-row').hide();
+                $('#edit-shipment-number').val('');
+            }
+        });
+
         $('.close-modal').on('click', function() {
             $('#edit-category-modal').hide();
         });
