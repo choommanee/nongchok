@@ -7,14 +7,14 @@
 add_action('admin_menu', 'ayam_gallery_categories_admin_menu');
 
 function ayam_gallery_categories_admin_menu() {
-    add_menu_page(
-        'Gallery Categories',
-        'Gallery Categories',
+    // Add as submenu under existing Gallery admin menu
+    add_submenu_page(
+        'ayam-about-admin',
+        'จัดการประเภท Gallery',
+        'ประเภท Gallery',
         'manage_options',
         'gallery-categories',
-        'ayam_gallery_categories_admin_page',
-        'dashicons-images-alt2',
-        30
+        'ayam_gallery_categories_admin_page'
     );
 }
 
