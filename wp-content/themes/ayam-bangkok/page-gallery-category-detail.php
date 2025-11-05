@@ -93,36 +93,39 @@ $images = $wpdb->get_results($wpdb->prepare(
 }
 
 .images-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    columns: 4;
+    column-gap: 15px;
     margin-top: 40px;
 }
 
 .image-card {
     background: white;
-    border-radius: 15px;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     position: relative;
     cursor: pointer;
+    break-inside: avoid;
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%;
 }
 
 .image-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
 .image-card img {
     width: 100%;
-    height: 350px;
-    object-fit: cover;
+    height: auto;
+    display: block;
     transition: transform 0.5s ease;
 }
 
 .image-card:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .image-overlay {
@@ -163,6 +166,12 @@ $images = $wpdb->get_results($wpdb->prepare(
     opacity: 0.9;
 }
 
+@media (max-width: 1200px) {
+    .images-grid {
+        columns: 3;
+    }
+}
+
 @media (max-width: 768px) {
     .category-detail-title {
         font-size: 2rem;
@@ -174,7 +183,18 @@ $images = $wpdb->get_results($wpdb->prepare(
     }
 
     .images-grid {
-        grid-template-columns: 1fr;
+        columns: 2;
+        column-gap: 10px;
+    }
+
+    .image-card {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .images-grid {
+        columns: 1;
     }
 }
 </style>
