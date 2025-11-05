@@ -11,13 +11,16 @@ $category_param = isset($_GET['category']) ? sanitize_text_field($_GET['category
 $is_behind_scene = ($category_param === 'BTS');
 
 if ($is_behind_scene) {
-    // Get Behind the Scene categories
-    $categories = $wpdb->get_results("
-        SELECT * FROM {$categories_table}
-        WHERE category_type = 'behind_scene'
-        ORDER BY category_number ASC
+    // Get ALL images from Behind the Scene categories
+    $images_table = $wpdb->prefix . 'gallery_images';
+    $all_images = $wpdb->get_results("
+        SELECT gi.*, gc.category_name, gc.category_number
+        FROM {$images_table} gi
+        JOIN {$categories_table} gc ON gi.category_id = gc.id
+        WHERE gc.category_type = 'behind_scene'
+        ORDER BY gi.sort_order ASC
     ");
-    $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table} WHERE category_type = 'behind_scene'");
+    $total_images = count($all_images);
 } else {
     // Get only 'gallery' type categories (not ayam_list or behind_scene)
     $categories = $wpdb->get_results("
@@ -63,9 +66,9 @@ function get_gallery_image_url($path) {
 }
 
 .categories-grid-section {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 40px 80px 80px;
+    padding: 40px 20px 80px;
 }
 
 .categories-grid {
@@ -128,6 +131,50 @@ function get_gallery_image_url($path) {
     text-decoration: none;
 }
 
+/* Masonry Grid for BTS Images */
+.masonry-grid {
+    columns: 4;
+    column-gap: 15px;
+    margin-top: 40px;
+}
+
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.masonry-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.masonry-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Random sizing for masonry effect */
+.masonry-item:nth-child(3n+1) img {
+    /* Keep original aspect ratio */
+}
+
+.masonry-item:nth-child(5n+2) img {
+    /* These will naturally vary based on image dimensions */
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -136,6 +183,12 @@ function get_gallery_image_url($path) {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 1200px) {
+    .masonry-grid {
+        columns: 3;
     }
 }
 
@@ -174,6 +227,15 @@ function get_gallery_image_url($path) {
         padding: 8px 24px;
         font-size: 0.9rem;
     }
+
+    .masonry-grid {
+        columns: 2;
+        column-gap: 10px;
+    }
+
+    .masonry-item {
+        margin-bottom: 10px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -193,6 +255,10 @@ function get_gallery_image_url($path) {
         padding: 7px 20px;
         font-size: 0.85rem;
     }
+
+    .masonry-grid {
+        columns: 1;
+    }
 }
 </style>
 
@@ -203,38 +269,63 @@ function get_gallery_image_url($path) {
         <h1><?php echo $is_behind_scene ? 'BEHIND THE SCENE' : 'GALLERY'; ?></h1>
     </section>
 
-    <!-- Categories Grid -->
+    <!-- Categories Grid or Masonry Grid -->
     <section class="categories-grid-section">
-        <?php if (!empty($categories)): ?>
-            <div class="categories-grid">
-                <?php foreach ($categories as $category): ?>
-                    <div class="category-card">
-                        <div class="category-thumbnail-wrapper">
-                            <?php if ($category->thumbnail_url): ?>
-                                <img src="<?php echo esc_url(get_gallery_image_url($category->thumbnail_url)); ?>"
-                                     alt="<?php echo esc_attr($category->category_name); ?>"
-                                     class="category-thumbnail">
-                            <?php else: ?>
-                                <div class="category-thumbnail" style="background: #f0f0f0;"></div>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="category-info">
-                            <p class="category-description">Describe one of your services</p>
-                            <h3 class="category-title"><?php echo esc_html($category->category_name); ?></h3>
-                            <a href="<?php echo add_query_arg('category', $category->category_number, get_permalink()); ?>"
-                               class="view-gallery-btn">
-                                Read More
+        <?php if ($is_behind_scene): ?>
+            <!-- Masonry Grid for BTS Images -->
+            <?php if (!empty($all_images)): ?>
+                <div class="masonry-grid">
+                    <?php foreach ($all_images as $index => $image): ?>
+                        <div class="masonry-item">
+                            <a href="<?php echo esc_url(get_gallery_image_url($image->image_url)); ?>"
+                               data-lightbox="bts-gallery"
+                               data-title="<?php echo esc_attr($image->category_name); ?> - Photo <?php echo $index + 1; ?>">
+                                <img src="<?php echo esc_url(get_gallery_image_url($image->image_url)); ?>"
+                                     alt="<?php echo esc_attr($image->category_name); ?> - Photo <?php echo $index + 1; ?>"
+                                     loading="lazy">
                             </a>
                         </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else: ?>
+                <div style="text-align: center; padding: 100px 20px; color: #718096;">
+                    <i class="fas fa-images" style="font-size: 5rem; color: #cbd5e0; margin-bottom: 20px;"></i>
+                    <p>No images available yet.</p>
+                </div>
+            <?php endif; ?>
         <?php else: ?>
-            <div style="text-align: center; padding: 100px 20px; color: #718096;">
-                <i class="fas fa-images" style="font-size: 5rem; color: #cbd5e0; margin-bottom: 20px;"></i>
-                <p>No galleries available yet.</p>
-            </div>
+            <!-- Category Cards for Gallery -->
+            <?php if (!empty($categories)): ?>
+                <div class="categories-grid">
+                    <?php foreach ($categories as $category): ?>
+                        <div class="category-card">
+                            <div class="category-thumbnail-wrapper">
+                                <?php if ($category->thumbnail_url): ?>
+                                    <img src="<?php echo esc_url(get_gallery_image_url($category->thumbnail_url)); ?>"
+                                         alt="<?php echo esc_attr($category->category_name); ?>"
+                                         class="category-thumbnail">
+                                <?php else: ?>
+                                    <div class="category-thumbnail" style="background: #f0f0f0;"></div>
+                                <?php endif; ?>
+                            </div>
+
+                            <div class="category-info">
+                                <p class="category-description">Describe one of your services</p>
+                                <h3 class="category-title"><?php echo esc_html($category->category_name); ?></h3>
+                                <a href="<?php echo add_query_arg('category', $category->category_number, get_permalink()); ?>"
+                                   class="view-gallery-btn">
+                                    Read More
+                                </a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else: ?>
+                <div style="text-align: center; padding: 100px 20px; color: #718096;">
+                    <i class="fas fa-images" style="font-size: 5rem; color: #cbd5e0; margin-bottom: 20px;"></i>
+                    <p>No galleries available yet.</p>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
     </section>
 

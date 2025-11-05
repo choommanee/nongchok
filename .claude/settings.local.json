@@ -57,7 +57,8 @@
       "Bash(/Users/sakdachoommanee/Documents/httpdocs/nongchok/delete-prod-images.sh:*)",
       "Bash(wp db query:*)",
       "Bash(git restore:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Read(//Users/sakdachoommanee/Documents/**)"
     ],
     "deny": [],
     "ask": []
