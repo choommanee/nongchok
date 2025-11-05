@@ -115,7 +115,7 @@ function ayam_theme_scripts()
     
     // Wix Style Homepage CSS - Complete redesign (also load on About, Service, News, Gallery, Contact, Knowledge, Single News, News archive, Rooster archive and single rooster pages for consistent header/footer)
     if (is_front_page() || is_page('about') || is_page(27) || is_page('service') || is_page(251) || is_page('news-1') || is_page(168) || is_page('gallery') || is_page(253) || is_page_template('page-contact-wix.php') || is_page('contact') || is_page_template('page-knowledge.php') || is_singular('ayam_news') || is_post_type_archive('ayam_news') || is_post_type_archive('ayam_rooster') || is_singular('ayam_rooster')) {
-        wp_enqueue_style('wix-homepage-complete', AYAM_THEME_URI . '/assets/css/wix-homepage-complete.css', array(), AYAM_THEME_VERSION);
+        wp_enqueue_style('wix-homepage-complete', AYAM_THEME_URI . '/assets/css/wix-homepage-complete.css', array(), AYAM_THEME_VERSION . '.' . time());
         wp_enqueue_script('wix-homepage-js', AYAM_THEME_URI . '/assets/js/wix-homepage.js', array('jquery', 'swiper-js', 'aos-js'), AYAM_THEME_VERSION, true);
     }
 
@@ -7948,7 +7948,7 @@ function ayam_force_wix_styles() {
         wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
     }
     if (is_page('gallery') || is_page('ayam-list') || is_page('ayam-list-detail')) {
-        wp_enqueue_style('wix-homepage-complete', AYAM_THEME_URI . '/assets/css/wix-homepage-complete.css', array(), AYAM_THEME_VERSION);
+        wp_enqueue_style('wix-homepage-complete', AYAM_THEME_URI . '/assets/css/wix-homepage-complete.css', array(), AYAM_THEME_VERSION . '.' . time());
         wp_enqueue_style('wix-all-pages', AYAM_THEME_URI . '/assets/css/wix-all-pages.css', array(), AYAM_THEME_VERSION . '.' . time());
     }
 }
