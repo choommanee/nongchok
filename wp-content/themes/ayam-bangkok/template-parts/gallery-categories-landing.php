@@ -22,13 +22,16 @@ if ($is_behind_scene) {
     ");
     $total_images = count($all_images);
 } else {
-    // Get only 'gallery' type categories (not ayam_list or behind_scene)
-    $categories = $wpdb->get_results("
-        SELECT * FROM {$categories_table}
-        WHERE category_type = 'gallery' OR category_type IS NULL
-        ORDER BY category_number ASC
+    // Get ALL images from Gallery categories (same as BTS page layout)
+    $images_table = $wpdb->prefix . 'gallery_images';
+    $all_images = $wpdb->get_results("
+        SELECT gi.*, gc.category_name, gc.category_number
+        FROM {$images_table} gi
+        JOIN {$categories_table} gc ON gi.category_id = gc.id
+        WHERE gc.category_type = 'gallery' OR gc.category_type IS NULL
+        ORDER BY gi.sort_order ASC
     ");
-    $total_images = $wpdb->get_var("SELECT SUM(image_count) FROM {$categories_table} WHERE category_type = 'gallery' OR category_type IS NULL");
+    $total_images = count($all_images);
 }
 
 // Helper function to get correct image URL (local uses production images)
@@ -166,6 +169,27 @@ function get_gallery_image_url($path) {
     transform: scale(1.05);
 }
 
+/* Category name overlay */
+.masonry-item .category-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    color: white;
+    padding: 20px 15px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.masonry-item:hover .category-overlay {
+    opacity: 1;
+}
+
 /* Random sizing for masonry effect */
 .masonry-item:nth-child(3n+1) img {
     /* Keep original aspect ratio */
@@ -269,63 +293,33 @@ function get_gallery_image_url($path) {
         <h1><?php echo $is_behind_scene ? 'BEHIND THE SCENE' : 'GALLERY'; ?></h1>
     </section>
 
-    <!-- Categories Grid or Masonry Grid -->
+    <!-- Masonry Grid for both Gallery and BTS -->
     <section class="categories-grid-section">
-        <?php if ($is_behind_scene): ?>
-            <!-- Masonry Grid for BTS Images -->
-            <?php if (!empty($all_images)): ?>
-                <div class="masonry-grid">
-                    <?php foreach ($all_images as $index => $image): ?>
-                        <div class="masonry-item">
-                            <a href="<?php echo esc_url(get_gallery_image_url($image->image_url)); ?>"
-                               data-lightbox="bts-gallery"
-                               data-title="<?php echo esc_attr($image->category_name); ?> - Photo <?php echo $index + 1; ?>">
-                                <img src="<?php echo esc_url(get_gallery_image_url($image->image_url)); ?>"
-                                     alt="<?php echo esc_attr($image->category_name); ?> - Photo <?php echo $index + 1; ?>"
-                                     loading="lazy">
-                            </a>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <div style="text-align: center; padding: 100px 20px; color: #718096;">
-                    <i class="fas fa-images" style="font-size: 5rem; color: #cbd5e0; margin-bottom: 20px;"></i>
-                    <p>No images available yet.</p>
-                </div>
-            <?php endif; ?>
+        <?php if (!empty($all_images)): ?>
+            <div class="masonry-grid">
+                <?php
+                $lightbox_id = $is_behind_scene ? 'bts-gallery' : 'main-gallery';
+                foreach ($all_images as $index => $image):
+                ?>
+                    <div class="masonry-item">
+                        <a href="<?php echo esc_url(get_gallery_image_url($image->image_url)); ?>"
+                           data-lightbox="<?php echo $lightbox_id; ?>"
+                           data-title="<?php echo esc_attr($image->category_name); ?> - Photo <?php echo $index + 1; ?>">
+                            <img src="<?php echo esc_url(get_gallery_image_url($image->image_url)); ?>"
+                                 alt="<?php echo esc_attr($image->category_name); ?> - Photo <?php echo $index + 1; ?>"
+                                 loading="lazy">
+                            <div class="category-overlay">
+                                <?php echo esc_html($image->category_name); ?>
+                            </div>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php else: ?>
-            <!-- Category Cards for Gallery -->
-            <?php if (!empty($categories)): ?>
-                <div class="categories-grid">
-                    <?php foreach ($categories as $category): ?>
-                        <div class="category-card">
-                            <div class="category-thumbnail-wrapper">
-                                <?php if ($category->thumbnail_url): ?>
-                                    <img src="<?php echo esc_url(get_gallery_image_url($category->thumbnail_url)); ?>"
-                                         alt="<?php echo esc_attr($category->category_name); ?>"
-                                         class="category-thumbnail">
-                                <?php else: ?>
-                                    <div class="category-thumbnail" style="background: #f0f0f0;"></div>
-                                <?php endif; ?>
-                            </div>
-
-                            <div class="category-info">
-                                <p class="category-description">Describe one of your services</p>
-                                <h3 class="category-title"><?php echo esc_html($category->category_name); ?></h3>
-                                <a href="<?php echo add_query_arg('category', $category->category_number, get_permalink()); ?>"
-                                   class="view-gallery-btn">
-                                    Read More
-                                </a>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <div style="text-align: center; padding: 100px 20px; color: #718096;">
-                    <i class="fas fa-images" style="font-size: 5rem; color: #cbd5e0; margin-bottom: 20px;"></i>
-                    <p>No galleries available yet.</p>
-                </div>
-            <?php endif; ?>
+            <div style="text-align: center; padding: 100px 20px; color: #718096;">
+                <i class="fas fa-images" style="font-size: 5rem; color: #cbd5e0; margin-bottom: 20px;"></i>
+                <p>No images available yet.</p>
+            </div>
         <?php endif; ?>
     </section>
 

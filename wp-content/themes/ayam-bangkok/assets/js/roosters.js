@@ -420,6 +420,33 @@ class RoosterCatalog {
         `;
     }
 
+    // View Toggle
+    initializeViewToggle() {
+        // Initialize view toggle functionality
+        const savedView = localStorage.getItem('roosterView') || 'grid';
+        this.currentView = savedView;
+        this.applyView(savedView);
+    }
+
+    applyView(view) {
+        const $grid = $('.roosters-grid');
+        if (view === 'list') {
+            $grid.addClass('list-view').removeClass('grid-view');
+        } else {
+            $grid.addClass('grid-view').removeClass('list-view');
+        }
+        $('.view-btn').removeClass('active');
+        $(`.view-btn[data-view="${view}"]`).addClass('active');
+    }
+
+    handleViewToggle(e) {
+        e.preventDefault();
+        const view = $(e.currentTarget).data('view');
+        this.currentView = view;
+        this.applyView(view);
+        localStorage.setItem('roosterView', view);
+    }
+
     // Favorites System
     initializeFavorites() {
         this.updateFavoritesUI();
