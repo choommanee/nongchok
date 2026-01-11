@@ -3176,21 +3176,21 @@ add_action('admin_menu', function () {
         25
     );
 
-    // Add About Page Management
-    add_menu_page(
-        'จัดการหน้า About',
-        'จัดการหน้า About',
-        'manage_options',
-        'ayam-about-settings',
-        'ayam_about_admin_page',
-        'dashicons-info-outline',
-        26
-    );
+    // Commented out - duplicate functionality with ayam-company-info page
+    // add_menu_page(
+    //     'จัดการหน้า About',
+    //     'จัดการหน้า About',
+    //     'manage_options',
+    //     'ayam-about-settings',
+    //     'ayam_about_admin_page',
+    //     'dashicons-info-outline',
+    //     26
+    // );
 });
 
 // Enqueue admin scripts and styles for slider page
 add_action('admin_enqueue_scripts', function ($hook) {
-    if ($hook === 'toplevel_page_ayam-slider-settings' || $hook === 'toplevel_page_ayam-about-settings') {
+    if ($hook === 'toplevel_page_ayam-slider-settings') {
         wp_enqueue_media();
         wp_enqueue_script('jquery-ui-sortable');
         wp_enqueue_style('wp-color-picker');
@@ -3539,18 +3539,18 @@ add_action('wp_enqueue_media', function () {
     wp_enqueue_script('media-audiovideo');
 });
 
-// Simple test admin page
-add_action("admin_menu", function () {
-    add_menu_page(
-        "Test Slider",
-        "Test Slider",
-        "manage_options",
-        "test-slider",
-        "test_slider_page",
-        "dashicons-images-alt2",
-        26
-    );
-});
+// Commented out - test page no longer needed
+// add_action("admin_menu", function () {
+//     add_menu_page(
+//         "Test Slider",
+//         "Test Slider",
+//         "manage_options",
+//         "test-slider",
+//         "test_slider_page",
+//         "dashicons-images-alt2",
+//         26
+//     );
+// });
 
 function test_slider_page()
 {
@@ -6331,13 +6331,21 @@ function ayam_about_admin_page()
         echo '<div class="notice notice-error is-dismissible"><p><strong>❌ ข้อผิดพลาด!</strong> Security check failed. กรุณาลองใหม่อีกครั้ง</p></div>';
     }
 
-    // Get current data
+    // Get current data (ensure array is returned)
     $company_data = get_option('ayam_company_data', array());
     $timeline_data = get_option('ayam_company_timeline', array());
     $awards_data = get_option('ayam_company_awards', array());
-    $team_data = get_option('ayam_team_members', array());
+    $team_data = get_option('ayam_team_members', false);
     $features_data = get_option('ayam_company_features', array());
     $values_data = get_option('ayam_company_values', array());
+
+    // Ensure all variables are arrays
+    $company_data = is_array($company_data) ? $company_data : array();
+    $timeline_data = is_array($timeline_data) ? $timeline_data : array();
+    $awards_data = is_array($awards_data) ? $awards_data : array();
+    $team_data = is_array($team_data) ? $team_data : array();
+    $features_data = is_array($features_data) ? $features_data : array();
+    $values_data = is_array($values_data) ? $values_data : array();
 
     // Debug output
     echo '<!-- DEBUG: Timeline data count: ' . count($timeline_data) . ' -->';
