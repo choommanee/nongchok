@@ -46,20 +46,20 @@ function ayam_company_info_admin_page() {
     // Handle form submission
     if (isset($_POST['save_company_info']) && check_admin_referer('ayam_company_info_save', 'ayam_company_info_nonce')) {
         ayam_save_company_info($_POST);
-        echo '<div class="notice notice-success"><p>' . __('บันทึกข้อมูลเรียบร้อยแล้ว', 'ayam-bangkok') . '</p></div>';
+        echo '<div class="notice notice-success is-dismissible"><p><strong>✓</strong> ' . __('บันทึกข้อมูลเรียบร้อยแล้ว', 'ayam-bangkok') . '</p></div>';
     }
 
     // Get all company info
     $company_info = $wpdb->get_results("SELECT * FROM $table_name ORDER BY category, sort_order ASC");
 
-    // Group by category
-    $grouped_info = array();
-    foreach ($company_info as $info) {
-        $cat = $info->category ?: 'general';
-        if (!isset($grouped_info[$cat])) {
-            $grouped_info[$cat] = array();
+    // Debug - check if data is loaded
+    if (isset($_GET['debug'])) {
+        echo '<pre style="background: #f0f0f0; padding: 10px; margin: 10px 0;">';
+        echo 'Total records: ' . count($company_info) . "\n";
+        foreach ($company_info as $info) {
+            echo $info->field_key . ' = ' . substr($info->field_value_th, 0, 50) . "...\n";
         }
-        $grouped_info[$cat][] = $info;
+        echo '</pre>';
     }
 
     ?>
@@ -70,174 +70,210 @@ function ayam_company_info_admin_page() {
         <form method="post" action="">
             <?php wp_nonce_field('ayam_company_info_save', 'ayam_company_info_nonce'); ?>
 
-            <div class="ayam-admin-tabs">
-                <nav class="nav-tab-wrapper">
-                    <a href="#general" class="nav-tab nav-tab-active"><?php _e('ข้อมูลทั่วไป', 'ayam-bangkok'); ?></a>
-                    <a href="#about" class="nav-tab"><?php _e('About Us', 'ayam-bangkok'); ?></a>
-                    <a href="#service" class="nav-tab"><?php _e('Service', 'ayam-bangkok'); ?></a>
-                    <a href="#contact" class="nav-tab"><?php _e('Contact', 'ayam-bangkok'); ?></a>
-                </nav>
+            <!-- General Information Section -->
+            <div class="ayam-section">
+                <h2><?php _e('ข้อมูลทั่วไป', 'ayam-bangkok'); ?></h2>
+                <table class="form-table">
+                    <?php
+                    $general_fields = array(
+                        'company_name' => __('ชื่อบริษัท', 'ayam-bangkok'),
+                        'company_description' => __('คำอธิบายบริษัท', 'ayam-bangkok'),
+                        'address' => __('ที่อยู่', 'ayam-bangkok'),
+                        'phone' => __('เบอร์โทรศัพท์', 'ayam-bangkok'),
+                        'email' => __('อีเมล', 'ayam-bangkok'),
+                        'google_map_url' => __('Google Map URL', 'ayam-bangkok'),
+                    );
 
-                <!-- General Tab -->
-                <div id="general" class="tab-content active">
-                    <h2><?php _e('ข้อมูลทั่วไป', 'ayam-bangkok'); ?></h2>
-                    <table class="form-table">
-                        <?php
-                        $general_fields = array(
-                            'company_name' => __('ชื่อบริษัท', 'ayam-bangkok'),
-                            'company_description' => __('คำอธิบายบริษัท', 'ayam-bangkok'),
-                            'address' => __('ที่อยู่', 'ayam-bangkok'),
-                            'phone' => __('เบอร์โทรศัพท์', 'ayam-bangkok'),
-                            'email' => __('อีเมล', 'ayam-bangkok'),
-                            'google_map_url' => __('Google Map URL', 'ayam-bangkok'),
-                        );
-
-                        foreach ($general_fields as $field_key => $field_label) {
-                            $value = ayam_get_company_info_value($field_key, $company_info);
-                            ayam_render_company_info_field($field_key, $field_label, $value);
+                    foreach ($general_fields as $field_key => $field_label) {
+                        $value = ayam_get_company_info_value($field_key, $company_info);
+                        // Debug: Show what value we got
+                        if (isset($_GET['debug']) && !empty($value)) {
+                            echo "<!-- Debug: $field_key = $value -->\n";
                         }
-                        ?>
-                    </table>
-                </div>
+                        $type = in_array($field_key, array('company_description', 'address')) ? 'textarea' : 'text';
+                        ayam_render_company_info_field($field_key, $field_label, $value, $type);
+                    }
+                    ?>
+                </table>
+            </div>
 
-                <!-- About Tab -->
-                <div id="about" class="tab-content">
-                    <h2><?php _e('หน้า About Us', 'ayam-bangkok'); ?></h2>
-                    <table class="form-table">
-                        <?php
-                        $about_fields = array(
-                            'about_description' => __('คำอธิบาย', 'ayam-bangkok'),
-                            'story_text_1' => __('เรื่องราวส่วนที่ 1', 'ayam-bangkok'),
-                            'story_text_2' => __('เรื่องราวส่วนที่ 2', 'ayam-bangkok'),
-                        );
+            <!-- About Us Section -->
+            <div class="ayam-section">
+                <h2><?php _e('หน้า About Us', 'ayam-bangkok'); ?></h2>
+                <table class="form-table">
+                    <?php
+                    $about_fields = array(
+                        'about_description' => __('คำอธิบายเพิ่มเติม (บรรทัดที่ 2)', 'ayam-bangkok'),
+                        'story_text_1' => __('Our Story ส่วนที่ 1', 'ayam-bangkok'),
+                        'story_text_2' => __('Our Story ส่วนที่ 2', 'ayam-bangkok'),
+                    );
 
-                        foreach ($about_fields as $field_key => $field_label) {
-                            $value = ayam_get_company_info_value($field_key, $company_info);
-                            ayam_render_company_info_field($field_key, $field_label, $value, 'textarea');
-                        }
-                        ?>
-                    </table>
-                </div>
+                    foreach ($about_fields as $field_key => $field_label) {
+                        $value = ayam_get_company_info_value($field_key, $company_info);
+                        ayam_render_company_info_field($field_key, $field_label, $value, 'textarea');
+                    }
+                    ?>
+                </table>
+            </div>
 
-                <!-- Service Tab -->
-                <div id="service" class="tab-content">
-                    <h2><?php _e('หน้า Service', 'ayam-bangkok'); ?></h2>
-                    <table class="form-table">
-                        <?php
-                        // Service Hero
-                        echo '<tr><th colspan="2"><h3>' . __('Hero Section', 'ayam-bangkok') . '</h3></th></tr>';
-                        ayam_render_company_info_field('service_hero_subtitle', __('คำบรรยายย่อย', 'ayam-bangkok'), ayam_get_company_info_value('service_hero_subtitle', $company_info));
-                        ayam_render_company_info_field('service_hero_title', __('หัวข้อหลัก', 'ayam-bangkok'), ayam_get_company_info_value('service_hero_title', $company_info));
+            <!-- Service Section -->
+            <div class="ayam-section">
+                <h2><?php _e('หน้า Service', 'ayam-bangkok'); ?></h2>
 
-                        // 3 Services
-                        for ($i = 1; $i <= 3; $i++) {
-                            echo '<tr><th colspan="2"><h3>' . sprintf(__('บริการที่ %d', 'ayam-bangkok'), $i) . '</h3></th></tr>';
-                            ayam_render_company_info_field("service_{$i}_title", __('หัวข้อ', 'ayam-bangkok'), ayam_get_company_info_value("service_{$i}_title", $company_info));
-                            ayam_render_company_info_field("service_{$i}_desc", __('คำอธิบาย', 'ayam-bangkok'), ayam_get_company_info_value("service_{$i}_desc", $company_info), 'textarea');
-                        }
+                <!-- Hero Section -->
+                <h3><?php _e('Hero Section', 'ayam-bangkok'); ?></h3>
+                <table class="form-table">
+                    <?php
+                    ayam_render_company_info_field('service_hero_subtitle', __('คำบรรยายย่อย', 'ayam-bangkok'), ayam_get_company_info_value('service_hero_subtitle', $company_info));
+                    ayam_render_company_info_field('service_hero_title', __('หัวข้อหลัก', 'ayam-bangkok'), ayam_get_company_info_value('service_hero_title', $company_info));
+                    ?>
+                </table>
 
-                        // 2 Videos
-                        for ($i = 1; $i <= 2; $i++) {
-                            echo '<tr><th colspan="2"><h3>' . sprintf(__('วิดีโอที่ %d', 'ayam-bangkok'), $i) . '</h3></th></tr>';
-                            ayam_render_company_info_field("video_{$i}_title", __('หัวข้อ', 'ayam-bangkok'), ayam_get_company_info_value("video_{$i}_title", $company_info));
-                            ayam_render_company_info_field("video_{$i}_desc", __('คำอธิบาย', 'ayam-bangkok'), ayam_get_company_info_value("video_{$i}_desc", $company_info), 'textarea');
-                        }
+                <!-- 3 Services -->
+                <?php for ($i = 1; $i <= 3; $i++) : ?>
+                <h3><?php echo sprintf(__('บริการที่ %d', 'ayam-bangkok'), $i); ?></h3>
+                <table class="form-table">
+                    <?php
+                    ayam_render_company_info_field("service_{$i}_title", __('หัวข้อ', 'ayam-bangkok'), ayam_get_company_info_value("service_{$i}_title", $company_info));
+                    ayam_render_company_info_field("service_{$i}_desc", __('คำอธิบาย', 'ayam-bangkok'), ayam_get_company_info_value("service_{$i}_desc", $company_info), 'textarea');
+                    ?>
+                </table>
+                <?php endfor; ?>
 
-                        // 4 Service Images
-                        echo '<tr><th colspan="2"><h3>' . __('รูปภาพบริการ (4 รูป)', 'ayam-bangkok') . '</h3></th></tr>';
-                        for ($i = 1; $i <= 4; $i++) {
-                            ayam_render_company_info_field("service_image_{$i}", sprintf(__('รูปภาพที่ %d (URL)', 'ayam-bangkok'), $i), ayam_get_company_info_value("service_image_{$i}", $company_info));
-                            ayam_render_image_upload_field("service_image_{$i}", sprintf(__('อัพโหลดรูปภาพที่ %d', 'ayam-bangkok'), $i), ayam_get_company_info_value("service_image_{$i}", $company_info));
-                        }
-                        ?>
-                    </table>
-                </div>
+                <!-- 2 Videos -->
+                <?php for ($i = 1; $i <= 2; $i++) : ?>
+                <h3><?php echo sprintf(__('วิดีโอที่ %d', 'ayam-bangkok'), $i); ?></h3>
+                <table class="form-table">
+                    <?php
+                    ayam_render_company_info_field("video_{$i}_title", __('หัวข้อ', 'ayam-bangkok'), ayam_get_company_info_value("video_{$i}_title", $company_info));
+                    ayam_render_company_info_field("video_{$i}_desc", __('คำอธิบาย', 'ayam-bangkok'), ayam_get_company_info_value("video_{$i}_desc", $company_info), 'textarea');
+                    ?>
+                </table>
+                <?php endfor; ?>
 
-                <!-- Contact Tab -->
-                <div id="contact" class="tab-content">
-                    <h2><?php _e('หน้า Contact', 'ayam-bangkok'); ?></h2>
-                    <table class="form-table">
-                        <?php
-                        $contact_fields = array(
-                            'contact_title' => __('หัวข้อ', 'ayam-bangkok'),
-                            'contact_subtitle' => __('คำบรรยาย', 'ayam-bangkok'),
-                            'contact_address' => __('ที่อยู่', 'ayam-bangkok'),
-                            'contact_phone' => __('เบอร์โทรศัพท์', 'ayam-bangkok'),
-                            'contact_email' => __('อีเมล', 'ayam-bangkok'),
-                        );
+                <!-- 4 Service Images -->
+                <h3><?php _e('รูปภาพบริการ (4 รูป)', 'ayam-bangkok'); ?></h3>
+                <table class="form-table">
+                    <?php for ($i = 1; $i <= 4; $i++) : ?>
+                        <?php ayam_render_image_upload_field("service_image_{$i}", sprintf(__('รูปภาพที่ %d', 'ayam-bangkok'), $i), ayam_get_company_info_value("service_image_{$i}", $company_info)); ?>
+                    <?php endfor; ?>
+                </table>
+            </div>
 
-                        foreach ($contact_fields as $field_key => $field_label) {
-                            $value = ayam_get_company_info_value($field_key, $company_info);
-                            $type = in_array($field_key, array('contact_address')) ? 'textarea' : 'text';
-                            ayam_render_company_info_field($field_key, $field_label, $value, $type);
-                        }
-                        ?>
-                    </table>
-                </div>
+            <!-- Contact Section -->
+            <div class="ayam-section">
+                <h2><?php _e('หน้า Contact', 'ayam-bangkok'); ?></h2>
+                <table class="form-table">
+                    <?php
+                    $contact_fields = array(
+                        'contact_title' => __('หัวข้อ', 'ayam-bangkok'),
+                        'contact_subtitle' => __('คำบรรยาย', 'ayam-bangkok'),
+                        'contact_address' => __('ที่อยู่', 'ayam-bangkok'),
+                        'contact_phone' => __('เบอร์โทรศัพท์', 'ayam-bangkok'),
+                        'contact_email' => __('อีเมล', 'ayam-bangkok'),
+                    );
+
+                    foreach ($contact_fields as $field_key => $field_label) {
+                        $value = ayam_get_company_info_value($field_key, $company_info);
+                        $type = in_array($field_key, array('contact_address', 'contact_subtitle')) ? 'textarea' : 'text';
+                        ayam_render_company_info_field($field_key, $field_label, $value, $type);
+                    }
+                    ?>
+                </table>
             </div>
 
             <p class="submit">
                 <button type="submit" name="save_company_info" class="button button-primary button-large">
-                    <?php _e('บันทึกข้อมูล', 'ayam-bangkok'); ?>
+                    <?php _e('บันทึกข้อมูลทั้งหมด', 'ayam-bangkok'); ?>
                 </button>
             </p>
         </form>
     </div>
 
     <style>
-        .ayam-admin-tabs {
-            margin-top: 20px;
+        .wrap {
+            max-width: 1200px;
         }
-        .nav-tab-wrapper {
-            border-bottom: 1px solid #ccc;
-            margin-bottom: 0;
-        }
-        .tab-content {
-            display: none;
+        .ayam-section {
             background: #fff;
+            border: 1px solid #ccd0d4;
+            border-radius: 4px;
+            margin: 20px 0;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-top: none;
         }
-        .tab-content.active {
-            display: block;
-        }
-        .tab-content h2 {
+        .ayam-section h2 {
             margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            color: #23282d;
         }
-        .tab-content h3 {
-            color: #CA4249;
-            margin-bottom: 10px;
+        .ayam-section h3 {
+            color: #2271b1;
+            margin: 25px 0 15px 0;
+            padding: 10px;
+            background: #f6f7f7;
+            border-left: 4px solid #2271b1;
+        }
+        .form-table {
+            margin-top: 0.5em;
+        }
+        .form-table th {
+            padding: 15px 10px;
+            font-weight: 400;
+            width: 200px;
+        }
+        .form-table td {
+            padding: 15px 10px;
         }
         .form-table textarea {
             width: 100%;
+            max-width: 600px;
             min-height: 100px;
+        }
+        .form-table input[type="text"],
+        .form-table input[type="email"],
+        .form-table input[type="url"] {
+            width: 100%;
+            max-width: 400px;
+        }
+        .ayam-image-preview img {
+            max-width: 300px;
+            height: auto;
+            display: block;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+        p.submit {
+            position: sticky;
+            bottom: 0;
+            background: #f0f0f1;
+            padding: 20px;
+            margin: 20px -20px -20px -20px;
+            border-top: 1px solid #ccd0d4;
+            text-align: left;
+            z-index: 100;
         }
     </style>
 
     <script>
     jQuery(document).ready(function($) {
-        // Tab switching
-        $('.nav-tab').on('click', function(e) {
-            e.preventDefault();
-            var target = $(this).attr('href');
-
-            $('.nav-tab').removeClass('nav-tab-active');
-            $(this).addClass('nav-tab-active');
-
-            $('.tab-content').removeClass('active');
-            $(target).addClass('active');
+        // Smooth scroll to section when clicking on headings
+        $('.ayam-section h2').css('cursor', 'pointer').on('click', function() {
+            var $section = $(this).parent();
+            $section.find('table, h3').slideToggle();
         });
 
         // Image upload
         var mediaUploader;
 
-        $('.ayam-upload-image-button').on('click', function(e) {
+        $(document).on('click', '.ayam-upload-image-button', function(e) {
             e.preventDefault();
             var button = $(this);
             var targetInput = button.data('target');
             var previewDiv = button.data('preview');
 
+            // Reuse media uploader if available
             if (mediaUploader) {
                 mediaUploader.open();
                 return;
@@ -254,14 +290,14 @@ function ayam_company_info_admin_page() {
             mediaUploader.on('select', function() {
                 var attachment = mediaUploader.state().get('selection').first().toJSON();
                 $('#' + targetInput).val(attachment.url);
-                $('#' + previewDiv).html('<img src="' + attachment.url + '" style="max-width: 300px; height: auto; display: block;" />');
+                $('#' + previewDiv).html('<img src="' + attachment.url + '" />');
             });
 
             mediaUploader.open();
         });
 
         // Remove image
-        $('.ayam-remove-image-button').on('click', function(e) {
+        $(document).on('click', '.ayam-remove-image-button', function(e) {
             e.preventDefault();
             var button = $(this);
             var targetInput = button.data('target');
@@ -332,16 +368,28 @@ function ayam_render_image_upload_field($field_key, $label, $value = '') {
         </th>
         <td>
             <div class="ayam-image-upload-wrapper">
-                <input type="hidden" name="company_info[<?php echo esc_attr($field_key); ?>]" id="<?php echo esc_attr($field_key); ?>_url" value="<?php echo esc_attr($image_url); ?>" />
-                <button type="button" class="button ayam-upload-image-button" data-target="<?php echo esc_attr($field_key); ?>_url" data-preview="<?php echo esc_attr($field_key); ?>_preview">
+                <input type="hidden"
+                       name="company_info[<?php echo esc_attr($field_key); ?>]"
+                       id="<?php echo esc_attr($field_key); ?>_url"
+                       value="<?php echo esc_attr($image_url); ?>" />
+
+                <button type="button"
+                        class="button ayam-upload-image-button"
+                        data-target="<?php echo esc_attr($field_key); ?>_url"
+                        data-preview="<?php echo esc_attr($field_key); ?>_preview">
                     <?php _e('เลือกรูปภาพ', 'ayam-bangkok'); ?>
                 </button>
-                <button type="button" class="button ayam-remove-image-button" data-target="<?php echo esc_attr($field_key); ?>_url" data-preview="<?php echo esc_attr($field_key); ?>_preview">
+
+                <button type="button"
+                        class="button ayam-remove-image-button"
+                        data-target="<?php echo esc_attr($field_key); ?>_url"
+                        data-preview="<?php echo esc_attr($field_key); ?>_preview">
                     <?php _e('ลบรูปภาพ', 'ayam-bangkok'); ?>
                 </button>
-                <div id="<?php echo esc_attr($field_key); ?>_preview" class="ayam-image-preview" style="margin-top: 10px;">
+
+                <div id="<?php echo esc_attr($field_key); ?>_preview" class="ayam-image-preview">
                     <?php if ($image_url) : ?>
-                        <img src="<?php echo esc_url($image_url); ?>" style="max-width: 300px; height: auto; display: block;" />
+                        <img src="<?php echo esc_url($image_url); ?>" />
                     <?php endif; ?>
                 </div>
             </div>
@@ -361,53 +409,38 @@ function ayam_save_company_info($post_data) {
     global $wpdb;
     $table_name = $wpdb->prefix . 'ayam_company_info';
 
-    foreach ($post_data['company_info'] as $field_key => $value) {
-        // Check if field exists
+    foreach ($post_data['company_info'] as $field_key => $field_value) {
+        // Check if record exists
         $existing = $wpdb->get_row($wpdb->prepare(
-            "SELECT * FROM $table_name WHERE field_key = %s",
+            "SELECT id FROM $table_name WHERE field_key = %s",
             $field_key
         ));
 
-        $data = array(
-            'field_value_th' => sanitize_textarea_field($value),
-            'field_value_en' => '', // For future use
-            'is_active' => 1,
-        );
-
         if ($existing) {
-            // Update existing
+            // Update existing record
             $wpdb->update(
                 $table_name,
-                $data,
+                array(
+                    'field_value_th' => sanitize_textarea_field($field_value),
+                    'updated_at' => current_time('mysql')
+                ),
                 array('field_key' => $field_key),
-                array('%s', '%s', '%d'),
+                array('%s', '%s'),
                 array('%s')
             );
         } else {
-            // Insert new
-            $data['field_key'] = $field_key;
-            $data['category'] = ayam_get_field_category($field_key);
-            $data['sort_order'] = 0;
-
+            // Insert new record
             $wpdb->insert(
                 $table_name,
-                $data,
-                array('%s', '%s', '%s', '%s', '%d', '%d')
+                array(
+                    'field_key' => $field_key,
+                    'field_value_th' => sanitize_textarea_field($field_value),
+                    'is_active' => 1,
+                    'created_at' => current_time('mysql'),
+                    'updated_at' => current_time('mysql')
+                ),
+                array('%s', '%s', '%d', '%s', '%s')
             );
         }
     }
-}
-
-/**
- * Get field category from field key
- */
-function ayam_get_field_category($field_key) {
-    if (strpos($field_key, 'service_') === 0 || strpos($field_key, 'video_') === 0) {
-        return 'service';
-    } elseif (strpos($field_key, 'about_') === 0 || strpos($field_key, 'story_') === 0) {
-        return 'about';
-    } elseif (strpos($field_key, 'contact_') === 0) {
-        return 'contact';
-    }
-    return 'general';
 }

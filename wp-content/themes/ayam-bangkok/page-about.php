@@ -19,19 +19,14 @@ foreach ($company_info_raw as $info) {
     $company_info[$info->field_key] = $value ?: $info->field_value_th; // Fallback to Thai if English is empty
 }
 
-// Get company description (default text if not in database)
-$company_description_1 = isset($company_info['company_description']) ? $company_info['company_description'] :
-    'ยินดีต้อนรับสู่ธุรกิจของเรา เรามุ่งมั่นที่จะนำเสนอบริการและสินค้าคุณภาพสูงที่สุดให้กับลูกค้า การเดินทางของเราเริ่มต้นจากความหลงใหลในความเป็นเลิศและความมุ่งมั่นในการสร้างความแตกต่างในอุตสาหกรรมของเรา';
+// Get company description (show only if exists in database)
+$company_description_1 = isset($company_info['company_description']) ? $company_info['company_description'] : '';
 
-$company_description_2 = isset($company_info['about_description']) ? $company_info['about_description'] :
-    'ด้วยประสบการณ์หลายปีและทีมผู้เชี่ยวชาญที่ทุ่มเท เรายังคงเติบโตและพัฒนาอย่างต่อเนื่อง โดยมีความต้องการของลูกค้าเป็นหัวใจหลักของทุกสิ่งที่เราทำ';
+$company_description_2 = isset($company_info['about_description']) ? $company_info['about_description'] : '';
 
-// Get story content
-$story_text_1 = isset($company_info['story_text_1']) ? $company_info['story_text_1'] :
-    'เรื่องราวของเราเป็นเรื่องราวของความหลงใหล ความทุ่มเท และการเติบโตอย่างต่อเนื่อง เราเริ่มต้นด้วยวิสัยทัศน์ที่เรียบง่าย: สร้างสรรค์สิ่งที่มีความหมายซึ่งสามารถสร้างความแตกต่างในชีวิตของผู้คน ตลอดหลายปีที่ผ่านมา เราได้พัฒนาและขยายธุรกิจ แต่คุณค่าหลักของเรายังคงเหมือนเดิม';
-
-$story_text_2 = isset($company_info['story_text_2']) ? $company_info['story_text_2'] :
-    'วันนี้เราภูมิใจที่ได้ให้บริการชุมชนของเราด้วยความมุ่งมั่นในความเป็นเลิศเช่นเดียวกับตั้งแต่วันแรก เรื่องราวของเรายังคงถูกเขียนต่อไป และเราขอเชิญคุณมาเป็นส่วนหนึ่งของมัน';
+// Get story content (show only if exists in database)
+$story_text_1 = $company_info['story_text_1'] ?? '';
+$story_text_2 = $company_info['story_text_2'] ?? '';
 
 // Get gallery images from uploads directory
 $upload_dir = wp_upload_dir();
@@ -77,12 +72,16 @@ $google_map_url = isset($company_info['google_map_url']) ? $company_info['google
             <div class="about-hero-grid">
                 <div class="about-hero-content" data-aos="fade-right">
                     <h1 class="about-main-title">About Us</h1>
+                    <?php if (!empty($company_description_1)): ?>
                     <p class="about-intro-text">
                         <?php echo esc_html($company_description_1); ?>
                     </p>
+                    <?php endif; ?>
+                    <?php if (!empty($company_description_2)): ?>
                     <p class="about-intro-text">
                         <?php echo esc_html($company_description_2); ?>
                     </p>
+                    <?php endif; ?>
                 </div>
                 <div class="about-hero-images" data-aos="fade-left">
                     <div class="hero-image-grid">
@@ -111,6 +110,7 @@ $google_map_url = isset($company_info['google_map_url']) ? $company_info['google
     </section>
 
     <!-- Our Story Section with Gallery -->
+    <?php if (!empty($story_text_1) || !empty($story_text_2)): ?>
     <section class="about-story-section">
         <div class="container">
             <div class="section-header-center">
@@ -118,12 +118,16 @@ $google_map_url = isset($company_info['google_map_url']) ? $company_info['google
             </div>
 
             <div class="about-story-content" data-aos="fade-up" data-aos-delay="100">
+                <?php if (!empty($story_text_1)): ?>
                 <p class="story-text">
                     <?php echo esc_html($story_text_1); ?>
                 </p>
+                <?php endif; ?>
+                <?php if (!empty($story_text_2)): ?>
                 <p class="story-text">
                     <?php echo esc_html($story_text_2); ?>
                 </p>
+                <?php endif; ?>
             </div>
 
             <!-- Gallery Grid -->
@@ -145,6 +149,7 @@ $google_map_url = isset($company_info['google_map_url']) ? $company_info['google
             </div>
         </div>
     </section>
+    <?php endif; ?>
 
     <!-- Contact Section -->
     <section class="about-contact-section">
