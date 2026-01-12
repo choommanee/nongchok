@@ -199,7 +199,71 @@ $news_query = new WP_Query($args);
     <section class="news-video-section">
         <div class="news-video-container">
             <h2>Video Content</h2>
-            <!-- Video content will go here in future -->
+
+            <?php
+            // Query posts from "Video" category (create this category first)
+            // Or get posts with video_url custom field
+            $video_args = array(
+                'post_type' => 'ayam_news',
+                'posts_per_page' => 6,
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'ayam_news_category',
+                        'field' => 'slug',
+                        'terms' => 'video', // Category slug "video"
+                    )
+                ),
+                'orderby' => 'date',
+                'order' => 'DESC'
+            );
+
+            $video_query = new WP_Query($video_args);
+
+            if ($video_query->have_posts()): ?>
+                <div class="news-videos-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 30px;">
+                    <?php while ($video_query->have_posts()): $video_query->the_post();
+                        // Try to get video URL from custom field first
+                        $video_url = get_post_meta(get_the_ID(), 'video_url', true);
+
+                        // If no custom field, try to extract from content
+                        if (empty($video_url)) {
+                            $content = get_the_content();
+                            // Find YouTube or Vimeo URLs in content
+                            preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|vimeo\.com\/)([^\s&]+)/', $content, $matches);
+                            if (!empty($matches[0])) {
+                                $video_url = $matches[0];
+                            }
+                        }
+
+                        if ($video_url):
+                    ?>
+                        <div class="news-video-item">
+                            <div class="video-embed" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
+                                <?php
+                                // WordPress auto-embed for YouTube, Vimeo, etc.
+                                $embed = wp_oembed_get($video_url, array('width' => 600));
+                                if ($embed) {
+                                    echo $embed;
+                                } else {
+                                    echo '<p style="color: #fff; text-align: center; padding-top: 50px;">Invalid video URL</p>';
+                                }
+                                ?>
+                            </div>
+                            <h3 style="margin-top: 15px; font-size: 1.1rem; color: #1E2950;"><?php the_title(); ?></h3>
+                        </div>
+                    <?php
+                        endif;
+                    endwhile; ?>
+                </div>
+            <?php else: ?>
+                <p style="text-align: center; color: #999; margin-top: 30px;">
+                    ยังไม่มีวิดีโอในขณะนี้<br>
+                    <small style="font-size: 0.85rem;">สร้างหมวดหมู่ "Video" และเพิ่มโพสต์ข่าวสารในหมวดนี้ หรือเพิ่ม Custom Field "video_url" ในโพสต์</small>
+                </p>
+            <?php endif;
+
+            wp_reset_postdata();
+            ?>
         </div>
     </section>
 

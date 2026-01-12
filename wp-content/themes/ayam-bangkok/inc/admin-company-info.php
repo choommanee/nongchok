@@ -10,17 +10,48 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Add admin menu for Company Info
+ * Add admin menu for Content Management
  */
 function ayam_company_info_admin_menu() {
+    // Main menu - redirect to first submenu
     add_menu_page(
-        __('ข้อมูลบริษัท', 'ayam-bangkok'),
-        __('ข้อมูลบริษัท', 'ayam-bangkok'),
+        __('จัดการคอนเทนต์เว็บ', 'ayam-bangkok'),
+        __('จัดการคอนเทนต์เว็บ', 'ayam-bangkok'),
         'manage_options',
-        'ayam-company-info',
-        'ayam_company_info_admin_page',
-        'dashicons-building',
+        'ayam-about',  // Redirect to About page
+        'ayam_about_admin_page',
+        'dashicons-admin-site-alt3',
         25
+    );
+
+    // Submenu: About Us
+    add_submenu_page(
+        'ayam-about',
+        __('จัดการหน้า About', 'ayam-bangkok'),
+        __('About Us', 'ayam-bangkok'),
+        'manage_options',
+        'ayam-about',
+        'ayam_about_admin_page'
+    );
+
+    // Submenu: Service
+    add_submenu_page(
+        'ayam-about',
+        __('จัดการหน้า Service', 'ayam-bangkok'),
+        __('Service', 'ayam-bangkok'),
+        'manage_options',
+        'ayam-service',
+        'ayam_service_admin_page'
+    );
+
+    // Submenu: Contact
+    add_submenu_page(
+        'ayam-about',
+        __('จัดการหน้า Contact', 'ayam-bangkok'),
+        __('Contact', 'ayam-bangkok'),
+        'manage_options',
+        'ayam-contact',
+        'ayam_contact_admin_page'
     );
 }
 add_action('admin_menu', 'ayam_company_info_admin_menu');
