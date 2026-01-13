@@ -92,17 +92,67 @@ $hero_title = $service_info['service_hero_title'] ?? 'Our Service';
                 <?php for ($i = 1; $i <= 2; $i++):
                     $video_title = $service_info["video_{$i}_title"] ?? '';
                     $video_desc = $service_info["video_{$i}_desc"] ?? '';
-                    if ($video_title):
+                    $video_url = $service_info["video_{$i}_url"] ?? '';
+
+                    if ($video_title && $video_url):
+                        // Extract video ID and get thumbnail
+                        $thumbnail_url = '';
+                        $video_id = '';
+
+                        // YouTube
+                        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $video_url, $matches)) {
+                            $video_id = $matches[1];
+                            $thumbnail_url = "https://img.youtube.com/vi/{$video_id}/maxresdefault.jpg";
+                        }
+                        // Vimeo
+                        elseif (preg_match('/vimeo\.com\/(\d+)/', $video_url, $matches)) {
+                            $video_id = $matches[1];
+                            // Get Vimeo thumbnail via API
+                            $vimeo_data = @file_get_contents("https://vimeo.com/api/v2/video/{$video_id}.json");
+                            if ($vimeo_data) {
+                                $vimeo_json = json_decode($vimeo_data);
+                                $thumbnail_url = $vimeo_json[0]->thumbnail_large ?? '';
+                            }
+                        }
                 ?>
                 <div class="service-video-item">
-                    <div class="service-video-placeholder">
-                        <div class="service-video-play">
-                            <i class="fas fa-play"></i>
+                    <div class="service-video-thumbnail" style="position: relative; cursor: pointer;" onclick="playVideo<?php echo $i; ?>(this)">
+                        <?php if ($thumbnail_url): ?>
+                            <img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php echo esc_attr($video_title); ?>" style="width: 100%; display: block;">
+                        <?php endif; ?>
+                        <div class="service-video-play" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-play" style="font-size: 30px; color: #ca4249; margin-left: 5px;"></i>
                         </div>
-                        <span class="service-video-time">00:<?php echo 20 + ($i * 3); ?></span>
                     </div>
-                    <h3 class="service-video-title"><?php echo esc_html($video_title); ?></h3>
+                    <div class="service-video-player" id="player<?php echo $i; ?>" style="display: none; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+                    </div>
+                    <h3 class="service-video-title" style="margin-top: 15px;"><?php echo esc_html($video_title); ?></h3>
+                    <?php if ($video_desc): ?>
                     <p class="service-video-desc"><?php echo esc_html($video_desc); ?></p>
+                    <?php endif; ?>
+
+                    <script>
+                    function playVideo<?php echo $i; ?>(element) {
+                        var thumbnail = element;
+                        var player = document.getElementById('player<?php echo $i; ?>');
+                        var iframe = document.createElement('iframe');
+
+                        iframe.setAttribute('src', '<?php echo esc_js(str_replace('watch?v=', 'embed/', $video_url) . '?autoplay=1'); ?>');
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('allowfullscreen', '1');
+                        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                        iframe.style.position = 'absolute';
+                        iframe.style.top = '0';
+                        iframe.style.left = '0';
+                        iframe.style.width = '100%';
+                        iframe.style.height = '100%';
+
+                        player.querySelector('div').appendChild(iframe);
+                        thumbnail.style.display = 'none';
+                        player.style.display = 'block';
+                    }
+                    </script>
                 </div>
                 <?php endif; endfor; ?>
             </div>
