@@ -199,23 +199,18 @@ get_header(); ?>
 
             <div class="gallery-circle-grid" data-aos="fade-up" data-aos-delay="100">
                 <?php
-                // Get first image of each category (5 categories)
+                // Get images only from BTS category
                 global $wpdb;
                 $images_table = $wpdb->prefix . 'gallery_images';
                 $categories_table = $wpdb->prefix . 'gallery_categories';
 
-                // Get first image of each category
+                // Get 5 images from all BTS-related categories
                 $gallery_images = $wpdb->get_results("
                     SELECT i.image_url, i.thumbnail_url, c.category_number, c.category_name
                     FROM {$images_table} i
                     INNER JOIN {$categories_table} c ON i.category_id = c.id
-                    INNER JOIN (
-                        SELECT category_id, MIN(sort_order) as min_order
-                        FROM {$images_table}
-                        GROUP BY category_id
-                    ) first_img ON i.category_id = first_img.category_id
-                        AND i.sort_order = first_img.min_order
-                    ORDER BY c.category_number ASC
+                    WHERE LOWER(c.category_number) LIKE '%bts%'
+                    ORDER BY c.category_number ASC, i.sort_order ASC
                     LIMIT 5
                 ");
 
@@ -228,20 +223,34 @@ get_header(); ?>
                         }
                 ?>
                     <div class="gallery-circle-item">
-                        <a href="<?php echo esc_url(home_url('/gallery/?category=' . $img->category_number)); ?>" title="<?php echo esc_attr($img->category_name); ?>">
+                        <a href="<?php echo esc_url(home_url('/gallery/?category=bts')); ?>" title="View BTS Gallery">
                             <div class="circle-image">
-                                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($img->category_name); ?>">
+                                <img src="<?php echo esc_url($image_url); ?>" alt="BTS Gallery">
                             </div>
                         </a>
                     </div>
                 <?php
                     endforeach;
+
+                    // If less than 5 images, add placeholders
+                    $remaining = 5 - count($gallery_images);
+                    for ($i = 0; $i < $remaining; $i++) :
+                ?>
+                    <div class="gallery-circle-item">
+                        <a href="<?php echo esc_url(home_url('/gallery/?category=bts')); ?>">
+                            <div class="circle-image circle-placeholder">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </a>
+                    </div>
+                <?php
+                    endfor;
                 else :
-                    // Fallback with rooster icon
+                    // Fallback with placeholders if no BTS images
                     for ($i = 1; $i <= 5; $i++) :
                 ?>
                     <div class="gallery-circle-item">
-                        <a href="<?php echo esc_url(home_url('/gallery')); ?>">
+                        <a href="<?php echo esc_url(home_url('/gallery/?category=bts')); ?>">
                             <div class="circle-image circle-placeholder">
                                 <i class="fas fa-image"></i>
                             </div>
