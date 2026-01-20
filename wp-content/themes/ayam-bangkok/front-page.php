@@ -328,11 +328,27 @@ get_header(); ?>
                         if (has_post_thumbnail()) {
                             $image_url = get_the_post_thumbnail_url(get_the_ID(), 'medium');
                         } else {
-                            // Try to get first image from content
                             $content = get_the_content();
-                            preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
-                            if (!empty($matches[1])) {
-                                $image_url = $matches[1];
+                            
+                            // Try to get YouTube thumbnail from embed
+                            $youtube_id = '';
+                            if (preg_match('/youtube\.com\/embed\/([^\"\'\?&]+)/i', $content, $yt_matches)) {
+                                $youtube_id = $yt_matches[1];
+                            } elseif (preg_match('/youtube\.com\/watch\?v=([^\"\'\?&]+)/i', $content, $yt_matches)) {
+                                $youtube_id = $yt_matches[1];
+                            } elseif (preg_match('/youtu\.be\/([^\"\'\?&]+)/i', $content, $yt_matches)) {
+                                $youtube_id = $yt_matches[1];
+                            }
+                            
+                            if ($youtube_id) {
+                                // Use high quality YouTube thumbnail
+                                $image_url = 'https://img.youtube.com/vi/' . $youtube_id . '/maxresdefault.jpg';
+                            } else {
+                                // Try to get first image from content
+                                preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+                                if (!empty($matches[1])) {
+                                    $image_url = $matches[1];
+                                }
                             }
                         }
                 ?>
