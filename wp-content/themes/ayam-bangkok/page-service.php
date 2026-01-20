@@ -217,18 +217,51 @@ $hero_title = $service_info['service_hero_title'] ?? 'Our Service';
         <div class="service-container">
             <div class="service-contact-grid">
                 <div class="service-contact-left">
-                    <h2 class="service-contact-title">Get in touch with any questions</h2>
+                    <?php
+                    // Get contact info from Customizer or Company Info
+                    $contact_title = get_theme_mod('contact_title', 'Get in touch with<br>any questions');
+                    $contact_address = get_theme_mod('contact_address', get_option('ayam_company_address', 'ถนน พุทธบูชา 11 ตำบลโคกเจริญ แขวงหนองจอก เขตหนองจอก<br>Nong Chok, Thailand, Bangkok'));
+                    $contact_phone = get_theme_mod('contact_phone', get_option('ayam_company_phone', '089-091-4664'));
+                    $contact_email = get_theme_mod('contact_email', get_option('ayam_company_email', ''));
+                    $contact_line = get_theme_mod('contact_line', get_option('ayam_company_line', '0644181961'));
+                    $contact_whatsapp = get_theme_mod('contact_whatsapp', get_option('ayam_company_whatsapp', '0644181961'));
+                    ?>
+                    <h2 class="service-contact-title"><?php echo wp_kses_post($contact_title); ?></h2>
 
+                    <?php if ($contact_address) : ?>
                     <div class="service-contact-info">
                         <h4>Address</h4>
-                        <p>13/5 หมู่ที่ 11 ซอยวัดใหม่จริยาภิรมย์ แขวงคลองสิบสอง เขตหนองจอก กรุงเทพมหานคร,<br>Nong Chok, Thailand, Bangkok</p>
+                        <p><?php echo wp_kses_post($contact_address); ?></p>
                     </div>
+                    <?php endif; ?>
 
+                    <?php if ($contact_phone || $contact_email) : ?>
                     <div class="service-contact-info">
                         <h4>Contact</h4>
-                        <p><?php echo isset($contact_info['phone']) ? esc_html($contact_info['phone']) : '123-456-7890'; ?><br>
-                        <?php echo isset($contact_info['email']) ? esc_html($contact_info['email']) : 'info@mysite.com'; ?></p>
+                        <p>
+                            <?php if ($contact_phone) : ?>
+                                <?php echo esc_html($contact_phone); ?><br>
+                            <?php endif; ?>
+                            <?php if ($contact_email) : ?>
+                                <?php echo esc_html($contact_email); ?>
+                            <?php endif; ?>
+                        </p>
                     </div>
+                    <?php endif; ?>
+
+                    <?php if ($contact_line) : ?>
+                    <div class="service-contact-info">
+                        <h4>Line ID</h4>
+                        <p><?php echo esc_html($contact_line); ?></p>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if ($contact_whatsapp) : ?>
+                    <div class="service-contact-info">
+                        <h4>WhatsApp</h4>
+                        <p><a href="https://wa.me/66<?php echo esc_attr(ltrim($contact_whatsapp, '0')); ?>" target="_blank"><?php echo esc_html($contact_whatsapp); ?></a></p>
+                    </div>
+                    <?php endif; ?>
 
                     <div class="service-social">
                         <a href="#" class="service-social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -237,7 +270,10 @@ $hero_title = $service_info['service_hero_title'] ?? 'Our Service';
                 </div>
 
                 <div class="service-contact-right">
-                    <p class="service-form-subtitle">Please fill out the form:</p>
+                    <?php
+                    $form_title = get_theme_mod('contact_form_title', 'Please fill out the form:');
+                    ?>
+                    <p class="service-form-subtitle"><?php echo esc_html($form_title); ?></p>
                     <form class="service-contact-form">
                         <div class="service-form-row">
                             <div class="service-form-group">
