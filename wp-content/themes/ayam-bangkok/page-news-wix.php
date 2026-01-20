@@ -7,51 +7,46 @@
 
 get_header();
 
-// Query news posts excluding video category
-$args = array(
+// Query all news posts first
+$all_news_args = array(
     'post_type' => 'ayam_news',
-    'posts_per_page' => 8,
+    'posts_per_page' => -1,
     'orderby' => 'date',
-    'order' => 'DESC',
-    'tax_query' => array(
-        array(
-            'taxonomy' => 'ayam_news_category',
-            'field' => 'slug',
-            'terms' => 'video',
-            'operator' => 'NOT IN' // Exclude video category
-        )
-    ),
-    'meta_query' => array(
-        'relation' => 'AND',
-        array(
-            'relation' => 'OR',
-            array(
-                'key' => 'video_url',
-                'compare' => 'NOT EXISTS'
-            ),
-            array(
-                'key' => 'video_url',
-                'value' => '',
-                'compare' => '='
-            )
-        ),
-        array(
-            'relation' => 'OR',
-            array(
-                'key' => 'video_embed',
-                'compare' => 'NOT EXISTS'
-            ),
-            array(
-                'key' => 'video_embed',
-                'value' => '',
-                'compare' => '='
-            )
-        )
-    )
+    'order' => 'DESC'
 );
 
-$news_query = new WP_Query($args);
+$all_news = new WP_Query($all_news_args);
 
+// Separate news and videos
+$news_posts = array();
+$video_posts = array();
+
+if ($all_news->have_posts()) {
+    while ($all_news->have_posts()) {
+        $all_news->the_post();
+        $content = get_the_content();
+        
+        // Check if content has YouTube or Vimeo URL
+        $has_video = (
+            strpos($content, 'youtube.com') !== false || 
+            strpos($content, 'youtu.be') !== false || 
+            strpos($content, 'vimeo.com') !== false ||
+            get_post_meta(get_the_ID(), 'video_url', true) ||
+            get_post_meta(get_the_ID(), 'video_embed', true)
+        );
+        
+        if ($has_video) {
+            $video_posts[] = get_post();
+        } else {
+            $news_posts[] = get_post();
+        }
+    }
+    wp_reset_postdata();
+}
+
+// Limit to 8 posts each
+$news_posts = array_slice($news_posts, 0, 8);
+$video_posts = array_slice($video_posts, 0, 8);
 ?>
 
 <style>
@@ -498,16 +493,40 @@ $news_query = new WP_Query($args);
     <!-- Articles Grid -->
     <section class="news-articles-section">
         <div class="news-articles-container">
-            <?php if ($news_query->have_posts()): ?>
+            <?php if (!empty($news_posts)): ?>
                 <div class="news-articles-grid">
-                    <?php
-                    while ($news_query->have_posts()) :
-                        $news_query->the_post();
+                    <?php foreach ($news_posts as $post): setup_postdata($post); 
+                        // Get image from featured image or content
+                        $image_url = '';
+                        if (has_post_thumbnail()) {
+                            $image_url = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                        } else {
+                            $content = get_the_content();
+                            
+                            // Try to get YouTube thumbnail
+                            $youtube_id = '';
+                            if (preg_match('/youtube\.com\/embed\/([^\"\'\?&]+)/i', $content, $yt_matches)) {
+                                $youtube_id = $yt_matches[1];
+                            } elseif (preg_match('/youtube\.com\/watch\?v=([^\"\'\?&]+)/i', $content, $yt_matches)) {
+                                $youtube_id = $yt_matches[1];
+                            } elseif (preg_match('/youtu\.be\/([^\"\'\?&]+)/i', $content, $yt_matches)) {
+                                $youtube_id = $yt_matches[1];
+                            }
+                            
+                            if ($youtube_id) {
+                                $image_url = 'https://img.youtube.com/vi/' . $youtube_id . '/maxresdefault.jpg';
+                            } else {
+                                // Try to get first image from content
+                                if (preg_match('/<img[^>]+src=["\']([^"\']+)["\'][^>]*>/i', $content, $img_matches)) {
+                                    $image_url = $img_matches[1];
+                                }
+                            }
+                        }
                     ?>
                         <a href="<?php the_permalink(); ?>" class="news-article-card">
                             <div class="news-article-image">
-                                <?php if (has_post_thumbnail()): ?>
-                                    <?php the_post_thumbnail('large'); ?>
+                                <?php if ($image_url): ?>
+                                    <img src="<?php echo esc_url($image_url); ?>" alt="<?php the_title_attribute(); ?>">
                                 <?php else: ?>
                                     <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
                                 <?php endif; ?>
@@ -516,16 +535,14 @@ $news_query = new WP_Query($args);
                                 <h3 class="news-article-title"><?php the_title(); ?></h3>
                             </div>
                         </a>
-                    <?php endwhile; ?>
+                    <?php endforeach; wp_reset_postdata(); ?>
                 </div>
 
             <?php else: ?>
-                <div style="text-align: center; padding: 60px 20px; color: #fff;">
+                <div style="text-align: center; padding: 60px 20px; color: #666;">
                     <p>ยังไม่มีข่าวสารในขณะนี้</p>
                 </div>
             <?php endif; ?>
-
-            <?php wp_reset_postdata(); ?>
         </div>
     </section>
 
@@ -534,65 +551,12 @@ $news_query = new WP_Query($args);
         <div class="news-video-container">
             <h2>Video Content</h2>
 
-            <?php
-            // Get current page for pagination
-            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-            // Query posts from "Video" category or posts with video_url
-            $video_args = array(
-                'post_type' => 'ayam_news',
-                'posts_per_page' => 8, // 4x2 grid = 8 videos per page
-                'paged' => $paged,
-                'meta_query' => array(
-                    'relation' => 'OR',
-                    array(
-                        'key' => 'video_url',
-                        'compare' => 'EXISTS'
-                    ),
-                    array(
-                        'key' => 'video_embed',
-                        'compare' => 'EXISTS'
-                    ),
-                    array(
-                        'key' => 'video_url',
-                        'value' => '',
-                        'compare' => '!='
-                    )
-                ),
-                'orderby' => 'date',
-                'order' => 'DESC'
-            );
-
-            // Alternative: Query by category
-            $video_args_alt = array(
-                'post_type' => 'ayam_news',
-                'posts_per_page' => 8,
-                'paged' => $paged,
-                'tax_query' => array(
-                    array(
-                        'taxonomy' => 'ayam_news_category',
-                        'field' => 'slug',
-                        'terms' => 'video',
-                    )
-                ),
-                'orderby' => 'date',
-                'order' => 'DESC'
-            );
-
-            // First try to get posts with video meta
-            $video_query = new WP_Query($video_args);
-
-            // If no posts with video meta, try category
-            if (!$video_query->have_posts()) {
-                $video_query = new WP_Query($video_args_alt);
-            }
-
-            if ($video_query->have_posts()): ?>
+            <?php if (!empty($video_posts)): ?>
                 <div class="news-videos-grid">
                     <?php
                     $video_count = 0;
-                    while ($video_query->have_posts() && $video_count < 8):
-                        $video_query->the_post();
+                    foreach ($video_posts as $post):
+                        setup_postdata($post);
 
                         // Get video URL from multiple possible sources
                         $video_url = get_post_meta(get_the_ID(), 'video_url', true);
@@ -677,7 +641,9 @@ $news_query = new WP_Query($args);
                         </div>
                     <?php
                         endif;
-                    endwhile;
+                        $video_count++;
+                    endforeach;
+                    wp_reset_postdata();
 
                     // Add placeholder items if less than 8 videos
                     for ($i = $video_count; $i < 8; $i++): ?>
@@ -691,35 +657,11 @@ $news_query = new WP_Query($args);
                     <?php endfor; ?>
                 </div>
 
-                <?php
-                // Add pagination if there are more than 8 videos
-                if ($video_query->max_num_pages > 1): ?>
-                    <div class="video-pagination">
-                        <?php
-                        echo paginate_links(array(
-                            'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
-                            'format' => '?paged=%#%',
-                            'current' => max(1, $paged),
-                            'total' => $video_query->max_num_pages,
-                            'prev_text' => '← Previous',
-                            'next_text' => 'Next →',
-                            'type' => 'list',
-                            'mid_size' => 2,
-                            'end_size' => 1
-                        ));
-                        ?>
-                    </div>
-                <?php endif; ?>
-
             <?php else: ?>
                 <div class="video-grid-empty">
                     <p>ยังไม่มีวิดีโอในขณะนี้</p>
-                    <small>เพิ่มวิดีโอโดยใส่ URL วิดีโอใน Custom Field "video_url" หรือสร้างหมวดหมู่ "video" สำหรับข่าวที่มีวิดีโอ</small>
                 </div>
-            <?php endif;
-
-            wp_reset_postdata();
-            ?>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -736,17 +678,51 @@ $news_query = new WP_Query($args);
         <div class="service-container">
             <div class="service-contact-grid">
                 <div class="service-contact-left">
-                    <h2 class="service-contact-title">Get in touch with any questions</h2>
+                    <?php
+                    // Get contact info from Customizer or Company Info
+                    $contact_title = get_theme_mod('contact_title', 'Get in touch with<br>any questions');
+                    $contact_address = get_theme_mod('contact_address', get_option('ayam_company_address', 'ถนน พุทธบูชา 11 ตำบลโคกเจริญ แขวงหนองจอก เขตหนองจอก<br>Nong Chok, Thailand, Bangkok'));
+                    $contact_phone = get_theme_mod('contact_phone', get_option('ayam_company_phone', '089-091-4664'));
+                    $contact_email = get_theme_mod('contact_email', get_option('ayam_company_email', ''));
+                    $contact_line = get_theme_mod('contact_line', get_option('ayam_company_line', '0644181961'));
+                    $contact_whatsapp = get_theme_mod('contact_whatsapp', get_option('ayam_company_whatsapp', '0644181961'));
+                    ?>
+                    <h2 class="service-contact-title"><?php echo wp_kses_post($contact_title); ?></h2>
 
+                    <?php if ($contact_address) : ?>
                     <div class="service-contact-info">
                         <h4>Address</h4>
-                        <p>13/5 หมู่ที่ 11 ซอยวัดใหม่จริยาภิรมย์ แขวงคลองสิบสอง เขตหนองจอก กรุงเทพมหานคร,<br>Nong Chok, Thailand, Bangkok</p>
+                        <p><?php echo wp_kses_post($contact_address); ?></p>
                     </div>
+                    <?php endif; ?>
 
+                    <?php if ($contact_phone || $contact_email) : ?>
                     <div class="service-contact-info">
                         <h4>Contact</h4>
-                        <p>123-456-7890<br>info@mysite.com</p>
+                        <p>
+                            <?php if ($contact_phone) : ?>
+                                <?php echo esc_html($contact_phone); ?><br>
+                            <?php endif; ?>
+                            <?php if ($contact_email) : ?>
+                                <?php echo esc_html($contact_email); ?>
+                            <?php endif; ?>
+                        </p>
                     </div>
+                    <?php endif; ?>
+
+                    <?php if ($contact_line) : ?>
+                    <div class="service-contact-info">
+                        <h4>Line ID</h4>
+                        <p><?php echo esc_html($contact_line); ?></p>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if ($contact_whatsapp) : ?>
+                    <div class="service-contact-info">
+                        <h4>WhatsApp</h4>
+                        <p><a href="https://wa.me/66<?php echo esc_attr(ltrim($contact_whatsapp, '0')); ?>" target="_blank"><?php echo esc_html($contact_whatsapp); ?></a></p>
+                    </div>
+                    <?php endif; ?>
 
                     <div class="service-social">
                         <a href="#" class="service-social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -755,7 +731,10 @@ $news_query = new WP_Query($args);
                 </div>
 
                 <div class="service-contact-right">
-                    <p class="service-form-subtitle">Please fill out the form:</p>
+                    <?php
+                    $form_title = get_theme_mod('contact_form_title', 'Please fill out the form:');
+                    ?>
+                    <p class="service-form-subtitle"><?php echo esc_html($form_title); ?></p>
                     <form class="service-contact-form">
                         <div class="service-form-row">
                             <div class="service-form-group">

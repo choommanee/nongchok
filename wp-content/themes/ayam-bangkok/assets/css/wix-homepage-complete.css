@@ -149,12 +149,12 @@
 
 body.home,
 body.page-about {
-    font-family: 'Inter', Arial, sans-serif !important;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
-body.home *,
-body.page-about * {
-    font-family: 'Inter', Arial, sans-serif !important;
+body.home *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]),
+body.page-about *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]) {
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 .wix-menu {

@@ -282,8 +282,8 @@
 
 /* Override fonts to match Wix */
 .wix-service-page,
-.wix-service-page * {
-    font-family: 'Inter', Arial, sans-serif !important;
+.wix-service-page *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]) {
+    font-family: 'Inter', Arial, sans-serif ;
 }
 
 .service-hero-subtitle {
@@ -329,24 +329,23 @@
 /* Force Avenir font to match Wix design - Override ALL fonts including wix-homepage-complete.css */
 
 /* Highest priority - override everything - Works for both Service and News pages */
-.page-service *,
-.page-service * *,
-.page-news-1 *,
-.page-news-1 * *,
-html body.page-service *,
-html body.page-service * *,
-html body.page-news-1 *,
-html body.page-news-1 * *,
-body.page-service *,
+/* Exclude Font Awesome icons from font override */
+.page-service *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]),
+.page-service,
+.page-news-1 *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]),
+.page-news-1,
+html body.page-service *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]),
+html body.page-news-1 *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]),
+body.page-service *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]),
 body.page-service,
-body.page-news-1 *,
+body.page-news-1 *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]),
 body.page-news-1,
-.wix-service-page *,
+.wix-service-page *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]),
 .wix-service-page {
-    font-family: 'Inter', Arial, sans-serif !important;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
-/* Override specific elements */
+/* Override specific elements - exclude Font Awesome */
 .page-service h1,
 .page-news-1 h1,
 .page-service h2,
@@ -355,21 +354,15 @@ body.page-news-1,
 .page-service h5,
 .page-service h6,
 .page-service p,
-.page-service span,
-.page-service div,
+.page-service span:not(.fa):not(.fas):not(.far):not(.fab):not([class*="fa-"]),
+.page-service div:not(.fa):not(.fas):not(.far):not(.fab):not([class*="fa-"]),
 .page-service a,
 .page-service li,
 .page-service button,
 .page-service input,
 .page-service textarea,
-.page-service label,
-.page-service .service-hero *,
-.page-service .service-exports *,
-.page-service .service-videos *,
-.page-service .service-contact *,
-.page-service .site-footer *,
-.page-service .wix-header * {
-    font-family: 'Inter', Arial, sans-serif !important;
+.page-service label {
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 /* News Video Gallery Grid - Additional styles for News page */

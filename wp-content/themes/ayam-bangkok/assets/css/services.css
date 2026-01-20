@@ -41,7 +41,6 @@
 .service-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #CA4249 0%, #e85d64 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
