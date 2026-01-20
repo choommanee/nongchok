@@ -203,6 +203,32 @@ function ayam_bangkok_customize_register( $wp_customize ) {
         ) );
     }
 
+    // Service Background YouTube Video
+    $wp_customize->add_setting( 'service_bg_youtube', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+
+    $wp_customize->add_control( 'service_bg_youtube', array(
+        'label'       => __( 'YouTube URL พื้นหลังบริการ', 'ayam-bangkok' ),
+        'section'     => 'services_section',
+        'type'        => 'url',
+        'description' => __( 'ใส่ URL ของวิดีโอ YouTube (เช่น https://www.youtube.com/watch?v=xxxxx)', 'ayam-bangkok' ),
+    ) );
+
+    // Service Background Image (Fallback)
+    $wp_customize->add_setting( 'service_bg_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'absint',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'service_bg_image', array(
+        'label'       => __( 'รูปภาพพื้นหลังบริการ (สำรอง)', 'ayam-bangkok' ),
+        'section'     => 'services_section',
+        'mime_type'   => 'image',
+        'description' => __( 'รูปภาพสำรองถ้าไม่มีวิดีโอ หรือใช้เป็น fallback ในแท็ก video', 'ayam-bangkok' ),
+    ) ) );
+
     // Stats Section
     $wp_customize->add_section( 'stats_section', array(
         'title'    => __( 'ส่วนสถิติ', 'ayam-bangkok' ),

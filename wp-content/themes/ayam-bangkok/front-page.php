@@ -183,9 +183,44 @@ get_header(); ?>
                 </div>
             </div>
             
-            <!-- Plane Background Image -->
+            <!-- Plane Background Video/Image -->
             <div class="service-bg-image" data-aos="fade-up" data-aos-delay="200">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/plane-bg.jpg" alt="Plane">
+                <?php
+                $service_bg_youtube = get_theme_mod('service_bg_youtube');
+                $service_bg_image = get_theme_mod('service_bg_image');
+                
+                if ($service_bg_youtube) :
+                    // Display YouTube video if set
+                    // Convert YouTube URL to embed format
+                    $youtube_id = '';
+                    if (preg_match('/youtube\.com\/watch\?v=([^\&\?\/]+)/', $service_bg_youtube, $id)) {
+                        $youtube_id = $id[1];
+                    } elseif (preg_match('/youtube\.com\/embed\/([^\&\?\/]+)/', $service_bg_youtube, $id)) {
+                        $youtube_id = $id[1];
+                    } elseif (preg_match('/youtu\.be\/([^\&\?\/]+)/', $service_bg_youtube, $id)) {
+                        $youtube_id = $id[1];
+                    }
+                    
+                    if ($youtube_id) :
+                ?>
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/<?php echo esc_attr($youtube_id); ?>?autoplay=1&mute=1&loop=1&playlist=<?php echo esc_attr($youtube_id); ?>&controls=0&showinfo=0&rel=0&modestbranding=1" 
+                            frameborder="0" 
+                            allow="autoplay; encrypted-media" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                <?php 
+                    endif;
+                elseif ($service_bg_image) :
+                    // Display custom image if no video
+                ?>
+                    <img src="<?php echo esc_url(wp_get_attachment_url($service_bg_image)); ?>" alt="Plane">
+                <?php else : ?>
+                    <!-- Default fallback image -->
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/plane-bg.jpg" alt="Plane">
+                <?php endif; ?>
             </div>
         </div>
     </section>
