@@ -234,17 +234,17 @@ get_header(); ?>
 
             <div class="gallery-circle-grid" data-aos="fade-up" data-aos-delay="100">
                 <?php
-                // Get images only from BTS category
+                // Get images excluding BTS category
                 global $wpdb;
                 $images_table = $wpdb->prefix . 'gallery_images';
                 $categories_table = $wpdb->prefix . 'gallery_categories';
 
-                // Get 5 images from all BTS-related categories
+                // Get 5 images from all categories except BTS
                 $gallery_images = $wpdb->get_results("
                     SELECT i.image_url, i.thumbnail_url, c.category_number, c.category_name
                     FROM {$images_table} i
                     INNER JOIN {$categories_table} c ON i.category_id = c.id
-                    WHERE LOWER(c.category_number) LIKE '%bts%'
+                    WHERE LOWER(c.category_number) NOT LIKE '%bts%'
                     ORDER BY c.category_number ASC, i.sort_order ASC
                     LIMIT 5
                 ");
@@ -258,9 +258,9 @@ get_header(); ?>
                         }
                 ?>
                     <div class="gallery-circle-item">
-                        <a href="<?php echo esc_url(home_url('/gallery/?category=bts')); ?>" title="View BTS Gallery">
+                        <a href="<?php echo esc_url(home_url('/gallery/')); ?>" title="View Gallery">
                             <div class="circle-image">
-                                <img src="<?php echo esc_url($image_url); ?>" alt="BTS Gallery">
+                                <img src="<?php echo esc_url($image_url); ?>" alt="Gallery">
                             </div>
                         </a>
                     </div>
@@ -272,7 +272,7 @@ get_header(); ?>
                     for ($i = 0; $i < $remaining; $i++) :
                 ?>
                     <div class="gallery-circle-item">
-                        <a href="<?php echo esc_url(home_url('/gallery/?category=bts')); ?>">
+                        <a href="<?php echo esc_url(home_url('/gallery/')); ?>">
                             <div class="circle-image circle-placeholder">
                                 <i class="fas fa-image"></i>
                             </div>
@@ -281,11 +281,11 @@ get_header(); ?>
                 <?php
                     endfor;
                 else :
-                    // Fallback with placeholders if no BTS images
+                    // Fallback with placeholders if no images
                     for ($i = 1; $i <= 5; $i++) :
                 ?>
                     <div class="gallery-circle-item">
-                        <a href="<?php echo esc_url(home_url('/gallery/?category=bts')); ?>">
+                        <a href="<?php echo esc_url(home_url('/gallery/')); ?>">
                             <div class="circle-image circle-placeholder">
                                 <i class="fas fa-image"></i>
                             </div>
@@ -322,12 +322,25 @@ get_header(); ?>
                         if (empty($excerpt)) {
                             $excerpt = wp_trim_words(get_the_content(), 30, '...');
                         }
+                        
+                        // Get image from content if no featured image
+                        $image_url = '';
+                        if (has_post_thumbnail()) {
+                            $image_url = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                        } else {
+                            // Try to get first image from content
+                            $content = get_the_content();
+                            preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+                            if (!empty($matches[1])) {
+                                $image_url = $matches[1];
+                            }
+                        }
                 ?>
                     <div class="news-video-item">
                         <a href="<?php the_permalink(); ?>" style="text-decoration: none; color: inherit;">
                             <div class="news-video-thumbnail">
-                                <?php if (has_post_thumbnail()) : ?>
-                                    <?php the_post_thumbnail('medium'); ?>
+                                <?php if ($image_url) : ?>
+                                    <img src="<?php echo esc_url($image_url); ?>" alt="<?php the_title_attribute(); ?>">
                                 <?php else : ?>
                                     <div class="news-placeholder">
                                         <i class="fas fa-newspaper"></i>
