@@ -9,14 +9,17 @@ get_header();
 // Get service information from database
 global $wpdb;
 $company_info_table = $wpdb->prefix . 'ayam_company_info';
-$service_info_raw = $wpdb->get_results("SELECT * FROM $company_info_table WHERE category = 'service' AND is_active = 1 ORDER BY sort_order ASC");
+$service_info_raw = $wpdb->get_results("SELECT * FROM $company_info_table WHERE (category = 'service' OR category = 'general') AND is_active = 1 ORDER BY sort_order ASC");
 
 // Convert to associative array
 $service_info = array();
 foreach ($service_info_raw as $info) {
-    $lang = (function_exists('pll_current_language') && pll_current_language() == 'en') ? 'en' : 'th';
-    $value = $lang == 'en' ? $info->field_value_en : $info->field_value_th;
-    $service_info[$info->field_key] = $value ?: $info->field_value_th;
+    // Only process service-related fields
+    if (strpos($info->field_key, 'service_') === 0 || strpos($info->field_key, 'video_') === 0) {
+        $lang = (function_exists('pll_current_language') && pll_current_language() == 'en') ? 'en' : 'th';
+        $value = $lang == 'en' ? $info->field_value_en : $info->field_value_th;
+        $service_info[$info->field_key] = $value ?: $info->field_value_th;
+    }
 }
 
 // Get contact info
