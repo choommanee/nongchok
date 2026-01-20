@@ -380,6 +380,44 @@ function ayam_bangkok_customize_register( $wp_customize ) {
         'type'     => 'email',
     ) );
 
+    // Contact Form Title
+    $wp_customize->add_setting( 'contact_form_title', array(
+        'default'           => 'Please fill out the form:',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ) );
+
+    $wp_customize->add_control( 'contact_form_title', array(
+        'label'    => __( 'หัวข้อฟอร์ม', 'ayam-bangkok' ),
+        'section'  => 'contact_section',
+        'type'     => 'text',
+    ) );
+
+    // Contact Line ID
+    $wp_customize->add_setting( 'contact_line', array(
+        'default'           => '0644181961',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    $wp_customize->add_control( 'contact_line', array(
+        'label'    => __( 'Line ID', 'ayam-bangkok' ),
+        'section'  => 'contact_section',
+        'type'     => 'text',
+    ) );
+
+    // Contact WhatsApp
+    $wp_customize->add_setting( 'contact_whatsapp', array(
+        'default'           => '0644181961',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    $wp_customize->add_control( 'contact_whatsapp', array(
+        'label'    => __( 'WhatsApp', 'ayam-bangkok' ),
+        'section'  => 'contact_section',
+        'type'     => 'text',
+        'description' => __( 'เบอร์โทรศัพท์สำหรับ WhatsApp (เช่น 0644181961)', 'ayam-bangkok' ),
+    ) );
+
     // Google Map URL
     $wp_customize->add_setting( 'contact_map_url', array(
         'default'           => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.5234!2d100.8234!3d13.8234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ5JzI0LjIiTiAxMDDCsDQ5JzI0LjIiRQ!5e0!3m2!1sen!2sth!4v1234567890',

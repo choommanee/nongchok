@@ -407,24 +407,60 @@ get_header(); ?>
         <div class="container">
             <div class="contact-layout">
                 <div class="contact-info-side">
-                    <h2 class="contact-title">Get in touch with<br>any questions</h2>
+                    <?php
+                    // Get contact info from Customizer or Company Info
+                    $contact_title = get_theme_mod('contact_title', 'Get in touch with<br>any questions');
+                    $contact_address = get_theme_mod('contact_address', get_option('ayam_company_address', 'ถนน พุทธบูชา 11 ตำบลโคกเจริญ แขวงหนองจอก เขตหนองจอก<br>Nong Chok, Thailand, Bangkok'));
+                    $contact_phone = get_theme_mod('contact_phone', get_option('ayam_company_phone', '089-091-4664'));
+                    $contact_email = get_theme_mod('contact_email', get_option('ayam_company_email', ''));
+                    $contact_line = get_theme_mod('contact_line', get_option('ayam_company_line', '0644181961'));
+                    $contact_whatsapp = get_theme_mod('contact_whatsapp', get_option('ayam_company_whatsapp', '0644181961'));
+                    ?>
+                    <h2 class="contact-title"><?php echo wp_kses_post($contact_title); ?></h2>
                     
                     <div class="contact-details">
+                        <?php if ($contact_address) : ?>
                         <div class="contact-detail-item">
                             <strong>Address</strong>
-                            <p>ถนน พุทธบูชา 11 ตำบลโคกเจริญ แขวงหนองจอก เขตหนองจอก<br>
-                            Nong Chok, Thailand, Bangkok</p>
+                            <p><?php echo wp_kses_post($contact_address); ?></p>
                         </div>
+                        <?php endif; ?>
                         
+                        <?php if ($contact_phone) : ?>
                         <div class="contact-detail-item">
                             <strong>Contact</strong>
-                            <p>089-091-4664</p>
+                            <p><?php echo esc_html($contact_phone); ?></p>
                         </div>
+                        <?php endif; ?>
+                        
+                        <?php if ($contact_email) : ?>
+                        <div class="contact-detail-item">
+                            <strong>Email</strong>
+                            <p><a href="mailto:<?php echo esc_attr($contact_email); ?>"><?php echo esc_html($contact_email); ?></a></p>
+                        </div>
+                        <?php endif; ?>
+                        
+                        <?php if ($contact_line) : ?>
+                        <div class="contact-detail-item">
+                            <strong>Line ID</strong>
+                            <p><?php echo esc_html($contact_line); ?></p>
+                        </div>
+                        <?php endif; ?>
+                        
+                        <?php if ($contact_whatsapp) : ?>
+                        <div class="contact-detail-item">
+                            <strong>WhatsApp</strong>
+                            <p><a href="https://wa.me/66<?php echo esc_attr(ltrim($contact_whatsapp, '0')); ?>" target="_blank"><?php echo esc_html($contact_whatsapp); ?></a></p>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 
                 <div class="contact-form-side">
-                    <div class="form-title">Please fill out the form:</div>
+                    <?php
+                    $form_title = get_theme_mod('contact_form_title', 'Please fill out the form:');
+                    ?>
+                    <div class="form-title"><?php echo esc_html($form_title); ?></div>
                     
                     <form class="wix-contact-form" method="post" action="">
                         <div class="form-row-2">

@@ -72,18 +72,71 @@ $hero_title = $service_info['service_hero_title'] ?? 'Our Service';
         <div class="service-container-full">
             <div class="service-images-grid">
                 <?php for ($i = 1; $i <= 4; $i++):
-                    $image_url = $service_info["service_image_{$i}"] ?? '';
-                    if (empty($image_url)) {
-                        $image_url = get_template_directory_uri() . "/assets/images/service/service-{$i}.jpg";
+                    $media_url = $service_info["service_image_{$i}"] ?? '';
+                    
+                    // Check if it's a YouTube URL
+                    $is_youtube = false;
+                    $youtube_id = '';
+                    if (!empty($media_url)) {
+                        if (preg_match('/youtube\.com\/watch\?v=([^\&\?\/]+)/i', $media_url, $matches)) {
+                            $is_youtube = true;
+                            $youtube_id = $matches[1];
+                        } elseif (preg_match('/youtube\.com\/embed\/([^\&\?\/]+)/i', $media_url, $matches)) {
+                            $is_youtube = true;
+                            $youtube_id = $matches[1];
+                        } elseif (preg_match('/youtu\.be\/([^\&\?\/]+)/i', $media_url, $matches)) {
+                            $is_youtube = true;
+                            $youtube_id = $matches[1];
+                        }
+                    }
+                    
+                    if ($is_youtube && $youtube_id):
+                        // Display YouTube video
+                        $thumbnail_url = "https://img.youtube.com/vi/{$youtube_id}/maxresdefault.jpg";
+                ?>
+                <div class="service-image-item service-video-item-grid" data-video-id="<?php echo esc_attr($youtube_id); ?>" style="position: relative; cursor: pointer; background-image: url('<?php echo esc_url($thumbnail_url); ?>');">
+                    <div class="service-image-overlay"></div>
+                    <div class="service-video-play-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2;">
+                        <i class="fas fa-play" style="font-size: 30px; color: #ca4249; margin-left: 5px;"></i>
+                    </div>
+                </div>
+                <?php else:
+                    // Display regular image
+                    if (empty($media_url)) {
+                        $media_url = get_template_directory_uri() . "/assets/images/service/service-{$i}.jpg";
                     }
                 ?>
-                <div class="service-image-item" style="background-image: url('<?php echo esc_url($image_url); ?>');">
+                <div class="service-image-item" style="background-image: url('<?php echo esc_url($media_url); ?>');">
                     <div class="service-image-overlay"></div>
                 </div>
-                <?php endfor; ?>
+                <?php endif; endfor; ?>
             </div>
         </div>
     </section>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.service-video-item-grid').forEach(function(item) {
+            item.addEventListener('click', function() {
+                var videoId = this.getAttribute('data-video-id');
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId + '?autoplay=1');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allowfullscreen', '1');
+                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                iframe.style.position = 'absolute';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.zIndex = '3';
+                
+                this.appendChild(iframe);
+                this.style.cursor = 'default';
+            });
+        });
+    });
+    </script>
 
     <!-- Videos Section -->
     <section class="service-videos">
