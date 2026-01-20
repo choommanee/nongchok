@@ -76,8 +76,8 @@ function ayam_theme_scripts()
     // Inter Font (Helvetica alternative for Wix-style pages)
     wp_enqueue_style('inter-font', AYAM_THEME_URI . '/assets/fonts/inter.css', array(), AYAM_THEME_VERSION);
 
-    // Font Awesome - Load from local file
-    wp_enqueue_style('font-awesome', AYAM_THEME_URI . '/assets/fonts/fontawesome.css', array(), AYAM_THEME_VERSION . '.' . time());
+    // Font Awesome - Load from CDN for better compatibility
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), '6.5.1');
 
     // Modern Frontend Libraries
     wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css', array(), '8.4.7');
