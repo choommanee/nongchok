@@ -243,7 +243,7 @@ $google_map_url = isset($company_info['google_map_url']) ? $company_info['google
             <!-- Google Map -->
             <div class="contact-map-container" data-aos="fade-up" data-aos-delay="100">
                 <iframe
-                    src="<?php echo esc_url($google_map_url); ?>"
+                    src="<?php echo esc_attr($google_map_url); ?>"
                     width="100%"
                     height="450"
                     style="border:0;"
