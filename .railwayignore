@@ -1,0 +1,28 @@
+# Railway Ignore File
+# Files and directories to exclude from Railway deployment
+
+# Development files
+.git/
+.gitignore
+.DS_Store
+*.log
+*.md
+README.md
+
+# Cache and temporary files
+wp-content/cache/*
+wp-content/upgrade/*
+.htaccess
+
+# Local development files
+clear-cache.php
+wp-config-local.php
+
+# Node modules (if any)
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
