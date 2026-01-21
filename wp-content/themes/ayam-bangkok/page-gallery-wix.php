@@ -41,11 +41,25 @@ if (!empty($category_param)) {
     // LANDING PAGE - Show all categories as thumbnails
     $categories = $wpdb->get_results("
         SELECT gc.*, 
-               (SELECT image_url FROM {$images_table} WHERE category_id = gc.id ORDER BY sort_order ASC LIMIT 1) as thumbnail
+               (SELECT image_url FROM {$images_table} WHERE category_id = gc.id ORDER BY sort_order ASC LIMIT 1) as thumbnail,
+               (SELECT COUNT(*) FROM {$images_table} WHERE category_id = gc.id) as actual_count
         FROM {$categories_table} gc
-        WHERE gc.category_type = 'gallery' OR gc.category_type IS NULL
+        WHERE (gc.category_type = 'gallery' OR gc.category_type IS NULL OR gc.category_type = '')
+        AND gc.id IN (SELECT DISTINCT category_id FROM {$images_table})
         ORDER BY gc.id DESC
     ");
+    
+    // Update image_count if different
+    foreach ($categories as $cat) {
+        if ($cat->actual_count != $cat->image_count) {
+            $wpdb->update(
+                $categories_table,
+                array('image_count' => $cat->actual_count),
+                array('id' => $cat->id)
+            );
+            $cat->image_count = $cat->actual_count;
+        }
+    }
 }
 
 ?>
@@ -114,13 +128,20 @@ if (!empty($category_param)) {
                         <?php foreach ($categories as $index => $cat): ?>
                             <div class="gallery-category-card" data-aos="fade-up" data-aos-delay="<?php echo ($index % 6) * 100; ?>">
                                 <a href="<?php echo esc_url(add_query_arg('category', urlencode($cat->category_number))); ?>" class="category-link">
-                                    <?php if ($cat->thumbnail): ?>
-                                        <div class="category-thumbnail-wrapper">
+                                    <div class="category-thumbnail-wrapper">
+                                        <?php if ($cat->thumbnail): ?>
                                             <img src="<?php echo esc_url(get_gallery_image_url_wix($cat->thumbnail)); ?>" 
                                                  alt="<?php echo esc_attr($cat->category_name); ?>"
                                                  loading="lazy">
+                                        <?php else: ?>
+                                            <div class="category-placeholder">
+                                                <i class="fas fa-images"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="category-overlay">
+                                            <span class="view-category-text">ดูแกลเลอรี่ →</span>
                                         </div>
-                                    <?php endif; ?>
+                                    </div>
                                     <div class="category-info">
                                         <h3 class="category-name"><?php echo esc_html($cat->category_name); ?></h3>
                                         <p class="category-count"><?php echo $cat->image_count; ?> รูปภาพ</p>
