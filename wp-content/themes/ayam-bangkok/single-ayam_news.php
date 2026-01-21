@@ -8,19 +8,6 @@ get_header(); ?>
 <main id="primary" class="site-main single-news">
     
     <?php while (have_posts()) : the_post(); ?>
-        
-        <!-- Breadcrumb -->
-        <section class="breadcrumb-section">
-            <div class="container">
-                <nav class="breadcrumb">
-                    <a href="<?php echo home_url(); ?>"><?php _e('หน้าแรก', 'ayam-bangkok'); ?></a>
-                    <span class="separator">/</span>
-                    <a href="<?php echo get_post_type_archive_link('ayam_news'); ?>"><?php _e('ข่าวสาร', 'ayam-bangkok'); ?></a>
-                    <span class="separator">/</span>
-                    <span class="current"><?php the_title(); ?></span>
-                </nav>
-            </div>
-        </section>
 
         <!-- News Header -->
         <article class="news-article">
@@ -60,13 +47,13 @@ get_header(); ?>
                     <div class="social-share">
                         <span class="share-label"><?php _e('แชร์:', 'ayam-bangkok'); ?></span>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_permalink()); ?>" target="_blank" class="share-btn facebook" title="<?php _e('แชร์บน Facebook', 'ayam-bangkok'); ?>">
-                            <i class="fab fa-facebook-f"></i>
+                            <?php ayam_svg_icon('facebook', 'social-svg-icon'); ?>
                         </a>
                         <a href="https://twitter.com/intent/tweet?url=<?php echo urlencode(get_permalink()); ?>&text=<?php echo urlencode(get_the_title()); ?>" target="_blank" class="share-btn twitter" title="<?php _e('แชร์บน Twitter', 'ayam-bangkok'); ?>">
-                            <i class="fab fa-twitter"></i>
+                            <?php ayam_svg_icon('twitter', 'social-svg-icon'); ?>
                         </a>
                         <a href="https://line.me/R/msg/text/?<?php echo urlencode(get_the_title() . ' ' . get_permalink()); ?>" target="_blank" class="share-btn line" title="<?php _e('แชร์บน LINE', 'ayam-bangkok'); ?>">
-                            <i class="fab fa-line"></i>
+                            <?php ayam_svg_icon('line', 'social-svg-icon'); ?>
                         </a>
                         <button class="share-btn copy" data-url="<?php echo get_permalink(); ?>" title="<?php _e('คัดลอกลิงก์', 'ayam-bangkok'); ?>">
                             <i class="fas fa-link"></i>
