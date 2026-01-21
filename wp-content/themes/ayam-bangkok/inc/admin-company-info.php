@@ -441,6 +441,21 @@ function ayam_save_company_info($post_data) {
     $table_name = $wpdb->prefix . 'ayam_company_info';
 
     foreach ($post_data['company_info'] as $field_key => $field_value) {
+        // Special handling for URLs - preserve special characters like ! and %3A
+        if (strpos($field_key, 'url') !== false || strpos($field_key, 'map') !== false) {
+            // For URLs, use esc_url_raw which preserves URL encoding
+            $sanitized_value = esc_url_raw($field_value);
+        } elseif (strpos($field_key, 'email') !== false) {
+            // For emails
+            $sanitized_value = sanitize_email($field_value);
+        } elseif (in_array($field_key, array('company_description', 'about_description', 'story_text_1', 'story_text_2', 'address', 'contact_address', 'contact_subtitle'))) {
+            // For textarea fields
+            $sanitized_value = sanitize_textarea_field($field_value);
+        } else {
+            // For regular text fields
+            $sanitized_value = sanitize_text_field($field_value);
+        }
+        
         // Check if record exists
         $existing = $wpdb->get_row($wpdb->prepare(
             "SELECT id FROM $table_name WHERE field_key = %s",
@@ -452,7 +467,7 @@ function ayam_save_company_info($post_data) {
             $wpdb->update(
                 $table_name,
                 array(
-                    'field_value_th' => sanitize_textarea_field($field_value),
+                    'field_value_th' => $sanitized_value,
                     'updated_at' => current_time('mysql')
                 ),
                 array('field_key' => $field_key),
@@ -465,7 +480,7 @@ function ayam_save_company_info($post_data) {
                 $table_name,
                 array(
                     'field_key' => $field_key,
-                    'field_value_th' => sanitize_textarea_field($field_value),
+                    'field_value_th' => $sanitized_value,
                     'is_active' => 1,
                     'created_at' => current_time('mysql'),
                     'updated_at' => current_time('mysql')
