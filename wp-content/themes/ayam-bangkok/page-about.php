@@ -110,13 +110,13 @@ $google_map_url = isset($company_info['google_map_url']) ? $company_info['google
     </section>
 
     <!-- Our Story Section with Gallery -->
-    <?php if (!empty($story_text_1) || !empty($story_text_2)): ?>
+   
     <section class="about-story-section">
         <div class="container">
             <div class="section-header-center">
                 <h2 class="section-title" data-aos="fade-up">Our Story</h2>
             </div>
-
+            <?php if (!empty($story_text_1) || !empty($story_text_2)): ?>
             <div class="about-story-content" data-aos="fade-up" data-aos-delay="100">
                 <?php if (!empty($story_text_1)): ?>
                 <p class="story-text">
@@ -129,7 +129,7 @@ $google_map_url = isset($company_info['google_map_url']) ? $company_info['google
                 </p>
                 <?php endif; ?>
             </div>
-
+<?php endif; ?>
             <!-- Gallery Grid -->
             <div class="about-gallery-grid" data-aos="fade-up" data-aos-delay="200">
                 <?php
@@ -147,9 +147,10 @@ $google_map_url = isset($company_info['google_map_url']) ? $company_info['google
                 }
                 ?>
             </div>
+                
         </div>
     </section>
-    <?php endif; ?>
+    
 
     <!-- Contact Section -->
     <section class="about-contact-section">
