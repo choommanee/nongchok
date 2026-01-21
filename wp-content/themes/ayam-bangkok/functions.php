@@ -95,6 +95,9 @@ function ayam_theme_scripts()
     // Advanced Rooster Catalog Styles
     wp_enqueue_style('ayam-roosters-advanced', AYAM_THEME_URI . '/assets/css/roosters-advanced.css', array('ayam-style'), AYAM_THEME_VERSION);
 
+    // SVG Icons Styles
+    wp_enqueue_style('ayam-svg-icons', AYAM_THEME_URI . '/assets/css/svg-icons.css', array('ayam-style'), AYAM_THEME_VERSION);
+
     // Scripts
     wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js', array(), '8.4.7', true);
     wp_enqueue_script('aos-js', 'https://unpkg.com/aos@2.3.1/dist/aos.js', array(), '2.3.1', true);
@@ -619,6 +622,11 @@ add_action('admin_bar_menu', 'ayam_admin_bar_menu', 999);
  * Include template parts
  */
 require_once AYAM_THEME_PATH . '/inc/template-functions.php';
+
+/**
+ * SVG Icons
+ */
+require_once AYAM_THEME_PATH . '/inc/svg-icons.php';
 
 /**
  * Customizer additions

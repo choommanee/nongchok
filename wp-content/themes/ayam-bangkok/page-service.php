@@ -267,8 +267,8 @@ $hero_title = $service_info['service_hero_title'] ?? 'Our Service';
                     <?php endif; ?>
 
                     <div class="service-social">
-                        <a href="#" class="service-social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="service-social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="service-social-icon"><?php ayam_svg_icon('facebook', 'social-svg-icon'); ?></a>
+                        <a href="#" class="service-social-icon"><?php ayam_svg_icon('instagram', 'social-svg-icon'); ?></a>
                     </div>
                 </div>
 

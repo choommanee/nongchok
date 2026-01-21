@@ -1,0 +1,66 @@
+/*
+ * SVG Social Icons Styles
+ * แทน Font Awesome icons
+ */
+
+.social-svg-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.service-social-icon .social-svg-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.social-icon .social-svg-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover .social-svg-icon {
+    transform: scale(1.1);
+}
+
+/* Ensure SVG inherits color from parent */
+.social-svg-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+/* Line ID specific styling */
+.line-id .social-svg-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Contact page card icons */
+.contact-info-card .social-svg-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Service social icons */
+.service-social .social-svg-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .social-svg-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .social-icon .social-svg-icon {
+        width: 20px;
+        height: 20px;
+    }
+}

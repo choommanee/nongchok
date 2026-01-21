@@ -56,7 +56,7 @@ $company_youtube = get_theme_mod('ayam_youtube', '');
                     <p><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $company_phone)); ?>"><?php echo esc_html($company_phone); ?></a></p>
                     <?php if ($company_line) : ?>
                     <p class="line-id">
-                        <i class="fab fa-line"></i> LINE: <?php echo esc_html($company_line); ?>
+                        <?php ayam_svg_icon('line', 'social-svg-icon'); ?> LINE: <?php echo esc_html($company_line); ?>
                     </p>
                     <?php endif; ?>
                 </div>
@@ -120,16 +120,16 @@ $company_youtube = get_theme_mod('ayam_youtube', '');
                     <div class="service-social-icons">
                         <?php if ($company_facebook) : ?>
                         <a href="<?php echo esc_url($company_facebook); ?>" target="_blank" class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
+                            <?php ayam_svg_icon('facebook', 'social-svg-icon'); ?>
                         </a>
                         <?php endif; ?>
                         <?php if ($company_youtube) : ?>
                         <a href="<?php echo esc_url($company_youtube); ?>" target="_blank" class="social-icon">
-                            <i class="fab fa-youtube"></i>
+                            <?php ayam_svg_icon('youtube', 'social-svg-icon'); ?>
                         </a>
                         <?php endif; ?>
                         <a href="https://line.me/ti/p/~<?php echo esc_attr($company_line); ?>" target="_blank" class="social-icon">
-                            <i class="fab fa-line"></i>
+                            <?php ayam_svg_icon('line', 'social-svg-icon'); ?>
                         </a>
                     </div>
                 </div>
