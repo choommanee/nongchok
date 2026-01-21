@@ -140,7 +140,7 @@ style.textContent = `
     .back-to-top {
         position: fixed;
         bottom: 2rem;
-        right: 2rem;
+        left: 2rem;
         width: 50px;
         height: 50px;
         background: var(--gradient-primary);
@@ -185,7 +185,7 @@ style.textContent = `
             width: 45px;
             height: 45px;
             bottom: 1.5rem;
-            right: 1.5rem;
+            left: 1.5rem;
         }
     }
 `;

@@ -255,7 +255,7 @@ style.textContent = `
     .back-to-top {
         position: fixed;
         bottom: 30px;
-        right: 30px;
+        left: 30px;
         width: 50px;
         height: 50px;
         background: #3498db;
