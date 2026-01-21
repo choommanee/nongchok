@@ -42,6 +42,70 @@
     background: #f8f8f8;
 }
 
+/* Categories Grid (Landing Page) */
+.gallery-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-category-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.gallery-category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.category-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.category-thumbnail-wrapper {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+}
+
+.category-thumbnail-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-category-card:hover .category-thumbnail-wrapper img {
+    transform: scale(1.1);
+}
+
+.category-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.category-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1E2950;
+    margin: 0 0 8px 0;
+}
+
+.category-count {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
 /* Modern Masonry Grid - รองรับทั้งแนวนอนและแนวตั้ง */
 .gallery-masonry-grid {
     column-count: 4;
@@ -156,6 +220,11 @@
     .gallery-item {
         margin-bottom: 18px;
     }
+    
+    .gallery-categories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
 }
 
 @media (max-width: 968px) {
@@ -183,6 +252,15 @@
     
     .gallery-overlay i {
         font-size: 36px;
+    }
+    
+    .gallery-categories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .category-name {
+        font-size: 1.1rem;
     }
 }
 
@@ -228,6 +306,15 @@
     .no-gallery-message p {
         font-size: 18px;
     }
+    
+    .gallery-categories-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .category-name {
+        font-size: 1.2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -242,6 +329,10 @@
     
     .gallery-main-title {
         font-size: 28px;
+    }
+    
+    .gallery-categories-grid {
+        gap: 15px;
     }
 }
 

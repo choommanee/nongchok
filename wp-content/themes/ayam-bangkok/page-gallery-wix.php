@@ -6,27 +6,46 @@
 
 get_header();
 
-// Get gallery images from uploads directory
-$upload_dir = wp_upload_dir();
-$gallery_images = array();
+global $wpdb;
+$categories_table = $wpdb->prefix . 'gallery_categories';
+$images_table = $wpdb->prefix . 'gallery_images';
 
-$gallery_dir = $upload_dir['basedir'] . '/gallery-wix/';
-if (is_dir($gallery_dir)) {
-    $files = glob($gallery_dir . '*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-    foreach ($files as $file) {
-        $gallery_images[] = $upload_dir['baseurl'] . '/gallery-wix/' . basename($file);
+// Check if we're viewing a specific category
+$category_param = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
+
+// Helper function to get correct image URL
+function get_gallery_image_url_wix($path) {
+    if (strpos($_SERVER['HTTP_HOST'], '.local') !== false || $_SERVER['HTTP_HOST'] === 'localhost') {
+        return 'https://nongchok-production.up.railway.app' . $path;
     }
+    return $path;
 }
 
-// Fallback: Use images from about gallery if no gallery images
-if (empty($gallery_images)) {
-    $about_gallery_dir = $upload_dir['basedir'] . '/about-gallery/';
-    if (is_dir($about_gallery_dir)) {
-        $files = glob($about_gallery_dir . '*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
-        foreach ($files as $file) {
-            $gallery_images[] = $upload_dir['baseurl'] . '/about-gallery/' . basename($file);
-        }
+if (!empty($category_param)) {
+    // DETAIL VIEW - Show images from specific category
+    $category = $wpdb->get_row($wpdb->prepare(
+        "SELECT * FROM {$categories_table} WHERE category_number = %s OR category_name = %s",
+        $category_param,
+        $category_param
+    ));
+    
+    if ($category) {
+        $gallery_images = $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM {$images_table} WHERE category_id = %d ORDER BY sort_order ASC",
+            $category->id
+        ));
+    } else {
+        $gallery_images = array();
     }
+} else {
+    // LANDING PAGE - Show all categories as thumbnails
+    $categories = $wpdb->get_results("
+        SELECT gc.*, 
+               (SELECT image_url FROM {$images_table} WHERE category_id = gc.id ORDER BY sort_order ASC LIMIT 1) as thumbnail
+        FROM {$categories_table} gc
+        WHERE gc.category_type = 'gallery' OR gc.category_type IS NULL
+        ORDER BY gc.id DESC
+    ");
 }
 
 ?>
@@ -36,15 +55,26 @@ if (empty($gallery_images)) {
     <!-- Gallery Hero Section -->
     <section class="service-hero">
         <div class="service-hero-container">
-            <?php
-            $gallery_title = get_theme_mod('gallery_title', 'Our Gallery');
-            $gallery_description = get_theme_mod('gallery_description', 'Explore our collection of Thai fighting roosters');
-            ?>
-            <h1 class="service-hero-subtitle">Get to Know</h1>
-            <p class="service-hero-title"><?php echo esc_html($gallery_title); ?></p>
-            <div class="service-hero-line"></div>
-            <?php if ($gallery_description) : ?>
-                <p class="service-hero-description"><?php echo esc_html($gallery_description); ?></p>
+            <?php if (!empty($category_param) && isset($category)): ?>
+                <h1 class="service-hero-subtitle">Gallery</h1>
+                <p class="service-hero-title"><?php echo esc_html($category->category_name); ?></p>
+                <div class="service-hero-line"></div>
+                <p class="service-hero-description">
+                    <a href="<?php echo esc_url(get_permalink()); ?>" style="color: #CA4249; text-decoration: none;">
+                        ← กลับไปหน้าแกลเลอรี่
+                    </a>
+                </p>
+            <?php else: ?>
+                <?php
+                $gallery_title = get_theme_mod('gallery_title', 'Our Gallery');
+                $gallery_description = get_theme_mod('gallery_description', 'Explore our collection of Thai fighting roosters');
+                ?>
+                <h1 class="service-hero-subtitle">Get to Know</h1>
+                <p class="service-hero-title"><?php echo esc_html($gallery_title); ?></p>
+                <div class="service-hero-line"></div>
+                <?php if ($gallery_description) : ?>
+                    <p class="service-hero-description"><?php echo esc_html($gallery_description); ?></p>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </section>
@@ -52,25 +82,60 @@ if (empty($gallery_images)) {
     <!-- Gallery Grid Section -->
     <section class="gallery-grid-section">
         <div class="service-container">
-            <?php if (!empty($gallery_images)): ?>
-                <div class="gallery-masonry-grid" data-aos="fade-up">
-                    <?php foreach ($gallery_images as $index => $image): ?>
-                        <div class="gallery-item" data-aos="fade-up" data-aos-delay="<?php echo ($index % 12) * 50; ?>">
-                            <a href="<?php echo esc_url($image); ?>" data-lightbox="gallery" data-title="Image <?php echo $index + 1; ?>">
-                                <img src="<?php echo esc_url($image); ?>" alt="Gallery Image <?php echo $index + 1; ?>">
-                                <div class="gallery-overlay">
-                                    <i class="fas fa-search-plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+            <?php if (!empty($category_param)): ?>
+                <!-- DETAIL VIEW: Show images from category -->
+                <?php if (!empty($gallery_images)): ?>
+                    <div class="gallery-masonry-grid" data-aos="fade-up">
+                        <?php foreach ($gallery_images as $index => $image): ?>
+                            <div class="gallery-item" data-aos="fade-up" data-aos-delay="<?php echo ($index % 12) * 50; ?>">
+                                <a href="<?php echo esc_url(get_gallery_image_url_wix($image->image_url)); ?>" 
+                                   data-lightbox="gallery" 
+                                   data-title="<?php echo esc_attr($category->category_name); ?> - Photo <?php echo $index + 1; ?>">
+                                    <img src="<?php echo esc_url(get_gallery_image_url_wix($image->image_url)); ?>" 
+                                         alt="<?php echo esc_attr($category->category_name); ?> - Photo <?php echo $index + 1; ?>"
+                                         loading="lazy">
+                                    <div class="gallery-overlay">
+                                        <i class="fas fa-search-plus"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="no-gallery-message">
+                        <i class="fas fa-images"></i>
+                        <p>ยังไม่มีรูปภาพในหมวดหมู่นี้</p>
+                    </div>
+                <?php endif; ?>
             <?php else: ?>
-                <div class="no-gallery-message">
-                    <i class="fas fa-images"></i>
-                    <p>ยังไม่มีรูปภาพในแกลเลอรี่</p>
-                    <small>กรุณาอัปโหลดรูปภาพจากหลังบ้าน</small>
-                </div>
+                <!-- LANDING PAGE: Show categories -->
+                <?php if (!empty($categories)): ?>
+                    <div class="gallery-categories-grid" data-aos="fade-up">
+                        <?php foreach ($categories as $index => $cat): ?>
+                            <div class="gallery-category-card" data-aos="fade-up" data-aos-delay="<?php echo ($index % 6) * 100; ?>">
+                                <a href="<?php echo esc_url(add_query_arg('category', urlencode($cat->category_number))); ?>" class="category-link">
+                                    <?php if ($cat->thumbnail): ?>
+                                        <div class="category-thumbnail-wrapper">
+                                            <img src="<?php echo esc_url(get_gallery_image_url_wix($cat->thumbnail)); ?>" 
+                                                 alt="<?php echo esc_attr($cat->category_name); ?>"
+                                                 loading="lazy">
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="category-info">
+                                        <h3 class="category-name"><?php echo esc_html($cat->category_name); ?></h3>
+                                        <p class="category-count"><?php echo $cat->image_count; ?> รูปภาพ</p>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="no-gallery-message">
+                        <i class="fas fa-images"></i>
+                        <p>ยังไม่มีแกลเลอรี่</p>
+                        <small>กรุณาสร้างแกลเลอรี่จากหลังบ้าน</small>
+                    </div>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </section>
