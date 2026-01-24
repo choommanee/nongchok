@@ -1,0 +1,25 @@
+{
+    "name": "DirectAdmin Shared Hosting",
+    "host": "ftp.yourdomain.com",
+    "protocol": "ftp",
+    "port": 21,
+    "username": "your-ftp-username",
+    "password": "your-ftp-password",
+    "remotePath": "/domains/yourdomain.com/public_html",
+    "uploadOnSave": false,
+    "syncMode": "update",
+    "ignore": [
+        ".git/**",
+        ".vscode/**",
+        "node_modules/**",
+        "wp-config.php",
+        ".gitignore",
+        "*.md",
+        "sftp.json.example"
+    ],
+    "watcher": {
+        "files": "**/*",
+        "autoUpload": false,
+        "autoDelete": false
+    }
+}
