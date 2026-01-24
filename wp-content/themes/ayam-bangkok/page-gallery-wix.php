@@ -15,10 +15,11 @@ $category_param = isset($_GET['category']) ? sanitize_text_field($_GET['category
 
 // Helper function to get correct image URL
 function get_gallery_image_url_wix($path) {
-    if (strpos($_SERVER['HTTP_HOST'], '.local') !== false || $_SERVER['HTTP_HOST'] === 'localhost') {
-        return 'https://nongchok-production.up.railway.app' . $path;
+    // Always use /wp-content/uploads/ prefix for gallery images
+    if (strpos($path, '/wp-content/uploads/') === 0) {
+        return $path;
     }
-    return $path;
+    return '/wp-content/uploads' . $path;
 }
 
 if (!empty($category_param)) {

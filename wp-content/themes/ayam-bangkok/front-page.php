@@ -251,10 +251,10 @@ get_header(); ?>
 
                 if (!empty($gallery_images)) :
                     foreach ($gallery_images as $img) :
-                        // Use production URL if on local
+                        // Use correct image URL
                         $image_url = $img->image_url;
-                        if (strpos($_SERVER['HTTP_HOST'], '.local') !== false || $_SERVER['HTTP_HOST'] === 'localhost') {
-                            $image_url = 'https://nongchok-production.up.railway.app' . $img->image_url;
+                        if (strpos($image_url, '/wp-content/uploads/') !== 0) {
+                            $image_url = '/wp-content/uploads' . $image_url;
                         }
                 ?>
                     <div class="gallery-circle-item">

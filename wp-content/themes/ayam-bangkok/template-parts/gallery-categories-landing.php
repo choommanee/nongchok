@@ -36,12 +36,11 @@ if ($is_behind_scene) {
 
 // Helper function to get correct image URL (local uses production images)
 function get_gallery_image_url($path) {
-    // If local development, use production URL
-    if (strpos($_SERVER['HTTP_HOST'], '.local') !== false || $_SERVER['HTTP_HOST'] === 'localhost') {
-        return 'https://nongchok-production.up.railway.app' . $path;
+    // Always use /wp-content/uploads/ prefix for gallery images
+    if (strpos($path, '/wp-content/uploads/') === 0) {
+        return $path;
     }
-    // Production uses relative path
-    return $path;
+    return '/wp-content/uploads' . $path;
 }
 ?>
 
