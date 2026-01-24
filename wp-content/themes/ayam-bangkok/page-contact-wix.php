@@ -14,7 +14,6 @@ $company_line = get_theme_mod('ayam_line_id', '@nongchok');
 $company_facebook = get_theme_mod('ayam_facebook', '');
 $company_youtube = get_theme_mod('ayam_youtube', '');
 ?>
-
 <main id="primary" class="site-main wix-style-contact">
 
     <!-- Hero Section -->
@@ -185,8 +184,13 @@ $company_youtube = get_theme_mod('ayam_youtube', '');
     <!-- Map Section -->
     <section class="service-map">
         <div id="service-map-container" style="width: 100%; height: 400px;">
+            <?php
+            global $wpdb;
+            $google_map_url = $wpdb->get_var("SELECT field_value_th FROM {$wpdb->prefix}ayam_company_info WHERE field_key = 'google_map_url'");
+            if ($google_map_url) :
+            ?>
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.9644774857647!2d100.75366931484233!3d13.725840990354915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d664d6c477e45%3A0x6c1e1c1e1c1e1c1e!2z4Lir4LiZ4Lit4LiH4LiI4Lit4LiB!5e0!3m2!1sth!2sth!4v1234567890123!5m2!1sth!2sth"
+                src="<?php echo esc_attr($google_map_url); ?>"
                 width="100%"
                 height="400"
                 style="border:0;"
@@ -194,6 +198,7 @@ $company_youtube = get_theme_mod('ayam_youtube', '');
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
+            <?php endif; ?>
         </div>
     </section>
 

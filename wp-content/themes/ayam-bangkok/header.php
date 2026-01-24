@@ -416,6 +416,103 @@
             font-size: 12px !important;
         }
     }
+
+    /* Mobile Language Switcher on Navbar */
+    .mobile-language-switcher-navbar {
+        display: none;
+        position: relative;
+        margin-left: auto;
+        margin-right: 15px;
+        z-index: 100;
+    }
+
+    .mobile-language-switcher-navbar .language-current {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        padding: 5px 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .mobile-language-switcher-navbar .language-current:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .mobile-language-switcher-navbar .flag-emoji {
+        font-size: 16px;
+    }
+
+    .mobile-language-switcher-navbar .lang-text {
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+    }
+
+    .mobile-language-switcher-navbar .arrow {
+        font-size: 9px;
+        color: white;
+    }
+
+    .mobile-language-switcher-navbar .language-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #2B3E50;
+        min-width: 150px;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 1001;
+        margin-top: 5px;
+    }
+
+    .mobile-language-switcher-navbar .language-dropdown.active {
+        display: block;
+    }
+
+    .mobile-language-switcher-navbar .language-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px 15px;
+        background: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        font-size: 14px;
+    }
+
+    .mobile-language-switcher-navbar .language-option:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-language-switcher-navbar .language-option .flag-emoji {
+        font-size: 18px;
+    }
+
+    /* Show mobile language switcher on mobile, hide desktop one */
+    @media (max-width: 1024px) {
+        .language-switcher-wrapper {
+            display: none !important;
+        }
+
+        .mobile-language-switcher-navbar {
+            display: block;
+        }
+    }
+
+    /* Hide mobile language switcher on desktop */
+    @media (min-width: 1025px) {
+        .mobile-language-switcher-navbar {
+            display: none !important;
+        }
+    }
     </style>
 </head>
 
@@ -586,23 +683,16 @@ window.addEventListener('load', function() {
             </div>
             
             <nav class="wix-nav">
-                <ul class="wix-menu">
-                    <li><a href="<?php echo esc_url(home_url('/')); ?>"><i class="fas fa-home"></i> หน้าแรก</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/about')); ?>">เกี่ยวกับเรา</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/service')); ?>">บริการ</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/news-1')); ?>">ข่าวสาร</a></li>
-                    <li class="has-submenu">
-                        <a href="<?php echo esc_url(home_url('/gallery')); ?>">แกลเลอรี่</a>
-                        <ul class="submenu">
-                            <li><a href="<?php echo esc_url(home_url('/gallery')); ?>">แกลเลอรี่</a></li>
-                            <!-- <li><a href="<?php echo esc_url(home_url('/ayam-list')); ?>">Ayam list</a></li> -->
-                            <li><a href="<?php echo esc_url(home_url('/gallery/?category=BTS')); ?>">เบื้องหลัง</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo esc_url(home_url('/contact')); ?>">ติดต่อ</a></li>
-                </ul>
+                <?php
+                wp_nav_menu(array(
+                    'theme_location' => 'primary',
+                    'menu_class' => 'wix-menu',
+                    'container' => false,
+                    'fallback_cb' => 'ayam_default_primary_menu'
+                ));
+                ?>
 
-                <!-- Desktop Language Switcher -->
+                <!-- Language Switcher (Desktop & Mobile) -->
                 <div class="language-switcher-wrapper">
                     <div class="language-current" onclick="toggleLanguageDropdown(event)">
                         <span class="flag-emoji">🇹🇭</span>
@@ -624,26 +714,30 @@ window.addEventListener('load', function() {
                         </button>
                     </div>
                 </div>
-
-                <!-- Mobile Language Switcher (shown at bottom of mobile menu) -->
-                <div class="mobile-language-switcher">
-                    <div class="language-title">Language / ภาษา</div>
-                    <div class="mobile-language-options">
-                        <button class="mobile-lang-btn" data-lang="th" onclick="changeLanguage('th', event)">
-                            <span class="flag-emoji">🇹🇭</span>
-                            <span>ไทย</span>
-                        </button>
-                        <button class="mobile-lang-btn" data-lang="id" onclick="changeLanguage('id', event)">
-                            <span class="flag-emoji">🇮🇩</span>
-                            <span>Indonesia</span>
-                        </button>
-                        <button class="mobile-lang-btn" data-lang="en" onclick="changeLanguage('en', event)">
-                            <span class="flag-emoji">🇬🇧</span>
-                            <span>English</span>
-                        </button>
-                    </div>
-                </div>
             </nav>
+
+            <!-- Mobile Language Switcher (on navbar) -->
+            <div class="mobile-language-switcher-navbar">
+                <div class="language-current" onclick="toggleLanguageDropdown(event)">
+                    <span class="flag-emoji">🇹🇭</span>
+                    <span class="lang-text">TH</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="language-dropdown">
+                    <button class="language-option" data-lang="th" onclick="changeLanguage('th', event)">
+                        <span class="flag-emoji">🇹🇭</span>
+                        <span>ไทย</span>
+                    </button>
+                    <button class="language-option" data-lang="id" onclick="changeLanguage('id', event)">
+                        <span class="flag-emoji">🇮🇩</span>
+                        <span>Indonesia</span>
+                    </button>
+                    <button class="language-option" data-lang="en" onclick="changeLanguage('en', event)">
+                        <span class="flag-emoji">🇬🇧</span>
+                        <span>English</span>
+                    </button>
+                </div>
+            </div>
 
             <button class="wix-mobile-toggle" aria-label="Toggle menu">
                 <span></span>
@@ -716,6 +810,26 @@ function ayam_default_menu() {
     }
     
     echo '<li><a href="' . esc_url(home_url('/contact/')) . '">' . __('ติดต่อเรา', 'ayam-bangkok') . '</a></li>';
+    echo '</ul>';
+}
+
+/**
+ * Primary menu fallback - แสดงเมนูเดิมเมื่อยังไม่ได้ตั้งค่าจากหลังบ้าน
+ */
+function ayam_default_primary_menu() {
+    echo '<ul class="wix-menu">';
+    echo '<li><a href="' . esc_url(home_url('/')) . '"><i class="fas fa-home"></i> หน้าแรก</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/about')) . '">เกี่ยวกับเรา</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/service')) . '">บริการ</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/news-1')) . '">ข่าวสาร</a></li>';
+    echo '<li class="has-submenu">';
+    echo '<a href="' . esc_url(home_url('/gallery')) . '">แกลเลอรี่</a>';
+    echo '<ul class="submenu">';
+    echo '<li><a href="' . esc_url(home_url('/gallery')) . '">แกลเลอรี่</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/gallery/?category=BTS')) . '">เบื้องหลัง</a></li>';
+    echo '</ul>';
+    echo '</li>';
+    echo '<li><a href="' . esc_url(home_url('/contact')) . '">ติดต่อ</a></li>';
     echo '</ul>';
 }
 

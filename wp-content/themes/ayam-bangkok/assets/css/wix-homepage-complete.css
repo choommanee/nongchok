@@ -220,10 +220,11 @@ body.page-about *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not
     }
 
     .wix-header-container {
-        padding: 26px 15px;
+        padding: 12px 8px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 5px;
     }
 
     /* Mobile Logo - Smaller on LEFT */
@@ -233,27 +234,36 @@ body.page-about *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not
     }
 
     .wix-logo {
-        padding: 8px 8px;
+        padding: 2px;
     }
 
     .wix-logo img,
     .wix-logo-img,
     .wix-logo .custom-logo {
-        width: 62px !important;
-        height: 62px !important;
-        padding-left: 5px  !important;
-        padding-top: 10px  !important;
+        width: 48px !important;
+        height: 48px !important;
+        padding-left: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* Mobile Language Switcher - in the middle */
+    .mobile-language-switcher-navbar {
+        order: 2;
+        flex: 0 0 auto;
+        margin-left: auto;
+        margin-right: 5px;
     }
 
     /* Hamburger on RIGHT - ALWAYS stay on top */
     .wix-mobile-toggle {
         display: flex;
-        order: 2;
+        order: 3;
         z-index: 10000 !important;
-        margin-left: auto;
-        position: fixed !important;
-        right: 15px !important;
-        top: 6px !important;
+        margin-left: 0;
+        flex: 0 0 auto;
+        position: relative !important;
+        right: auto !important;
+        top: auto !important;
     }
 
     /* Ensure header stays above menu */
@@ -1006,6 +1016,7 @@ body.page-contact {
 /* ===== FOOTER STYLES ===== */
 .home .site-footer,
 .page-about .site-footer,
+.page-contact .site-footer,
 .page-service .site-footer,
 .page-news-1 .site-footer,
 .page-gallery .site-footer,
@@ -1018,11 +1029,12 @@ body.page-contact {
 .wix-style-news-archive .site-footer {
     background: #1E2950;
     color: #fff;
-    padding: 60px 20px 30px;
+    padding: 2px 20px 30px;
 }
 
 .home .footer-widgets,
 .page-about .footer-widgets,
+.page-contact .footer-widgets,
 .page-service .footer-widgets,
 .page-news-1 .footer-widgets,
 .page-gallery .footer-widgets,
@@ -1042,6 +1054,7 @@ body.page-contact {
 
 .home .footer-widget h3,
 .page-about .footer-widget h3,
+.page-contact .footer-widget h3,
 .page-service .footer-widget h3,
 .page-news-1 .footer-widget h3,
 .page-gallery .footer-widget h3,
@@ -1062,6 +1075,8 @@ body.page-contact {
 .home .footer-widget a,
 .page-about .footer-widget p,
 .page-about .footer-widget a,
+.page-contact .footer-widget p,
+.page-contact .footer-widget a,
 .page-service .footer-widget p,
 .page-service .footer-widget a,
 .page-news-1 .footer-widget p,
@@ -1083,6 +1098,7 @@ body.page-contact {
 
 .home .footer-widget a:hover,
 .page-about .footer-widget a:hover,
+.page-contact .footer-widget a:hover,
 .page-service .footer-widget a:hover,
 .page-news-1 .footer-widget a:hover,
 .page-gallery .footer-widget a:hover,
@@ -1186,6 +1202,7 @@ body.page-contact {
 
 .home .footer-bottom,
 .page-about .footer-bottom,
+.page-contact .footer-bottom,
 .page-service .footer-bottom,
 .page-news-1 .footer-bottom,
 .page-gallery .footer-bottom,
@@ -1203,6 +1220,7 @@ body.page-contact {
 
 .home .footer-bottom p,
 .page-about .footer-bottom p,
+.page-contact .footer-bottom p,
 .page-service .footer-bottom p,
 .page-news-1 .footer-bottom p,
 .page-gallery .footer-bottom p,
@@ -1313,6 +1331,79 @@ body.page-contact {
 .archive-ayam_news .site-footer ,
 .wix-style-news-archive .site-footer {
         padding: 40px 20px 20px;
+    }
+}
+
+/* ===== MENU DROPDOWN ===== */
+.wix-menu li.has-submenu,
+.wix-menu li.menu-item-has-children {
+    position: relative;
+}
+
+.wix-menu .submenu,
+.wix-menu .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #1E2950;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 0 0 4px 4px;
+    padding: 10px 0;
+    z-index: 1001;
+    list-style: none;
+    margin: 0;
+}
+
+.wix-menu li.has-submenu:hover .submenu,
+.wix-menu li.menu-item-has-children:hover .sub-menu {
+    display: block;
+}
+
+.wix-menu .submenu li,
+.wix-menu .sub-menu li {
+    margin: 0;
+    display: block;
+}
+
+.wix-menu .submenu a,
+.wix-menu .sub-menu a {
+    padding: 10px 20px;
+    display: block;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+}
+
+.wix-menu .submenu a:hover,
+.wix-menu .sub-menu a:hover {
+    background: #3d5568;
+    color: #C4504A;
+}
+
+/* Mobile submenu */
+@media (max-width: 1024px) {
+    .wix-menu .submenu,
+    .wix-menu .sub-menu {
+        position: static;
+        display: none;
+        background: #1f2d3d;
+        box-shadow: none;
+        padding-left: 20px;
+    }
+
+    .wix-menu li.has-submenu.active .submenu,
+    .wix-menu li.menu-item-has-children.active .sub-menu {
+        display: block;
+    }
+
+    .wix-menu .submenu a,
+    .wix-menu .sub-menu a {
+        padding: 12px 20px;
+        font-size: 12px;
     }
 }
 

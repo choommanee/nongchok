@@ -921,7 +921,7 @@ body.home {
 .wix-style-news-archive .site-footer {
     background: #1E2950;
     color: #fff;
-    padding: 60px 20px 30px;
+    padding: 2px 20px 30px;
 }
 
 .home .footer-widgets,

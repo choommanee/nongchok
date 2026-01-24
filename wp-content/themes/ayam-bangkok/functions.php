@@ -64,10 +64,8 @@ add_action('after_setup_theme', 'ayam_theme_setup');
  */
 function ayam_theme_scripts()
 {
-    // Styles - Don't load main style.css on About, Service, News, and Gallery pages (it conflicts with Wix design)
-    if (!is_page('about') && !is_page(27) && !is_page('service') && !is_page(251) && !is_page('news-1') && !is_page(168) && !is_page('gallery') && !is_page(253)) {
-        wp_enqueue_style('ayam-style', get_stylesheet_uri(), array(), AYAM_THEME_VERSION);
-    }
+    // Styles - Load main style.css on all pages for CSS variables
+    wp_enqueue_style('ayam-style', get_stylesheet_uri(), array(), AYAM_THEME_VERSION);
     // Don't load Google Fonts on About, Service, News, and Gallery pages (they use Avenir/Helvetica)
     if (!is_page('about') && !is_page(27) && !is_page('service') && !is_page(251) && !is_page('news-1') && !is_page(168) && !is_page('gallery') && !is_page(253)) {
         wp_enqueue_style('ayam-google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;600;700;800&display=swap', array(), null);
@@ -84,19 +82,19 @@ function ayam_theme_scripts()
     wp_enqueue_style('aos-css', 'https://unpkg.com/aos@2.3.1/dist/aos.css', array(), '2.3.1');
 
     // Enhanced Slider Styles
-    wp_enqueue_style('ayam-slider-animations', AYAM_THEME_URI . '/assets/css/slider-animations.css', array('ayam-style'), AYAM_THEME_VERSION);
+    wp_enqueue_style('ayam-slider-animations', AYAM_THEME_URI . '/assets/css/slider-animations.css', array(), AYAM_THEME_VERSION);
 
     // Emergency Slider Fix - High Priority
     wp_enqueue_style('ayam-slider-emergency-fix', AYAM_THEME_URI . '/assets/css/slider-emergency-fix.css', array(), AYAM_THEME_VERSION, 'all');
 
     // Responsive CSS - Mobile First Approach
-    wp_enqueue_style('ayam-responsive', AYAM_THEME_URI . '/assets/css/responsive.css', array('ayam-style'), AYAM_THEME_VERSION, 'all');
+    wp_enqueue_style('ayam-responsive', AYAM_THEME_URI . '/assets/css/responsive.css', array(), AYAM_THEME_VERSION, 'all');
 
     // Advanced Rooster Catalog Styles
-    wp_enqueue_style('ayam-roosters-advanced', AYAM_THEME_URI . '/assets/css/roosters-advanced.css', array('ayam-style'), AYAM_THEME_VERSION);
+    wp_enqueue_style('ayam-roosters-advanced', AYAM_THEME_URI . '/assets/css/roosters-advanced.css', array(), AYAM_THEME_VERSION);
 
     // SVG Icons Styles
-    wp_enqueue_style('ayam-svg-icons', AYAM_THEME_URI . '/assets/css/svg-icons.css', array('ayam-style'), AYAM_THEME_VERSION);
+    wp_enqueue_style('ayam-svg-icons', AYAM_THEME_URI . '/assets/css/svg-icons.css', array(), AYAM_THEME_VERSION);
 
     // Scripts
     wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js', array(), '8.4.7', true);

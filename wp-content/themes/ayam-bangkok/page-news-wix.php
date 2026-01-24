@@ -76,12 +76,89 @@ $video_posts = array_slice($video_posts, 0, 8);
 .news-articles-container {
     max-width: 1400px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+}
+
+.news-articles-main {
+    min-width: 0;
 }
 
 .news-articles-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+}
+
+/* Latest Sidebar */
+.news-latest-sidebar {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.news-latest-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1E2950;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #1E2950;
+}
+
+.news-latest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.news-latest-item {
+    display: flex;
+    gap: 12px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.news-latest-item:hover {
+    transform: translateX(5px);
+}
+
+.news-latest-thumbnail {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.news-latest-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-latest-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.news-latest-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1E2950;
+    line-height: 1.4;
+    margin: 0 0 5px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.news-latest-date {
+    font-size: 0.75rem;
+    color: #999;
 }
 
 .news-article-card {
@@ -396,6 +473,16 @@ $video_posts = array_slice($video_posts, 0, 8);
         padding: 40px 20px;
     }
 
+    .news-articles-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .news-latest-sidebar {
+        position: static;
+        order: -1;
+    }
+
     .news-articles-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
@@ -493,6 +580,8 @@ $video_posts = array_slice($video_posts, 0, 8);
     <!-- Articles Grid -->
     <section class="news-articles-section">
         <div class="news-articles-container">
+            <!-- Main Content -->
+            <div class="news-articles-main">
             <?php if (!empty($news_posts)): ?>
                 <div class="news-articles-grid">
                     <?php foreach ($news_posts as $post): setup_postdata($post); 
@@ -543,6 +632,71 @@ $video_posts = array_slice($video_posts, 0, 8);
                     <p>ยังไม่มีข่าวสารในขณะนี้</p>
                 </div>
             <?php endif; ?>
+            </div>
+
+            <!-- Latest Sidebar -->
+            <aside class="news-latest-sidebar">
+                <h2 class="news-latest-header">LATEST</h2>
+                <div class="news-latest-list">
+                    <?php
+                    // Get latest 6 posts for sidebar
+                    $latest_args = array(
+                        'post_type' => 'ayam_news',
+                        'posts_per_page' => 6,
+                        'orderby' => 'date',
+                        'order' => 'DESC'
+                    );
+                    $latest_query = new WP_Query($latest_args);
+                    
+                    if ($latest_query->have_posts()) :
+                        while ($latest_query->have_posts()) : $latest_query->the_post();
+                            // Get thumbnail (same logic as main grid)
+                            $thumb_url = '';
+                            if (has_post_thumbnail()) {
+                                $thumb_url = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail');
+                            } else {
+                                $content = get_the_content();
+                                
+                                // Try to get YouTube thumbnail
+                                $youtube_id = '';
+                                if (preg_match('/youtube\.com\/embed\/([^\"\'\?&]+)/i', $content, $yt_matches)) {
+                                    $youtube_id = $yt_matches[1];
+                                } elseif (preg_match('/youtube\.com\/watch\?v=([^\"\'\?&]+)/i', $content, $yt_matches)) {
+                                    $youtube_id = $yt_matches[1];
+                                } elseif (preg_match('/youtu\.be\/([^\"\'\?&]+)/i', $content, $yt_matches)) {
+                                    $youtube_id = $yt_matches[1];
+                                }
+                                
+                                if ($youtube_id) {
+                                    $thumb_url = 'https://img.youtube.com/vi/' . $youtube_id . '/mqdefault.jpg';
+                                } else {
+                                    // Try to get first image from content
+                                    if (preg_match('/<img[^>]+src=["\']([^"\']+)["\'][^>]*>/i', $content, $img_matches)) {
+                                        $thumb_url = $img_matches[1];
+                                    }
+                                }
+                            }
+                    ?>
+                        <a href="<?php the_permalink(); ?>" class="news-latest-item">
+                            <div class="news-latest-thumbnail">
+                                <?php if ($thumb_url): ?>
+                                    <img src="<?php echo esc_url($thumb_url); ?>" alt="<?php the_title_attribute(); ?>">
+                                <?php else: ?>
+                                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="news-latest-content">
+                                <h3 class="news-latest-title"><?php the_title(); ?></h3>
+                                <time class="news-latest-date"><?php echo get_the_date('d M Y'); ?></time>
+                            </div>
+                        </a>
+                    <?php
+                        endwhile;
+                        wp_reset_postdata();
+                    endif;
+                    ?>
+                </div>
+            </aside>
         </div>
     </section>
 
@@ -768,7 +922,13 @@ $video_posts = array_slice($video_posts, 0, 8);
     <!-- Map Section -->
     <section class="service-map">
         <div id="service-map-container" style="width: 100%; height: 400px; background: #ddd;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.5447896873453!2d100.72875631483056!3d13.835540990304847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d61f8e9b3c3e1%3A0x3a7e5e5e5e5e5e5e!2sNong%20Chok%2C%20Bangkok!5e0!3m2!1sen!2sth!4v1234567890" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <?php
+            global $wpdb;
+            $google_map_url = $wpdb->get_var("SELECT field_value_th FROM {$wpdb->prefix}ayam_company_info WHERE field_key = 'google_map_url'");
+            if ($google_map_url) :
+            ?>
+            <iframe src="<?php echo esc_attr($google_map_url); ?>" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <?php endif; ?>
         </div>
     </section>
 

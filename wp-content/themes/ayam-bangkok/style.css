@@ -7403,7 +7403,6 @@ dern Roosters Section */
 }
 
 .footer-info {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: var(--text-xs);
@@ -7411,7 +7410,6 @@ dern Roosters Section */
 }
 
 .footer-info span {
-    display: flex;
     align-items: center;
     gap: 0.25rem;
 }
@@ -7852,7 +7850,6 @@ d Roosters Section Design */
 }
 
 .footer-info {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: var(--text-sm);
@@ -7860,7 +7857,6 @@ d Roosters Section Design */
 }
 
 .footer-info span {
-    display: flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.25rem 0.75rem;

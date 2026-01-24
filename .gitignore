@@ -50,3 +50,9 @@ yarn-error.log
 .env.local
 .env.*.local
 nongchok_backup.sql
+
+# Scripts and Backups
+scripts/backups/
+scripts/railway_uploads/
+*.sql
+*.tar.gz

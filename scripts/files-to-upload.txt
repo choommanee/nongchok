@@ -1,0 +1,16 @@
+.gitignore
+.htaccess
+wp-content/themes/ayam-bangkok/assets/css/wix-about-page.css
+wp-content/themes/ayam-bangkok/assets/css/wix-all-pages.css
+wp-content/themes/ayam-bangkok/assets/css/wix-homepage-complete.css
+wp-content/themes/ayam-bangkok/assets/css/wix-homepage-complete.css.backup
+wp-content/themes/ayam-bangkok/assets/css/wix-service-page.css
+wp-content/themes/ayam-bangkok/front-page.php
+wp-content/themes/ayam-bangkok/functions.php
+wp-content/themes/ayam-bangkok/header.php
+wp-content/themes/ayam-bangkok/page-ayam-list.php
+wp-content/themes/ayam-bangkok/page-contact-wix.php
+wp-content/themes/ayam-bangkok/page-gallery-wix.php
+wp-content/themes/ayam-bangkok/page-news-wix.php
+wp-content/themes/ayam-bangkok/page-service.php
+wp-content/themes/ayam-bangkok/style.css

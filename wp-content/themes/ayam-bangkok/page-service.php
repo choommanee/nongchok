@@ -310,7 +310,13 @@ $hero_title = $service_info['service_hero_title'] ?? 'Our Service';
     <!-- Map Section -->
     <section class="service-map">
         <div id="service-map-container" style="width: 100%; height: 400px; background: #ddd;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.5447896873453!2d100.72875631483056!3d13.835540990304847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d61f8e9b3c3e1%3A0x3a7e5e5e5e5e5e5e!2sNong%20Chok%2C%20Bangkok!5e0!3m2!1sen!2sth!4v1234567890" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <?php
+            global $wpdb;
+            $google_map_url = $wpdb->get_var("SELECT field_value_th FROM {$wpdb->prefix}ayam_company_info WHERE field_key = 'google_map_url'");
+            if ($google_map_url) :
+            ?>
+            <iframe src="<?php echo esc_attr($google_map_url); ?>" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <?php endif; ?>
         </div>
     </section>
 

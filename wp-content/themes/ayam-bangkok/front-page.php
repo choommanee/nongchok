@@ -308,16 +308,43 @@ get_header(); ?>
             
             <div class="news-video-grid" data-aos="fade-up" data-aos-delay="100">
                 <?php
-                // Get latest 3 news posts (using ayam_news post type for /news/ URLs)
-                $news_query = new WP_Query([
+                // Get latest news posts (excluding videos)
+                $all_news_query = new WP_Query([
                     'post_type' => 'ayam_news',
-                    'posts_per_page' => 3,
+                    'posts_per_page' => -1,
                     'orderby' => 'date',
                     'order' => 'DESC'
                 ]);
 
-                if ($news_query->have_posts()) :
-                    while ($news_query->have_posts()) : $news_query->the_post();
+                $news_posts = array();
+                if ($all_news_query->have_posts()) :
+                    while ($all_news_query->have_posts()) : $all_news_query->the_post();
+                        $content = get_the_content();
+                        
+                        // Check if content has YouTube or Vimeo URL
+                        $has_video = (
+                            strpos($content, 'youtube.com') !== false || 
+                            strpos($content, 'youtu.be') !== false || 
+                            strpos($content, 'vimeo.com') !== false ||
+                            get_post_meta(get_the_ID(), 'video_url', true) ||
+                            get_post_meta(get_the_ID(), 'video_embed', true)
+                        );
+                        
+                        // Only add non-video posts
+                        if (!$has_video) {
+                            $news_posts[] = get_post();
+                        }
+                        
+                        // Stop when we have 3 news posts
+                        if (count($news_posts) >= 3) {
+                            break;
+                        }
+                    endwhile;
+                    wp_reset_postdata();
+                endif;
+
+                if (!empty($news_posts)) :
+                    foreach ($news_posts as $post) : setup_postdata($post);
                         $excerpt = get_the_excerpt();
                         if (empty($excerpt)) {
                             $excerpt = wp_trim_words(get_the_content(), 30, '...');
@@ -375,7 +402,7 @@ get_header(); ?>
                         </a>
                     </div>
                 <?php
-                    endwhile;
+                    endforeach;
                     wp_reset_postdata();
                 else :
                     // Show placeholder news items
